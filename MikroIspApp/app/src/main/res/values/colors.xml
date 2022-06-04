@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="whitesmoke">#F5F5F5</color>
+    <color name="colorBottonDefault">#0277bd</color>
+    <color name="colorBottonPressed">#4fc3f7</color>
+    <color name="colorBottonDisabled">#bdbdbd</color>
+    <color name="colorBlack">#373434</color>
+    <color name="colorFont">#C4ECEC</color>
+    <color name="colorItems">#F6FDFD</color>
+    <color name="colorDetall">#B2D8EA</color>
+    <color name="colorSplash">#1C89D1</color>
+</resources>

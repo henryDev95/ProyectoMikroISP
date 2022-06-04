@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="client">Client</string>
+    <string name="equipment">Equipment</string>
+    <string name="charges">Charges</string>
+    <string name="reports">Report</string>
+    <string name="names">Names</string>
+    <string name="surname">Surname</string>
+    <string name="description">Description</string>
+    <string name="telephone">Telephone</string>
+    <string name="identificationcard">Identification card</string>
+    <string name="personalInformation">Personal information</string>
+    <string name="contactDetails">Contact details</string>
+    <string name="newClient">New Client</string>
+    <string name="contactAddress">Contact address</string>
+    <string name="direction">Direction</string>
+    <string name="town">Town</string>
+    <string name="country">Country</string>
+    <string name="app_name">MikroIso</string>
+    <string name="payment">Payment</string>
+    <string name="customerDetail">Customer Detail</string>
+    <string name="ClientType">Client Type</string>
+    <string name="addService">Add Service</string>
+    <string name="Client">Client</string>
+
+
+</resources>
+

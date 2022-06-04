@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorFont"
+    android:padding="60dp">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/client"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/identification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/identificationcard"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:paddingBottom="15dp"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/names"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/surname"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:paddingBottom="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/direction"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:paddingBottom="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/town"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:paddingBottom="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/country"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:paddingBottom="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/telephone"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detallContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/identification"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <TextView
+            android:id="@+id/detailIdentification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="8dp"
+            android:textSize="18dp"
+            android:textColor="@color/colorBlack"
+            android:text="........................."
+            android:textStyle="normal" />
+
+
+        <TextView
+            android:id="@+id/detailNames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18dp"
+            android:paddingBottom="15dp"
+            android:textColor="@color/colorBlack"
+            android:text="........................."
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18dp"
+            android:paddingBottom="20dp"
+            android:textColor="@color/colorBlack"
+            android:text="........................."
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailDirecction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="18dp"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailTown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="18dp"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_margin="5dp"
+            android:textSize="18dp"
+            android:paddingBottom="18dp"
+            android:text="........................."
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailTelephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_margin="10dp"
+            android:textSize="18dp"
+            android:text="........................."
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

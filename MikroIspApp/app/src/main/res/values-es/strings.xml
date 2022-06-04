@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="password">Contraseña</string>
+    <string name="home">Home</string>
+    <string name="client">Cliente</string>
+    <string name="equipment">Equipos</string>
+    <string name="charges">Cobros</string>
+    <string name="reports">Reportes</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="identificationcard">Cedula</string>
+    <string name="names">Nombres</string>
+    <string name="surname">Apellidos</string>
+    <string name="description">Descripcion</string>
+    <string name="telephone">Telefono</string>
+    <string name="email">Correo Electronico</string>
+    <string name="personalInformation">Datos personales</string>
+    <string name="contactDetails">Detalle del contacto</string>
+    <string name="newClient">Nuevo Cliente</string>
+    <string name="contactAddress">Direccion de contacto</string>
+    <string name="direction">Direccion</string>
+    <string name="town">Ciudad</string>
+    <string name="country">Pais</string>
+    <string name="app_name">MikroIso</string>
+    <string name="payment">Cobros</string>ç
+    <string name="customerDetail">Detalle del cliente</string>
+    <string name="ClientType">Tipo cliente</string>
+    <string name="addService">Añadir Servicio</string>
+    <string name="Client">Cliente</string>
+
+</resources>
