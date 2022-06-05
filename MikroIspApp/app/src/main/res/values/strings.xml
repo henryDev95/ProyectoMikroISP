@@ -32,7 +32,11 @@
     <string name="ClientType">Client Type</string>
     <string name="addService">Add Service</string>
     <string name="Client">Client</string>
-
-
+    <string name="SearchByName">Search By Name</string>
+    <string name="title">Search By Name</string>
+    <string name="supporting_text">Search By Name</string>
+    <string name="cancel">Search By Name</string>
+    <string name="decline">Search By Name</string>
+    <string name="accept">Search By Name</string>
 </resources>
 

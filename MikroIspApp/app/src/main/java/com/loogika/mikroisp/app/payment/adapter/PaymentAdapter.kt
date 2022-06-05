@@ -6,11 +6,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
+import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.ServiceClient
 
-class PaymentAdapter(val clients: List<Client>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>() {
+class PaymentAdapter(val clientsService: List<ServiceClient>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>() {
 
     interface CellClickListener {
-        fun onCellClickListener(dni:String, userFirstName:String , userLastName : String, address:String,country:String , telephone:String)
+        fun onCellClickListener(dni:String, userFirstName:String , userLastName : String, address:String,country:String , telephone:String, plan:Plan)
 
     }
 
@@ -19,11 +21,11 @@ class PaymentAdapter(val clients: List<Client>, val itemsClick: CellClickListene
         private var name: TextView = binding.name
         private var dni: TextView = binding.dni
 
-        fun bind(client : Client) {
+        fun bind(client : ServiceClient) {
             name.text = "${client.userFirstName} ${client.userLastName}"
             dni.text = client.dni
             binding.itemsClient.setOnClickListener {
-                itemsClick.onCellClickListener( client.dni,client.userFirstName,client.userLastName,client.address, client.country , client.phone1)
+                itemsClick.onCellClickListener( client.dni,client.userFirstName,client.userLastName,client.address, client.country , client.phone1 , client.services[0].plan)
             }
         }
     }
@@ -37,12 +39,12 @@ class PaymentAdapter(val clients: List<Client>, val itemsClick: CellClickListene
 
     // Returns size of data list
     override fun getItemCount(): Int { // devuelve la cantidad de los items
-        return clients.size
+        return clientsService.size
     }
 
     // Displays data at a certain position
     override fun onBindViewHolder(holder: ClientHolder, position: Int) { // devuelve los items
-        var items = clients[position]
+        var items = clientsService[position]
         holder.bind(items)
     }
 }

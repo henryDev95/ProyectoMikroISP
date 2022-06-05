@@ -26,5 +26,11 @@
     <string name="ClientType">Tipo cliente</string>
     <string name="addService">Añadir Servicio</string>
     <string name="Client">Cliente</string>
+    <string name="SearchByName">Buscar por nombre</string>
+    <string name="title">Editar</string>
+    <string name="supporting_text">Search By Name</string>
+    <string name="cancel">Cancelar</string>
+    <string name="decline">Rechazar</string>
+    <string name="accept">Aceptar</string>
 
 </resources>

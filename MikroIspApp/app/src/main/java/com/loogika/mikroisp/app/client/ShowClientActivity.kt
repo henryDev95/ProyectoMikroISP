@@ -27,6 +27,7 @@ class ShowClientActivity :AppCompatActivity(){
         var town = intent.getStringExtra("town")
         var telephone = intent.getStringExtra("telephone")
 
+
         binding.detailIdentification.text = dni
         binding.detailNames.text = userFirstName
         binding.detailSurname.text = userLastName

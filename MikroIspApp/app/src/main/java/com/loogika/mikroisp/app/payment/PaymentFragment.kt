@@ -2,6 +2,7 @@ package com.loogika.mikroisp.app.payment
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,14 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.FragmentPaymentBinding
+import com.loogika.mikroisp.app.payment.adapter.PaymentAdapter
 import com.loogika.mikroisp.app.payment.adapter.apiService.apiPayment
+import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.ServiceClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,11 +27,11 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PaymentFragment : Fragment() ,  ClientAdapter.CellClickListener, SearchView.OnQueryTextListener  {
+class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchView.OnQueryTextListener  {
 
     lateinit var  binding:FragmentPaymentBinding
-    private var clients = mutableListOf<Client>()
-    private lateinit var clientAdapter: ClientAdapter
+    private var clientService  = mutableListOf<ServiceClient>()
+    private lateinit var paymentAdapter: PaymentAdapter
 
      override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +47,9 @@ class PaymentFragment : Fragment() ,  ClientAdapter.CellClickListener, SearchVie
     }
 
     private fun initRecycleView() {
-        clientAdapter = ClientAdapter(clients, this)
+        paymentAdapter = PaymentAdapter(clientService, this)
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-        binding.clientsList.adapter = clientAdapter
+        binding.clientsList.adapter = paymentAdapter
 
     }
 
@@ -68,14 +73,12 @@ class PaymentFragment : Fragment() ,  ClientAdapter.CellClickListener, SearchVie
                  if(call.isSuccessful){
                     val clientByName = client?.entities ?: emptyList()
                      if(!clientByName.isEmpty()){
-                         clients.clear()
-                         clients.addAll(clientByName)
-                         clientAdapter.notifyDataSetChanged()
+                         clientService.clear()
+                         clientService.addAll(clientByName)
+                         paymentAdapter.notifyDataSetChanged()
                      }else{
                          ImprimirRespuesta()
                      }
-
-
                  }else{
                      error()
                  }
@@ -93,17 +96,6 @@ class PaymentFragment : Fragment() ,  ClientAdapter.CellClickListener, SearchVie
         Toast.makeText(this.context, "No se realizo la llamada", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCellClickListener(
-        dni: String,
-        userFirstName: String,
-        userLastName: String,
-        address: String,
-        country: String,
-        telephone: String
-    ) {
-        TODO("Not yet implemented")
-    }
-
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(!query.isNullOrEmpty()){
             searchByName(query)
@@ -115,13 +107,29 @@ class PaymentFragment : Fragment() ,  ClientAdapter.CellClickListener, SearchVie
         return true
     }
 
-    private fun hideKeyboard() {
-        val imm = ClassLoader.getSystemResource(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.viewRoot.windowToken, 0)
+
+    override fun onCellClickListener(
+        dni: String,
+        userFirstName: String,
+        userLastName: String,
+        address: String,
+        country: String,
+        telephone: String,
+        plan: Plan
+    ) {
+
+        var intent = Intent(this.context, ShowServiceActivity::class.java)
+        intent.putExtra("dni" ,dni )
+        intent.putExtra("userFirstName" ,userFirstName )
+        intent.putExtra("userLastName" ,userLastName )
+        intent.putExtra("address" ,address)
+        intent.putExtra("country" ,country)
+        intent.putExtra("town" ,"Pujili")
+        intent.putExtra("telephone" ,telephone)
+        intent.putExtra("plan", plan)
+
+        startActivity(intent)
     }
-
-
-
 }
 
 
