@@ -7,17 +7,17 @@
     <string name="charges">Cobros</string>
     <string name="reports">Reportes</string>
     <string name="action_settings">Configuracion</string>
-    <string name="identificationcard">Cedula</string>
+    <string name="identificationcard">Cédula</string>
     <string name="names">Nombres</string>
     <string name="surname">Apellidos</string>
     <string name="description">Descripcion</string>
-    <string name="telephone">Telefono</string>
+    <string name="telephone">Teléfono</string>
     <string name="email">Correo Electronico</string>
     <string name="personalInformation">Datos personales</string>
     <string name="contactDetails">Detalle del contacto</string>
     <string name="newClient">Nuevo Cliente</string>
     <string name="contactAddress">Direccion de contacto</string>
-    <string name="direction">Direccion</string>
+    <string name="direction">Dirección</string>
     <string name="town">Ciudad</string>
     <string name="country">Pais</string>
     <string name="app_name">MikroIso</string>
@@ -34,5 +34,9 @@
     <string name="accept">Aceptar</string>
     <string name="serviceDetail">Detalle del servicio</string>
     <string name="clientData">Datos del cliente</string>
+    <string name="plan">Plan</string>
+    <string name="planName">Nombre del plan </string>
+    <string name="planState">Estado </string>
+    <string name="planValue">Valor </string>
 
 </resources>

@@ -9,5 +9,8 @@
         android:bottom="260dp"
         android:gravity="center">
         <bitmap android:src="@drawable/internet"/>
+
     </item>
+
+
 </layer-list>

@@ -56,7 +56,7 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
 
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.104/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.0.108/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
@@ -66,7 +66,7 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
 
      private fun searchByName( name : String){
          CoroutineScope(Dispatchers.IO).launch {
-             val token = "abcdefg1234567890"
+             val token = "123456henry"
              val call  = getRetrofit().create(apiPayment::class.java).getClientByName(token, "$name/retriveByName?institution_id=1")
              val client = call.body()
              activity?.runOnUiThread {

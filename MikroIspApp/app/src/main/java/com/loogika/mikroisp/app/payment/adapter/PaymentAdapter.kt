@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
+import com.loogika.mikroisp.app.databinding.ItemServiceClientBinding
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.loogika.mikroisp.app.payment.entity.ServiceClient
 
@@ -17,7 +18,7 @@ class PaymentAdapter(val clientsService: List<ServiceClient>, val itemsClick: Ce
     }
 
     // Clase para refeenciar el diseño del item
-    class ClientHolder(val binding:ItemClientBinding , var itemsClick: CellClickListener) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
+    class ClientHolder(val binding:ItemServiceClientBinding , var itemsClick: CellClickListener) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
         private var name: TextView = binding.name
         private var dni: TextView = binding.dni
 
@@ -33,8 +34,8 @@ class PaymentAdapter(val clientsService: List<ServiceClient>, val itemsClick: Ce
     // Returns a new ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientHolder {
 
-        val binding_Items_client = ItemClientBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return ClientHolder(binding_Items_client ,itemsClick)
+        val binding_Items_service_client = ItemServiceClientBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        return ClientHolder(binding_Items_service_client ,itemsClick)
     }
 
     // Returns size of data list

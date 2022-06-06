@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-       <TextView
+    <TextView
         android:id="@+id/titleSub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,8 +47,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
             android:text="@string/identificationcard"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -57,8 +57,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
             android:text="@string/names"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -67,8 +67,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
             android:text="@string/surname"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -77,8 +77,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
             android:text="@string/direction"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -87,27 +87,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
-            android:text="@string/town"
-            android:textColor="@color/colorBlack"
-            android:textSize="18dp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
-            android:text="@string/country"
-            android:textColor="@color/colorBlack"
-            android:textSize="18dp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
             android:text="@string/telephone"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -119,7 +100,7 @@
         android:id="@+id/detallContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,8 +112,7 @@
             android:id="@+id/detailIdentification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="20dp"
             android:text="........................."
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -143,8 +123,7 @@
             android:id="@+id/detailNames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="20dp"
             android:text="........................."
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -154,8 +133,7 @@
             android:id="@+id/detailSurname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="15dp"
             android:text="........................."
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -165,30 +143,7 @@
             android:id="@+id/detailDirecction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:paddingBottom="20dp"
-            android:text="........................."
-            android:textColor="@color/colorBlack"
-            android:textSize="18dp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/detailTown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingBottom="20dp"
-            android:text="........................."
-            android:textColor="@color/colorBlack"
-            android:textSize="18dp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/detailCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:paddingBottom="18dp"
             android:text="........................."
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
@@ -198,12 +153,110 @@
             android:id="@+id/detailTelephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="........................."
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:textStyle="normal" />
 
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/titlePlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="15dp"
+        android:text="@string/plan"
+        android:textColor="@color/colorBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/identification"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <LinearLayout
+        android:id="@+id/planDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/detallContact"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlePlan"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
+            android:text="@string/planName"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
+            android:text="@string/planState"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingBottom="10dp"
+            android:text="@string/planValue"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/detailCampoPla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintTop_toBottomOf="@+id/titlePlan"
+        app:layout_constraintStart_toEndOf="@+id/identification"
+>
+
+        <TextView
+            android:id="@+id/detailPlaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+
+        <TextView
+            android:id="@+id/detailPlanState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailPlanValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
     </LinearLayout>
 
     <Button

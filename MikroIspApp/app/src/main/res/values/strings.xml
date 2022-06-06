@@ -40,5 +40,9 @@
     <string name="accept">Search By Name</string>
     <string name="serviceDetail">Service detail</string>
     <string name="clientData">Client Data</string>
+    <string name="plan">Plan</string>
+    <string name="planName">Plan name </string>
+    <string name="planState">Plan State </string>
+    <string name="planValue">Value </string>
 </resources>
 

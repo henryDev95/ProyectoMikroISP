@@ -82,6 +82,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="MicroISP->Ambiente->Version" />
+        android:text="MikroISP->Ambiente->Version" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
