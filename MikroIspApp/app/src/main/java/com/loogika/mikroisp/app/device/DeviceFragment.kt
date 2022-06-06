@@ -1,21 +1,28 @@
-package com.loogika.mikroisp.app.payment
+package com.loogika.mikroisp.app.device
 
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.loogika.mikroisp.app.client.ShowClientActivity
+import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
-import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.client.entity.clientResponse
+import com.loogika.mikroisp.app.databinding.FragmentDeviceBinding
 import com.loogika.mikroisp.app.databinding.FragmentPaymentBinding
+import com.loogika.mikroisp.app.device.adapter.DeviceAdapter
+import com.loogika.mikroisp.app.device.apiService.deviceApi
+import com.loogika.mikroisp.app.device.entity.Brand
+import com.loogika.mikroisp.app.device.entity.Device
+import com.loogika.mikroisp.app.device.entity.DeviceResponse
+import com.loogika.mikroisp.app.device.entity.StatusDevice
 import com.loogika.mikroisp.app.payment.adapter.PaymentAdapter
 import com.loogika.mikroisp.app.payment.adapter.apiService.apiPayment
 import com.loogika.mikroisp.app.payment.entity.Plan
@@ -23,15 +30,18 @@ import com.loogika.mikroisp.app.payment.entity.ServiceClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchView.OnQueryTextListener  {
+class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView.OnQueryTextListener  {
 
-    lateinit var  binding:FragmentPaymentBinding
-    private var clientService  = mutableListOf<ServiceClient>()
-    private lateinit var paymentAdapter: PaymentAdapter
+    lateinit var  binding:FragmentDeviceBinding
+    private var deviceList:List<Device>  = mutableListOf()
+    private lateinit var deviceAdapter: DeviceAdapter
 
      override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,31 +49,48 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
         savedInstanceState: Bundle?
     ): View? {
 
-       binding = FragmentPaymentBinding.inflate(inflater, container, false)
+       binding = FragmentDeviceBinding.inflate(inflater, container, false)
        val root: View = binding.root
        binding.searchView.setOnQueryTextListener(this)
-         initRecycleView()
+       obtenerDatos(root.context)
         return root
     }
 
-    private fun initRecycleView() {
-        paymentAdapter = PaymentAdapter(clientService, this)
-        binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-        binding.clientsList.adapter = paymentAdapter
-
+    private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
+        val token = "abcdefg1234567890"
+        val call = getRetrofit().create(deviceApi::class.java)
+        call.getAll(token).enqueue(object : Callback<DeviceResponse> {
+            override fun onResponse(
+                call: Call<DeviceResponse>,
+                response: Response<DeviceResponse>
+            ) {
+                if(response.body()!= null){
+                    deviceList = response.body()!!.devices // obtener el resultado
+                    deviceAdapter = DeviceAdapter(deviceList, this@DeviceFragment)
+                    binding.deviceList.layoutManager = LinearLayoutManager(view)
+                    binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
+                }else{
+                    ImprimirRespuesta()
+                    Log.d("name", "no hay datos")
+                }
+            }
+            override fun onFailure(call: Call<DeviceResponse>, t: Throwable) {
+                error()
+            }
+        })
     }
 
 
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.104/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.0.104/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-
+/*
      private fun searchByName( name : String){
          CoroutineScope(Dispatchers.IO).launch {
              val token = "abcdefg1234567890"
@@ -88,6 +115,8 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
 
      }
 
+ */
+
     private fun ImprimirRespuesta() {
         Toast.makeText(this.context, "No hay datos del cliente con ese nombre ", Toast.LENGTH_SHORT).show()
     }
@@ -98,7 +127,7 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(!query.isNullOrEmpty()){
-            searchByName(query)
+           // searchByName(query)
         }
         return  true
     }
@@ -107,28 +136,30 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
         return true
     }
 
-
     override fun onCellClickListener(
-        dni: String,
-        userFirstName: String,
-        userLastName: String,
-        address: String,
-        country: String,
-        telephone: String,
-        plan: Plan
+        id: Int,
+        name: String,
+        code: String,
+        model: String,
+        mac: String,
+        brand: Brand,
+        statusDevice: StatusDevice
     ) {
+        /*
+       var intent = Intent(this.context, ShowServiceActivity::class.java)
+       intent.putExtra("dni" ,dni )
+       intent.putExtra("userFirstName" ,userFirstName )
+       intent.putExtra("userLastName" ,userLastName )
+       intent.putExtra("address" ,address)
+       intent.putExtra("country" ,country)
+       intent.putExtra("town" ,"Pujili")
+       intent.putExtra("telephone" ,telephone)
+       intent.putExtra("plan", plan)
 
-        var intent = Intent(this.context, ShowServiceActivity::class.java)
-        intent.putExtra("dni" ,dni )
-        intent.putExtra("userFirstName" ,userFirstName )
-        intent.putExtra("userLastName" ,userLastName )
-        intent.putExtra("address" ,address)
-        intent.putExtra("country" ,country)
-        intent.putExtra("town" ,"Pujili")
-        intent.putExtra("telephone" ,telephone)
-        intent.putExtra("plan", plan)
+       startActivity(intent)
 
-        startActivity(intent)
+
+        */
     }
 }
 

@@ -3,6 +3,7 @@ package com.loogika.mikroisp.app.client.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
@@ -25,6 +26,13 @@ class ClientAdapter(val clients: List<Client> , val itemsClick: CellClickListene
             binding.itemsClient.setOnClickListener {
                 itemsClick.onCellClickListener( client.dni,client.userFirstName,client.userLastName,client.address, client.country , client.phone1)
             }
+
+            /*
+            binding.icOption.setOnClickListener {
+                Toast.makeText(it.context, "clicn obpcion", Toast.LENGTH_SHORT).show()
+            }
+
+             */
         }
     }
 

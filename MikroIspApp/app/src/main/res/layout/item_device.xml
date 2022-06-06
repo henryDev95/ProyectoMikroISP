@@ -23,7 +23,6 @@
             android:id="@+id/imagen_list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
             android:src="@drawable/router_ico" />
 
         <LinearLayout
@@ -37,16 +36,27 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombres completos "
+                android:text="Nombres del dispositivo"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/dni"
+                android:id="@+id/stateDevice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Cedula"
+                android:text=" Estado"
                 android:textStyle="bold" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/ic_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_more" />
         </LinearLayout>
 
     </LinearLayout>

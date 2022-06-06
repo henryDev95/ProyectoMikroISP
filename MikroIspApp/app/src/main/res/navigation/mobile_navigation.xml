@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/nav_equipment"
-        android:name="com.loogika.mikroisp.app.ui.slideshow.SlideshowFragment"
+        android:name="com.loogika.mikroisp.app.device.DeviceFragment"
         android:label="@string/equipment"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_device" />
 
     <fragment
         android:id="@+id/nav_payment"

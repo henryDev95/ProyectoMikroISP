@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -52,7 +53,7 @@ class ShowServiceActivity : AppCompatActivity() {
             .setMessage("Desea realizar el cobro del servicio de internet?")
             .setPositiveButton("Aceptar",
                 DialogInterface.OnClickListener { dialog, id ->
-                    Toast.makeText(this, "aceptar", Toast.LENGTH_SHORT).show()
+                    imprimirResultado()
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
@@ -60,6 +61,12 @@ class ShowServiceActivity : AppCompatActivity() {
                 })
 
         builder.show()
+    }
+
+    fun imprimirResultado(){
+        val toast = Toast.makeText(this, "aceptar", Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.CENTER,0,0)
+        toast.show()
     }
 
 

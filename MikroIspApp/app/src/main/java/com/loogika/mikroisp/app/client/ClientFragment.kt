@@ -49,11 +49,11 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
 
     private fun initRecycleView() {
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-        obtenerDatos()
+            obtenerDatos()
     }
 
     private fun obtenerDatos() { // funcion para obtener los datos del api
-        val token = "123456henry"
+        val token = "abcdefg1234567890"
         val call = getRetrofit().create(clientApi::class.java)
         call.getAll(token).enqueue(object : Callback<clientResponse> {
             override fun onResponse(
@@ -80,7 +80,7 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
     }
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.108/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.0.104/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
