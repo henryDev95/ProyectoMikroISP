@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_client.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_service.xml" value="0.25" />
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMovilModificado/proyecto/proyecto/mikroisp/MikroIspApp/app/src/main/res/drawable/ico_cancel.xml" value="0.2115" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMovilModificado/proyecto/proyecto/mikroisp/MikroIspApp/app/src/main/res/drawable/ico_payment.xml" value="0.2115" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMovilModificado/proyecto/proyecto/mikroisp/MikroIspApp/app/src/main/res/layout/activity_show_client.xml" value="0.20416666666666666" />

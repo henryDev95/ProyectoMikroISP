@@ -32,5 +32,7 @@
     <string name="cancel">Cancelar</string>
     <string name="decline">Rechazar</string>
     <string name="accept">Aceptar</string>
+    <string name="serviceDetail">Detalle del servicio</string>
+    <string name="clientData">Datos del cliente</string>
 
 </resources>

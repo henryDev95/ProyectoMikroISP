@@ -7,17 +7,216 @@
     android:layout_height="match_parent"
     tools:context=".payment.ShowServiceActivity">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/serviceDetail"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+       <TextView
+        android:id="@+id/titleSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="15dp"
+        android:text="@string/clientData"
+        android:textColor="@color/colorBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+    <LinearLayout
+        android:id="@+id/identification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/detallContact"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleSub"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/identificationcard"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/names"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/surname"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/direction"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/town"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="@string/country"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/telephone"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detallContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toEndOf="@+id/identification"
+        app:layout_constraintTop_toBottomOf="@+id/titleSub">
+
+        <TextView
+            android:id="@+id/detailIdentification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="8dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+
+        <TextView
+            android:id="@+id/detailNames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="15dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailDirecction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailTown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingBottom="20dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingBottom="18dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailTelephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="........................."
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/cobrarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/colorSplash"
         android:drawableStart="@drawable/ico_payment"
         android:drawableLeft="@drawable/ico_payment"
         android:text="COBRAR"
-        android:textSize="15dp"
         android:textColor="@color/whitesmoke"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/cancelarButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -26,13 +225,13 @@
         android:id="@+id/cancelarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/colorBottonPressed"
         android:drawableStart="@drawable/ico_cancel"
         android:drawableLeft="@drawable/ico_cancel"
         android:text="CANCELAR"
-        android:textSize="15dp"
         android:textColor="@color/whitesmoke"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cobrarButton" />

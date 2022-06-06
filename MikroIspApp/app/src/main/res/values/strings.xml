@@ -38,5 +38,7 @@
     <string name="cancel">Search By Name</string>
     <string name="decline">Search By Name</string>
     <string name="accept">Search By Name</string>
+    <string name="serviceDetail">Service detail</string>
+    <string name="clientData">Client Data</string>
 </resources>
 
