@@ -2,6 +2,7 @@ package com.loogika.mikroisp.app.payment
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -16,6 +17,7 @@ import com.loogika.mikroisp.app.payment.entity.Plan
 class ShowServiceActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityShowServiceBinding
+    var catidadPagos:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,10 @@ class ShowServiceActivity : AppCompatActivity() {
         binding.cobrarButton.setOnClickListener {
             mostrarDialog(it.context)
         }
+
+        binding.cancelarButton.setOnClickListener {
+            finish()
+        }
     }
 
      private fun mostrarDialog(contex:Context) {
@@ -53,21 +59,29 @@ class ShowServiceActivity : AppCompatActivity() {
             .setMessage("Desea realizar el cobro del servicio de internet?")
             .setPositiveButton("Aceptar",
                 DialogInterface.OnClickListener { dialog, id ->
-                    imprimirResultado()
+                    catidadPagos++
+                    var valor = DatosValor().setValor(catidadPagos)
+                    val toast = Toast.makeText(this, "Se realizó el cobro $valor", Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.CENTER,0,0)
+                    toast.show()
+                    finish()
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
-                    Toast.makeText(this, "no aceptar", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, "No se realizó el cobro", Toast.LENGTH_SHORT).show()
+                    finish()
                 })
 
         builder.show()
     }
 
     fun imprimirResultado(){
-        val toast = Toast.makeText(this, "aceptar", Toast.LENGTH_SHORT)
+        catidadPagos += catidadPagos
+        val toast = Toast.makeText(this, "Se realizó el cobro $catidadPagos", Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.CENTER,0,0)
         toast.show()
-    }
 
+    }
 
 }

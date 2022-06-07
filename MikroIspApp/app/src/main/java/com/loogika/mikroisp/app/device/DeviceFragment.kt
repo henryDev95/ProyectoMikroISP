@@ -1,6 +1,8 @@
 package com.loogika.mikroisp.app.device
 
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.clientResponse
@@ -57,7 +60,8 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
     }
 
     private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
-        val token = "abcdefg1234567890"
+        //val token = "abcdefg1234567890"
+        val token = "123456henry"
         val call = getRetrofit().create(deviceApi::class.java)
         call.getAll(token).enqueue(object : Callback<DeviceResponse> {
             override fun onResponse(
@@ -66,7 +70,7 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
             ) {
                 if(response.body()!= null){
                     deviceList = response.body()!!.devices // obtener el resultado
-                    deviceAdapter = DeviceAdapter(deviceList, this@DeviceFragment)
+                    deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceFragment)
                     binding.deviceList.layoutManager = LinearLayoutManager(view)
                     binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
                 }else{
@@ -83,7 +87,7 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
 
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.104/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
+        var urlBase = "http://192.168.0.108/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
@@ -135,6 +139,17 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
     }
+
+    fun mostrarInformacion(){
+        val infter = LayoutInflater.from(this.context) // permite darla unicacion de poder habri
+        val viewEdit = infter.inflate(R.layout.edit_device,null)
+        val addDialog = AlertDialog.Builder(this.context)
+        addDialog.setView(viewEdit)
+            .create()
+            .show()
+
+    }
+
 
     override fun onCellClickListener(
         id: Int,

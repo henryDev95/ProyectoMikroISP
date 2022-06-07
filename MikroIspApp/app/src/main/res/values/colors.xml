@@ -12,4 +12,7 @@
     <color name="colorItems">#F6FDFD</color>
     <color name="colorDetall">#B2D8EA</color>
     <color name="colorSplash">#1C89D1</color>
+    <color name="colorDevice">#D5F8AE</color>
+    <color name="colorClient">#B3DBF6</color>
+    <color name="colorPayment">#F7DCD9</color>
 </resources>
