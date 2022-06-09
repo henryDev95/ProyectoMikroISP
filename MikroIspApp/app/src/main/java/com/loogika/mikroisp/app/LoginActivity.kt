@@ -29,7 +29,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         Users = UserProvider.getProdutos()
         binding.login.setOnClickListener {
-            // validate()
+             //validate()
+
             val internt = Intent(this, DashboardActivity::class.java)
             startActivity(internt)
         }

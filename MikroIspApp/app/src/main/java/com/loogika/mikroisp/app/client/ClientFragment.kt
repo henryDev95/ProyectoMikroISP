@@ -18,6 +18,8 @@ import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.databinding.FragmentClientBinding
+import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,10 +55,9 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
     }
 
     private fun obtenerDatos() { // funcion para obtener los datos del api
-        //val token = "abcdefg1234567890"
-        val token = "123456henry"
+
         val call = getRetrofit().create(clientApi::class.java)
-        call.getAll(token).enqueue(object : Callback<clientResponse> {
+        call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
                 call: Call<clientResponse>,
                 response: Response<clientResponse>
@@ -85,6 +86,13 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(getInterceptor())
+            .build()
+    }
+
+    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
+        return OkHttpClient.Builder()
+            .addInterceptor(HeaderInterceptor())
             .build()
     }
 

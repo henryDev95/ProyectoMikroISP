@@ -48,7 +48,7 @@
                 />
 
             <EditText
-                android:id="@+id/userName"
+                android:id="@+id/firstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/names"
@@ -64,7 +64,7 @@
                 android:drawableLeft="@drawable/ico_name"
                 />
             <EditText
-                android:id="@+id/secondName"
+                android:id="@+id/lastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/surname"
@@ -90,7 +90,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/shape_brakground"
-
                 />
 
             <EditText

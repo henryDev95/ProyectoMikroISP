@@ -26,6 +26,7 @@ import com.loogika.mikroisp.app.device.entity.Brand
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.DeviceResponse
 import com.loogika.mikroisp.app.device.entity.StatusDevice
+import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.adapter.PaymentAdapter
 import com.loogika.mikroisp.app.payment.adapter.apiService.apiPayment
 import com.loogika.mikroisp.app.payment.entity.Plan
@@ -33,6 +34,7 @@ import com.loogika.mikroisp.app.payment.entity.ServiceClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,10 +62,9 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
     }
 
     private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
-        //val token = "abcdefg1234567890"
-        val token = "123456henry"
+
         val call = getRetrofit().create(deviceApi::class.java)
-        call.getAll(token).enqueue(object : Callback<DeviceResponse> {
+        call.getAll().enqueue(object : Callback<DeviceResponse> {
             override fun onResponse(
                 call: Call<DeviceResponse>,
                 response: Response<DeviceResponse>
@@ -91,8 +92,16 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(getInterceptor())
             .build()
     }
+
+    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
+        return OkHttpClient.Builder()
+            .addInterceptor(HeaderInterceptor())
+            .build()
+    }
+
 
 /*
      private fun searchByName( name : String){

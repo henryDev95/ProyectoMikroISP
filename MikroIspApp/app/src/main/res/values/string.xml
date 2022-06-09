@@ -2,7 +2,7 @@
 <resources>
     <string-array name="Languages">
         <item>Seleccione</item>
-        <item>Personal</item>
-        <item>Corporativo</item>
+        <item>Residencial</item>
+        <item>Empresarial</item>
     </string-array>
 </resources>
