@@ -19,17 +19,21 @@ class NewClientActivity : AppCompatActivity(){
         // Vincula la variabl con la vista
         binding = ActivityNewClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupSpinner()
+      //  setupSpinner()
         //val string: String = getString(com.loogika.mikroisp.app.R.string.hello)
 
+        /*
         binding.save.setOnClickListener {
             val intento1 = Intent(this, DetailClientActivity::class.java)
             startActivity(intento1)
         }
 
+         */
+
 
     }
 
+    /*
     private fun setupSpinner() {
         val languages = resources.getStringArray(com.loogika.mikroisp.app.R.array.Languages)
         val spinner = binding.typeclient
@@ -48,6 +52,6 @@ class NewClientActivity : AppCompatActivity(){
     }
 
 
-
+    */
 
 }

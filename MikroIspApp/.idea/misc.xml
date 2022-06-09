@@ -26,6 +26,8 @@
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/drawable/ic_edit_24.xml" value="0.2890625" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/drawable/ico.xml" value="0.2890625" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/drawable/shape_brakground.xml" value="0.2890625" />
+        <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_login.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_new_client.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_service.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/edit_device.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/fragment_client.xml" value="0.27291666666666664" />
@@ -35,6 +37,7 @@
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_client.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_device.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_service_client.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/nav_header_dashboard.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/MikroISPApp/ProyectoMikroISP/MikroIspApp/app/src/main/res/menu/show_menu.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/henry/Documents/proyecto/mikroisp/MikroIspApp/app/src/main/res/drawable/email_24.xml" value="0.2890625" />
