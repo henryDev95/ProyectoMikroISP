@@ -11,7 +11,7 @@ data class Client(
     var state:State,
     var phone1:String,
     var invoiceMaturityDays:String,
-    var invoiceMaturityDaysOverride:String,
+    var invoiceMaturityDaysOverride:Boolean,
  )
 
 data class State(

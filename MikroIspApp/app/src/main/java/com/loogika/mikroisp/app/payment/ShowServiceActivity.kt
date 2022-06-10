@@ -77,7 +77,7 @@ class ShowServiceActivity : AppCompatActivity() {
     }
 
     fun imprimirResultado(){
-        catidadPagos += catidadPagos
+
         val toast = Toast.makeText(this, "Se realizó el cobro $catidadPagos", Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.CENTER,0,0)
         toast.show()

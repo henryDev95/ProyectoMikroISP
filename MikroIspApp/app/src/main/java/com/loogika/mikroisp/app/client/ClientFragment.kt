@@ -44,7 +44,6 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
          binding.btNewCLient.setOnClickListener {
               var intent = Intent(this.context,NewClientActivity::class.java)
               startActivity(intent)
-
          }
          return root
     }
@@ -55,7 +54,6 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
     }
 
     private fun obtenerDatos() { // funcion para obtener los datos del api
-
         val call = getRetrofit().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
@@ -72,7 +70,12 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
                 }
             }
             override fun onFailure(call: Call<clientResponse>, t: Throwable) {
-                error()
+                if(call.isCanceled()) {
+                    Log.e("error cancelado", "solicitud fue abortada");
+                }else {
+                    Log.e("error", "No se puede enviar la publicación a la API.");
+                }
+
             }
         })
     }
@@ -82,7 +85,7 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
     }
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.108/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

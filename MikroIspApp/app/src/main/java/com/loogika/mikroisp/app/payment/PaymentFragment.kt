@@ -72,8 +72,6 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
             .build()
     }
 
-
-
     private fun searchByName( name : String){
          CoroutineScope(Dispatchers.IO).launch {
              val call  = getRetrofit().create(apiPayment::class.java).getClientByName( "$name/retriveByName?institution_id=1")
@@ -91,7 +89,6 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
                  }else{
                      error()
                  }
-               //   hideKeyboard()
              }
          }
 
@@ -139,6 +136,8 @@ class PaymentFragment : Fragment() ,  PaymentAdapter.CellClickListener, SearchVi
 
         startActivity(intent)
     }
+
+
 }
 
 
