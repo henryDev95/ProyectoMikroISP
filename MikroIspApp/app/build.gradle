@@ -42,7 +42,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -63,4 +63,11 @@ dependencies {
     // libreria de corrutinas
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6'
 
+    // libreria de toast
+
+    implementation 'io.github.shashank02051997:FancyToast:2.0.1'
+
+    // libreria de shimmer
+
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

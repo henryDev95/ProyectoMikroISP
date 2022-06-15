@@ -35,9 +35,9 @@
     <string name="SearchByName">Search By Name</string>
     <string name="title">Search By Name</string>
     <string name="supporting_text">Search By Name</string>
-    <string name="cancel">Search By Name</string>
-    <string name="decline">Search By Name</string>
-    <string name="accept">Search By Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Aceptar</string>
     <string name="serviceDetail">Service detail</string>
     <string name="clientData">Client Data</string>
     <string name="plan">Plan</string>

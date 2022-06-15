@@ -8,9 +8,9 @@ import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.databinding.ItemServiceClientBinding
 import com.loogika.mikroisp.app.payment.entity.Plan
-import com.loogika.mikroisp.app.payment.entity.ServiceClient
 
-class PaymentAdapter(val clientsService: List<ServiceClient>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>() {
+
+class PaymentAdapter(val clientsService: List<Client>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>() {
 
     interface CellClickListener {
         fun onCellClickListener(dni:String, userFirstName:String , userLastName : String, address:String,country:String , telephone:String, plan:Plan)
@@ -22,11 +22,11 @@ class PaymentAdapter(val clientsService: List<ServiceClient>, val itemsClick: Ce
         private var name: TextView = binding.name
         private var dni: TextView = binding.dni
 
-        fun bind(client : ServiceClient) {
+        fun bind(client : Client) {
             name.text = "${client.userFirstName} ${client.userLastName}"
             dni.text = client.dni
             binding.itemsClient.setOnClickListener {
-                itemsClick.onCellClickListener( client.dni,client.userFirstName,client.userLastName,client.address, client.country , client.phone1 , client.services[0].plan)
+               // itemsClick.onCellClickListener( client.dni,client.userFirstName,client.userLastName,client.address, client.country , client.phone1 , client.services[0].plan)
             }
         }
     }

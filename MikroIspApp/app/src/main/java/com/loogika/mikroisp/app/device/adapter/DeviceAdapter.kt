@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.entity.Client
@@ -18,7 +16,14 @@ import com.loogika.mikroisp.app.device.entity.Brand
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.StatusDevice
 
-class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsClick: CellClickListener):RecyclerView.Adapter<DeviceAdapter.DeviceHolder>() {
+class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsClick: CellClickListener):RecyclerView.Adapter<DeviceAdapter.DeviceHolder>(), Filterable {
+
+    var filteredDeviceList:List<Device> = mutableListOf()
+
+    init {
+        this.filteredDeviceList = devices
+    }
+
 
     interface CellClickListener {
         fun onCellClickListener(id:Int, name:String , code: String, model:String, mac:String , brand:Brand, statusDevice:StatusDevice)
@@ -101,12 +106,40 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
 
     // Returns size of data list
     override fun getItemCount(): Int { // devuelve la cantidad de los items
-        return devices.size
+        return filteredDeviceList.size
     }
 
     // Displays data at a certain position
     override fun onBindViewHolder(holder: DeviceHolder, position: Int) { // devuelve los items
-        var items = devices[position]
+        var items = filteredDeviceList[position]
         holder.bind(items)
+    }
+
+    override fun getFilter(): Filter { // metodo para filtar la busqueda un valor
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    filteredDeviceList = devices
+                } else {
+                    val resultList = ArrayList<Device>()
+                    for (row in devices) {
+                        if (row.name.toLowerCase().contains(charSearch.lowercase())) {
+                            resultList.add(row)
+                        }
+                    }
+                    filteredDeviceList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredDeviceList
+                return filterResults
+            }
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredDeviceList = results?.values as ArrayList<Device>
+                notifyDataSetChanged()
+            }
+
+        }
     }
 }

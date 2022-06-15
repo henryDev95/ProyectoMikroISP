@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="@color/colorItems"
+        android:background="@color/colorText"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -34,7 +34,7 @@
             android:padding="12dp">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/userFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombres completos "

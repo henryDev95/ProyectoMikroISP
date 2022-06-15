@@ -2,24 +2,24 @@ package com.loogika.mikroisp.app.device
 
 
 import android.app.AlertDialog
+import android.app.Application
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loogika.mikroisp.app.R
-import com.loogika.mikroisp.app.client.ApiService.clientApi
-import com.loogika.mikroisp.app.client.adapter.ClientAdapter
-import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.databinding.FragmentDeviceBinding
-import com.loogika.mikroisp.app.databinding.FragmentPaymentBinding
 import com.loogika.mikroisp.app.device.adapter.DeviceAdapter
 import com.loogika.mikroisp.app.device.apiService.deviceApi
 import com.loogika.mikroisp.app.device.entity.Brand
@@ -27,13 +27,6 @@ import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.DeviceResponse
 import com.loogika.mikroisp.app.device.entity.StatusDevice
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
-import com.loogika.mikroisp.app.payment.adapter.PaymentAdapter
-import com.loogika.mikroisp.app.payment.adapter.apiService.apiPayment
-import com.loogika.mikroisp.app.payment.entity.Plan
-import com.loogika.mikroisp.app.payment.entity.ServiceClient
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,13 +49,24 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
 
        binding = FragmentDeviceBinding.inflate(inflater, container, false)
        val root: View = binding.root
-       binding.searchView.setOnQueryTextListener(this)
-       obtenerDatos(root.context)
-        return root
+
+         showContent(root.context)
+         return root
     }
 
-    private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
+    fun showContent( context: Context){
+        binding.deviceList.layoutManager = LinearLayoutManager(this.context)
+        obtenerDatos(context)
+        binding.searchView.setOnQueryTextListener(this)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.viewLoading.isVisible = false
+            binding.deviceList.isVisible = true
+        }, 2000)
+    }
 
+
+
+    private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
         val call = getRetrofit().create(deviceApi::class.java)
         call.getAll().enqueue(object : Callback<DeviceResponse> {
             override fun onResponse(
@@ -72,7 +76,6 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
                 if(response.body()!= null){
                     deviceList = response.body()!!.devices // obtener el resultado
                     deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceFragment)
-                    binding.deviceList.layoutManager = LinearLayoutManager(view)
                     binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
                 }else{
                     ImprimirRespuesta()
@@ -84,8 +87,6 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
             }
         })
     }
-
-
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
         var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
@@ -103,33 +104,6 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
     }
 
 
-/*
-     private fun searchByName( name : String){
-         CoroutineScope(Dispatchers.IO).launch {
-             val token = "abcdefg1234567890"
-             val call  = getRetrofit().create(apiPayment::class.java).getClientByName(token, "$name/retriveByName?institution_id=1")
-             val client = call.body()
-             activity?.runOnUiThread {
-                 if(call.isSuccessful){
-                    val clientByName = client?.entities ?: emptyList()
-                     if(!clientByName.isEmpty()){
-                         clientService.clear()
-                         clientService.addAll(clientByName)
-                         paymentAdapter.notifyDataSetChanged()
-                     }else{
-                         ImprimirRespuesta()
-                     }
-                 }else{
-                     error()
-                 }
-               //   hideKeyboard()
-             }
-         }
-
-     }
-
- */
-
     private fun ImprimirRespuesta() {
         Toast.makeText(this.context, "No hay datos del cliente con ese nombre ", Toast.LENGTH_SHORT).show()
     }
@@ -139,13 +113,11 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if(!query.isNullOrEmpty()){
-           // searchByName(query)
-        }
         return  true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
+        deviceAdapter.filter.filter(newText)
         return true
     }
 
@@ -158,7 +130,6 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
             .show()
 
     }
-
 
     override fun onCellClickListener(
         id: Int,

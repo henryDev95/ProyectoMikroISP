@@ -13,11 +13,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.databinding.ActivityShowServiceBinding
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.shashank.sony.fancytoastlib.FancyToast
 
 class ShowServiceActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityShowServiceBinding
-    var catidadPagos:Int = 0
+    var catidadPagos: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +31,17 @@ class ShowServiceActivity : AppCompatActivity() {
         var country = intent.getStringExtra("country")
         var town = intent.getStringExtra("town")
         var telephone = intent.getStringExtra("telephone")
-        var plan  = intent.getParcelableExtra<Plan>("plan")!!
+        var plan = intent.getParcelableExtra<Plan>("plan")!!
 
         binding.detailIdentification.text = dni.toString()
-        binding.detailNames.text= userFirstName.toString()
+        binding.detailNames.text = userFirstName.toString()
         binding.detailSurname.text = userLastName.toString()
         binding.detailDirecction.text = address.toString()
         binding.detailTelephone.text = telephone.toString()
         binding.detailPlaName.text = plan.name.toString()
-        if(plan.status =="true"){
+        if (plan.status == "true") {
             binding.detailPlanState.text = "Activo"
-        }else{
+        } else {
             binding.detailPlanState.text = "Cancelado"
         }
         binding.detailPlanValue.text = plan.fullValue.toString()
@@ -49,39 +50,49 @@ class ShowServiceActivity : AppCompatActivity() {
         }
 
         binding.cancelarButton.setOnClickListener {
+              FancyToast.makeText(
+                this,
+                "No se realizo el cobro!",
+                FancyToast.LENGTH_LONG,
+                FancyToast.WARNING,
+                false
+            ).show()
             finish()
         }
     }
 
-     private fun mostrarDialog(contex:Context) {
+    private fun mostrarDialog(contex: Context) {
         val builder = AlertDialog.Builder(contex)
         builder.setTitle("Cobros")
             .setMessage("Desea realizar el cobro del servicio de internet?")
-            .setPositiveButton("Aceptar",
+            .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
                     catidadPagos++
-                    var valor = DatosValor().setValor(catidadPagos)
-                    val toast = Toast.makeText(this, "Se realizó el cobro $valor", Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.CENTER,0,0)
-                    toast.show()
+                    FancyToast.makeText(
+                        this, "!Se realizo correctamente el cobro!",
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.SUCCESS, false
+                    ).show()
                     finish()
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
-
-                Toast.makeText(this, "No se realizó el cobro", Toast.LENGTH_SHORT).show()
+                    cancelarResultado()
                     finish()
                 })
 
         builder.show()
     }
 
-    fun imprimirResultado(){
-
-        val toast = Toast.makeText(this, "Se realizó el cobro $catidadPagos", Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.CENTER,0,0)
+    fun cancelarResultado() {
+        val toast = FancyToast.makeText(
+            this,
+            "No se realizo el cobro!",
+            FancyToast.LENGTH_LONG,
+            FancyToast.WARNING,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
-
     }
-
 }

@@ -1,14 +1,20 @@
 package com.loogika.mikroisp.app.client
 
 
+
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,13 +25,14 @@ import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.databinding.FragmentClientBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
+import com.loogika.mikroisp.app.payment.entity.Plan
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
+class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentClientBinding
     private var clients:List<Client> = mutableListOf()
@@ -40,17 +47,21 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
          binding = FragmentClientBinding.inflate(inflater, container, false)
          val root: View = binding.root
 
-         initRecycleView()
+         mostrarShimmer()
          binding.btNewCLient.setOnClickListener {
               var intent = Intent(this.context,NewClientActivity::class.java)
               startActivity(intent)
          }
-         return root
+        return root
     }
-
-    private fun initRecycleView() {
+    private fun mostrarShimmer(){
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-            obtenerDatos()
+        obtenerDatos()
+        binding.searchView.setOnQueryTextListener(this)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.viewClientList.isVisible= false
+            binding.clientsList.isVisible = true
+        }, 2800)
     }
 
     private fun obtenerDatos() { // funcion para obtener los datos del api
@@ -70,12 +81,7 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
                 }
             }
             override fun onFailure(call: Call<clientResponse>, t: Throwable) {
-                if(call.isCanceled()) {
-                    Log.e("error cancelado", "solicitud fue abortada");
-                }else {
-                    Log.e("error", "No se puede enviar la publicación a la API.");
-                }
-
+                error()
             }
         })
     }
@@ -104,14 +110,17 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
     }
 
     override fun onCellClickListener(
+        id:Int,
         dni: String,
         userFirstName: String,
         userLastName: String,
         address: String,
         country: String,
-        telephone:String
+        telephone:String,
+        plan:Plan
     ) {
         var intent = Intent(this.context, ShowClientActivity::class.java)
+        intent.putExtra("id",id)
         intent.putExtra("dni" ,dni )
         intent.putExtra("userFirstName" ,userFirstName )
         intent.putExtra("userLastName" ,userLastName )
@@ -119,8 +128,20 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener {
         intent.putExtra("country" ,country)
         intent.putExtra("town" ,"Pujili")
         intent.putExtra("telephone" ,telephone)
+        intent.putExtra("plan", plan)
         startActivity(intent)
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+      clientAdapter.filter.filter(newText)
+        return true
+    }
+
+
 
 
 }

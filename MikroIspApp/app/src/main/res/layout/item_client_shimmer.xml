@@ -17,37 +17,40 @@
         android:animateLayoutChanges="true"
         android:background="@color/colorText"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/imagen_list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
+            android:paddingLeft="60dp"
+            android:background="@color/colorFondoShimmer"
             android:src="@drawable/client" />
 
         <LinearLayout
-            android:layout_width="283dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="vertical"
-            android:padding="12dp">
+            >
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombres completos "
-                android:textStyle="bold" />
+            <FrameLayout
+                android:id="@+id/userFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@color/colorFondoShimmer"
+                />
 
-            <TextView
+            <FrameLayout
                 android:id="@+id/dni"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" Cedula"
-                android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorFondoShimmer"
+                 />
 
         </LinearLayout>
+
 
     </LinearLayout>
 

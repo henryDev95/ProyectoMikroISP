@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/shape_brakground"
         app:layout_constraintStart_toStartOf="parent"
         app:queryHint="@string/SearchByName"
         />
@@ -26,9 +27,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_device"
         />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/viewLoading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_newDevice"
@@ -39,6 +63,7 @@
         android:layout_marginRight="28dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add"
+        android:backgroundTint="@color/colorFondo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
