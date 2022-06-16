@@ -22,6 +22,7 @@ import com.loogika.mikroisp.app.databinding.FragmentPaymentBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.adapter.PaymentAdapter
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -104,25 +105,28 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
 
     override fun onCellClickListener(
         id:Int,
+        type:Int,
         dni: String,
         userFirstName: String,
         userLastName: String,
         address: String,
-        country: String,
-        telephone: String,
-        plan: Plan
+        telephone:String,
+        service: Service,
+        plan:Plan,
+        city:String
     ) {
 
         var intent = Intent(this.context, ShowServiceActivity::class.java)
         intent.putExtra("id", id)
+        intent.putExtra("type", type)
         intent.putExtra("dni" ,dni )
         intent.putExtra("userFirstName" ,userFirstName )
         intent.putExtra("userLastName" ,userLastName )
         intent.putExtra("address" ,address)
-        intent.putExtra("country" ,country)
-        intent.putExtra("town" ,"Pujili")
         intent.putExtra("telephone" ,telephone)
+        intent.putExtra("service", service)
         intent.putExtra("plan", plan)
+        intent.putExtra("town" ,city)
 
         startActivity(intent)
     }

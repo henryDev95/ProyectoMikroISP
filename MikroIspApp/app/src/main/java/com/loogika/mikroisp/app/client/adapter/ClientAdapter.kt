@@ -12,6 +12,7 @@ import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 
 class ClientAdapter(val clients: List<Client> , val itemsClick: CellClickListener):RecyclerView.Adapter<ClientAdapter.ClientHolder>(), Filterable {
 
@@ -23,7 +24,7 @@ class ClientAdapter(val clients: List<Client> , val itemsClick: CellClickListene
 
 
     interface CellClickListener {
-        fun onCellClickListener( id: Int, dni:String, userFirstName:String , userLastName : String, address:String,country:String , telephone:String, plan: Plan)
+        fun onCellClickListener( id: Int, type:Int,dni:String, userFirstName:String , userLastName : String, address:String,telephone:String, service:Service, plan: Plan, city:String)
 
     }
     // Clase para refeenciar el diseño del item
@@ -35,7 +36,7 @@ class ClientAdapter(val clients: List<Client> , val itemsClick: CellClickListene
             name.text = "${client.userFirstName}  ${client.userLastName}"
             dni.text = client.dni
             binding.itemsClient.setOnClickListener {
-                itemsClick.onCellClickListener( client.id , client.dni,client.userFirstName.toString(),client.userLastName.toString(),client.address, client.country , client.phone1 , client.services[0].plan)
+                itemsClick.onCellClickListener( client.id ,client.type ,client.dni,client.userFirstName.toString(),client.userLastName.toString(),client.address, client.phone1 ,client.services[0],client.services[0].plan, client.city)
             }
            /*
             binding.icOption.setOnClickListener {

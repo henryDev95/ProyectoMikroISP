@@ -1,373 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".device.ShowDeviceActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarb"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorSplash"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarb"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorSplash"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/equipmentInformation"
+            android:textColor="@color/whitesmoke"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.appcompat.widget.Toolbar>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/clientInformation"
-                android:textColor="@color/whitesmoke"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.appcompat.widget.Toolbar>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarb">
 
         <LinearLayout
             android:id="@+id/contentDevice"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="15dp"
-            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarb"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarb">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_dni_client" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/identificationcard"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/dni"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_firtname" />
-
-                <LinearLayout
-                    android:id="@+id/detalFirstName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/names"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/fistName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="20sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_last_name" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/surname"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/lastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_type_client" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/ClientType"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/typeClient"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_directionclient" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/direction"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/direction"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_phone1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/telephone"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/telephone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_status_client" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/clientStatus"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/statusClient"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_city" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="City"
-                        android:padding="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/city"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="................................."
-                        android:padding="2dp"
-                        android:textSize="15sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:background="@drawable/shape_brakground"
-                android:backgroundTint="@color/colorFondo"
-                android:drawableLeft="@drawable/ico_cancel"
                 android:padding="10dp"
-                android:paddingEnd="19dp"
-                android:text="@string/close"
-                android:textColor="@color/colorText"
-                android:textSize="18sp"/>
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_code"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/code"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_name_device"
+                    />
+                <LinearLayout
+                    android:id="@+id/detalName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_model"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/model"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/model"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/device_ico"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mac"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/mac"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_assigned"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/isAssigned"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/isAssidned"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_brand"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/brand"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_status"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/statusDevice"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorBlack"
+                        android:padding="2dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/statusDevice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="normal"
+                        android:textSize="15sp"
+                        android:padding="2dp"
+                        android:hint="................................."/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

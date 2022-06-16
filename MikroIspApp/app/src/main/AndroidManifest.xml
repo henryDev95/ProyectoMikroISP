@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".device.ShowDeviceActivity"
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -31,9 +33,7 @@
         <activity android:name=".client.NewClientActivity" />
         <activity android:name=".client.ShowClientActivity" />
         <activity android:name=".client.DetailClientActivity" />
-        <activity android:name=".payment.ShowServiceActivity"/>
-
-
+        <activity android:name=".payment.ShowServiceActivity" />
     </application>
 
 </manifest>

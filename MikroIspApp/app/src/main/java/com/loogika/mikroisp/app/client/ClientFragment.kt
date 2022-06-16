@@ -26,6 +26,7 @@ import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.databinding.FragmentClientBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -111,24 +112,27 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
 
     override fun onCellClickListener(
         id:Int,
+        type:Int,
         dni: String,
         userFirstName: String,
         userLastName: String,
         address: String,
-        country: String,
         telephone:String,
-        plan:Plan
+        service: Service,
+        plan:Plan,
+        city:String
     ) {
         var intent = Intent(this.context, ShowClientActivity::class.java)
         intent.putExtra("id",id)
+        intent.putExtra("type",type)
         intent.putExtra("dni" ,dni )
         intent.putExtra("userFirstName" ,userFirstName )
         intent.putExtra("userLastName" ,userLastName )
         intent.putExtra("address" ,address)
-        intent.putExtra("country" ,country)
-        intent.putExtra("town" ,"Pujili")
         intent.putExtra("telephone" ,telephone)
+        intent.putExtra("service", service)
         intent.putExtra("plan", plan)
+        intent.putExtra("city" ,city)
         startActivity(intent)
     }
 
@@ -140,8 +144,4 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
       clientAdapter.filter.filter(newText)
         return true
     }
-
-
-
-
 }

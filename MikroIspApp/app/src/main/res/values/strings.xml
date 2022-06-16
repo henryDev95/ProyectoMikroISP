@@ -29,7 +29,7 @@
     <string name="app_name">MikroIso</string>
     <string name="payment">Payment</string>
     <string name="customerDetail">Customer Detail</string>
-    <string name="ClientType">Client Type</string>
+    <string name="ClientType">Type</string>
     <string name="addService">Add Service</string>
     <string name="Client">Client</string>
     <string name="SearchByName">Search By Name</string>
@@ -44,5 +44,18 @@
     <string name="planName">Plan name </string>
     <string name="planState">Plan State </string>
     <string name="planValue">Value </string>
+    <string name="equipmentInformation">Equipment Information</string>
+    <string name="code">Code</string>
+    <string name="name">Name</string>
+    <string name="model">Model</string>
+    <string name="mac">Mac</string>
+    <string name="isAssigned">Is Assigned</string>
+    <string name="brand">Brand</string>
+    <string name="statusDevice">Status</string>
+    <string name="close">Close</string>
+    <string name="clientInformation">Client Information</string>
+    <string name="clientStatus">Status</string>
+
+
 </resources>
 

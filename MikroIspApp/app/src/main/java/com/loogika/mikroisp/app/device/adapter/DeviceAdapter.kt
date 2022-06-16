@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.databinding.ActivityShowDeviceBinding
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.databinding.ItemDeviceBinding
 import com.loogika.mikroisp.app.device.entity.Brand
@@ -19,7 +20,7 @@ import com.loogika.mikroisp.app.device.entity.StatusDevice
 class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsClick: CellClickListener):RecyclerView.Adapter<DeviceAdapter.DeviceHolder>(), Filterable {
 
     var filteredDeviceList:List<Device> = mutableListOf()
-
+    lateinit var bindingShow:ActivityShowDeviceBinding
     init {
         this.filteredDeviceList = devices
     }
@@ -45,35 +46,45 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
             */
 
             binding.icOption.setOnClickListener {
-                val id = device.model.toString()
-                menuOpcion(it,id)
+                  menuOpcion(it,device)
             }
         }
 
-        fun menuOpcion(view:View , id:String){
+        fun menuOpcion(view:View , device:Device){
             val popup = PopupMenu(con.applicationContext, view)
             popup.inflate(R.menu.show_menu)
             popup.setOnMenuItemClickListener {
                  when(it.itemId){
-                     R.id.edit ->{
-                         val v = LayoutInflater.from(con).inflate(R.layout.edit_device,null)
+                     R.id.show ->{
+                         val v = LayoutInflater.from(con).inflate(R.layout.activity_show_device,null)
+                         val name = v.findViewById<TextView>(R.id.name)
+                         val code = v.findViewById<TextView>(R.id.code)
+                         val model = v.findViewById<TextView>(R.id.model)
+                         val mac = v.findViewById<TextView>(R.id.mac)
+                         val isAssigng = v.findViewById<TextView>(R.id.isAssidned)
+                         val brand = v.findViewById<TextView>(R.id.brand)
+                         val status = v.findViewById<TextView>(R.id.statusDevice)
+                         name.text = device.name
+                         code.text = device.code
+                         model.text = device.model
+                         mac.text = device.mac
+                         if(device.isAssigned){
+                             isAssigng.text = "Asignado"
+                         }else{
+                             isAssigng.text = "No signado"
+                         }
+                         brand.text = device.brand.name
+                         status.text = device.statusDevice.name
+
                          AlertDialog.Builder(con)
                              .setView(v)
-                             .setPositiveButton("Aceptar"){
-                                     dialog,_->
-                                 Toast.makeText(con,"!Información editada! $id",Toast.LENGTH_SHORT).show()
-                                 dialog.dismiss()
-
-                             }
-                             .setNegativeButton("Cancel"){
+                             .setNegativeButton("Cerrar"){
                                      dialog,_->
                                  dialog.dismiss()
-
                              }
                              .create()
                              .show()
                          true
-
                      }
                      else ->true
 

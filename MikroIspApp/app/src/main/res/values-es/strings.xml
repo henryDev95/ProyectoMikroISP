@@ -3,7 +3,7 @@
     <string name="password">Contraseña</string>
     <string name="home">Home</string>
     <string name="client">Cliente</string>
-    <string name="equipment">Equipos</string>
+    <string name="equipment">Equipo</string>
     <string name="charges">Cobros</string>
     <string name="reports">Reportes</string>
     <string name="action_settings">Configuracion</string>
@@ -23,7 +23,7 @@
     <string name="app_name">MikroIso</string>
     <string name="payment">Cobros</string>ç
     <string name="customerDetail">Detalle del cliente</string>
-    <string name="ClientType">Tipo cliente</string>
+    <string name="ClientType">Tipo</string>
     <string name="addService">Añadir Servicio</string>
     <string name="Client">Cliente</string>
     <string name="SearchByName">Buscar por nombre</string>
@@ -38,5 +38,16 @@
     <string name="planName">Nombre del plan </string>
     <string name="planState">Estado </string>
     <string name="planValue">Valor </string>
+    <string name="equipmentInformation">Información del equipo</string>
+    <string name="code">Código</string>
+    <string name="name">Nombre</string>
+    <string name="model">Modelo</string>
+    <string name="mac">Mac</string>
+    <string name="isAssigned">Es asignado</string>
+    <string name="brand">Marca</string>
+    <string name="statusDevice">Estado</string>
+    <string name="close">Cerrar</string>
+    <string name="clientInformation">Información del cliente</string>
+    <string name="clientStatus">Estado</string>
 
 </resources>

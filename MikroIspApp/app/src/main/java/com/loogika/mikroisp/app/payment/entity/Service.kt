@@ -2,7 +2,7 @@ package com.loogika.mikroisp.app.payment.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-
+@Parcelize
 data class Service(
     var id: Int,
     var name: String,
@@ -10,7 +10,7 @@ data class Service(
     var latitude:Float,
     var longitude:Float,
     var plan:Plan
-)
+):Parcelable
 @Parcelize
 data class Plan (
     var id: Int,

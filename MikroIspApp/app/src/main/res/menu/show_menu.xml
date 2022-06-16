@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+ <item android:id="@+id/show"
+       android:title="Mostrar"
+       android:icon="@drawable/ico_show">
+ </item>
+
  <item android:id="@+id/edit"
-       android:title="Editar"
-       android:icon="@drawable/ic_edit_24">
+     android:title="Editar"
+     android:icon="@drawable/ic_edit_24">
  </item>
 
 </menu>

@@ -47,7 +47,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/identificationcard"
                 android:padding="5dp"
@@ -71,7 +71,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/names"
                 android:padding="5dp"
@@ -97,7 +97,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/surname"
                 android:padding="5dp"
@@ -123,7 +123,7 @@
                 android:id="@+id/TypeClient"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 app:boxCornerRadiusTopEnd="10dp"
@@ -135,23 +135,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/lastName">
 
                 <AutoCompleteTextView
+                    android:id="@+id/autoCompleteText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:hint="@string/ClientType"
                     />
 
-
-
             </com.google.android.material.textfield.TextInputLayout>
-
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/address"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/direction"
                 android:inputType="textPersonName"
@@ -178,7 +175,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/telephone"
                 android:padding="5dp"
@@ -206,7 +203,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/email"
                 android:padding="5dp"
@@ -232,7 +229,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorText"
                 android:hint="@string/description"
                 android:padding="5dp"
@@ -257,7 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="15dp">
 
                 <Button
                     android:id="@+id/save"

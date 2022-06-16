@@ -4,6 +4,7 @@ import com.loogika.mikroisp.app.payment.entity.Service
 
 data class Client(
     var id:Int,
+    var type:Int,
     var dni:String,
     var userFirstName:String?,
     var userLastName:String?,

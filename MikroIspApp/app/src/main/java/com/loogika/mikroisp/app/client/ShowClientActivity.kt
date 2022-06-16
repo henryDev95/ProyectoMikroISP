@@ -7,6 +7,8 @@ import com.loogika.mikroisp.app.R
 
 import com.loogika.mikroisp.app.databinding.ActivityNewClientBinding
 import com.loogika.mikroisp.app.databinding.ActivityShowClientBinding
+import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 
 
 class ShowClientActivity :AppCompatActivity(){
@@ -20,23 +22,40 @@ class ShowClientActivity :AppCompatActivity(){
         setContentView(binding.root)
 
         var dni = intent.getStringExtra("dni")
+        var type = intent.getIntExtra("type",0)
         var userFirstName = intent.getStringExtra("userFirstName")
         var userLastName = intent.getStringExtra("userLastName")
         var address = intent.getStringExtra("address")
-        var country = intent.getStringExtra("country")
-        var town = intent.getStringExtra("town")
         var telephone = intent.getStringExtra("telephone")
+        var service = intent.getParcelableExtra<Service>("service")!!
+       //   var plan = intent.getParcelableExtra<Plan>("plan")!!
+        var city = intent.getStringExtra("city")
 
-
-        binding.detailIdentification.text = dni
-        binding.detailNames.text = userFirstName
-        binding.detailSurname.text = userLastName
-        binding.detailDirecction.text = address
-        binding.detailTown.text = town
-        binding.detailCountry.text = country
-        binding.detailTelephone.text = telephone
-
-
+        binding.dni.text = dni
+        binding.typeClient.text = statusClient(type)
+        binding.fistName.text = userFirstName
+        binding.lastName.text = userLastName
+        binding.direction.text = address
+        binding.telephone.text = telephone
+        binding.statusClient.text = typeCLient(service.status)
+        binding.city.text = city
     }
 
+
+
+    fun typeCLient(type:Int):String{
+        if(type == 1 ){
+            return "Activo"
+        }else{
+            return "Cancelado"
+        }
+    }
+
+    fun statusClient(type:Int):String{
+        if(type == 1 ){
+            return "Residencial"
+        }else{
+            return "Empresarial"
+        }
+    }
 }

@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.logging.ErrorManager
 
 
-class NewClientActivity : AppCompatActivity() {
+class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     private lateinit var binding: ActivityNewClientBinding
     private var typeClient: Int = 0
@@ -34,15 +34,13 @@ class NewClientActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
-      //  setupSpinner()
-
+        ObtenerDatosSpinner()
         binding.save.setOnClickListener {
-           // validarCampo()
             try{
-                val cliente = crearObjetoClient()
-                guarDatos(cliente)
-                Log.d("cliente",cliente.toString() )
-                FancyToast.makeText(this,"!Se ingreso correctamente!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
+                //val cliente = crearObjetoClient()
+                //guarDatos(cliente)
+                //Log.d("cliente",cliente.toString() )
+                FancyToast.makeText(this,"!Se ingreso correctamente! ${typeClient.toString()}",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
             }catch (e: ArithmeticException){
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
             }
@@ -125,32 +123,15 @@ class NewClientActivity : AppCompatActivity() {
             .build()
     }
 
-    /*
-    private fun setupSpinner() { // metodo para obtener el valor de spinner
-        val languages = resources.getStringArray(com.loogika.mikroisp.app.R.array.Languages)
-        val spinner = binding.editext?.text
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languages)
-        spinner.adapter = arrayAdapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                val type = parent.getItemAtPosition(position).toString()
-                if (type == "Residencial") {
-                    typeClient = 1
-                } else {
-                    typeClient = 2
-                }
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {
-            }
+    fun ObtenerDatosSpinner(){
+
+        val tipoCliente = resources.getStringArray(R.array.TypeClient)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner,tipoCliente)
+        with(binding.autoCompleteText){
+            setAdapter(adapter)
+            onItemClickListener = this@NewClientActivity
         }
     }
-
-     */
 
     fun cancelarResultado() {
         val toast = FancyToast.makeText(
@@ -162,6 +143,15 @@ class NewClientActivity : AppCompatActivity() {
         )
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val type = parent?.getItemAtPosition(position).toString()
+        if (type == "Residencial") {
+            typeClient = 1
+        } else {
+            typeClient = 2
+        }
     }
 
 }

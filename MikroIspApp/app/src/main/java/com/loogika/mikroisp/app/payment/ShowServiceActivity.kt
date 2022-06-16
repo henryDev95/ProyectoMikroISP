@@ -28,8 +28,6 @@ class ShowServiceActivity : AppCompatActivity() {
         var userFirstName = intent.getStringExtra("userFirstName")
         var userLastName = intent.getStringExtra("userLastName")
         var address = intent.getStringExtra("address")
-        var country = intent.getStringExtra("country")
-        var town = intent.getStringExtra("town")
         var telephone = intent.getStringExtra("telephone")
         var plan = intent.getParcelableExtra<Plan>("plan")!!
 

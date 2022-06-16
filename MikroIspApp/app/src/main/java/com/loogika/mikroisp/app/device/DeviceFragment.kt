@@ -36,7 +36,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView.OnQueryTextListener  {
-
     lateinit var  binding:FragmentDeviceBinding
     private var deviceList:List<Device>  = mutableListOf()
     private lateinit var deviceAdapter: DeviceAdapter

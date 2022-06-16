@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="Languages">
+    <string-array name="TypeClient">
         <item>Seleccione</item>
         <item>Residencial</item>
         <item>Empresarial</item>
