@@ -69,9 +69,9 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
                          model.text = device.model
                          mac.text = device.mac
                          if(device.isAssigned){
-                             isAssigng.text = "Asignado"
+                             isAssigng.text = "Activo"
                          }else{
-                             isAssigng.text = "No signado"
+                             isAssigng.text = "Cancelado"
                          }
                          brand.text = device.brand.name
                          status.text = device.statusDevice.name

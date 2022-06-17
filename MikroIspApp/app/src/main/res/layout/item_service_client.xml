@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:animateLayoutChanges="true"
         android:background="@color/colorText"
         android:orientation="horizontal"
@@ -38,14 +38,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombres completos "
+                android:textColor="@color/Black"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/dni"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Cedula"
+                android:text="Cedula"
+                android:padding="5dp"
                 android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cobrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_pago"/>
+
 
         </LinearLayout>
 

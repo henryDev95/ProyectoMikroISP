@@ -37,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombres del dispositivo"
+                android:textColor="@color/Black"
                 android:textStyle="bold" />
 
             <TextView
@@ -50,13 +51,14 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
             <ImageView
                 android:id="@+id/icOption"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_more" />
+                android:src="@drawable/ic__more_horizontal" />
         </LinearLayout>
 
     </LinearLayout>

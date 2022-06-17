@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".device.ShowDeviceActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarb"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSplash"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarb"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@string/equipmentInformation"
-            android:textColor="@color/whitesmoke"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.appcompat.widget.Toolbar>
+            android:background="@color/colorFondo"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarb">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/equipmentInformation"
+                android:textColor="@color/whitesmoke"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:id="@+id/contentDevice"
@@ -43,14 +42,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:src="@drawable/ico_code"
                     />
                 <LinearLayout
@@ -65,7 +64,7 @@
                         android:hint="@string/code"
                         android:textStyle="bold"
                         android:textSize="20sp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/Black"
                         android:padding="2dp"
                         />
 
@@ -84,13 +83,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:src="@drawable/ico_name_device"
                     />
                 <LinearLayout
@@ -125,13 +124,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:src="@drawable/ico_model"
                     />
                 <LinearLayout
@@ -165,9 +164,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
@@ -205,13 +204,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:src="@drawable/ico_assigned"
                     />
                 <LinearLayout
@@ -245,9 +244,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
@@ -285,9 +284,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
@@ -327,7 +326,6 @@
 
 
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

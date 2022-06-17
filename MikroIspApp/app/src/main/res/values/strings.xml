@@ -55,6 +55,7 @@
     <string name="close">Close</string>
     <string name="clientInformation">Client Information</string>
     <string name="clientStatus">Status</string>
+    <string name="editClient">Edit Client</string>
 
 
 </resources>

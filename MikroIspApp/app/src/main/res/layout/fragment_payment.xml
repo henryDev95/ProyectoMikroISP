@@ -27,7 +27,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_service_client"
         />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/viewClientList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+            <include layout="@layout/item_client_shimmer"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

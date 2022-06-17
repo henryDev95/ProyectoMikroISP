@@ -4,6 +4,8 @@ package com.loogika.mikroisp.app.payment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loogika.mikroisp.app.client.ApiService.clientApi
@@ -34,11 +37,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.OnQueryTextListener  {
+class PaymentFragment : Fragment() , PaymentAdapter.CellClickListener, SearchView.OnQueryTextListener  {
 
     lateinit var  binding:FragmentPaymentBinding
     private var listClient:List<Client> = mutableListOf()
-    private lateinit var clientAdapter: ClientAdapter
+    private lateinit var paymentAdapter: PaymentAdapter
 
      override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,15 +51,18 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
 
        binding = FragmentPaymentBinding.inflate(inflater, container, false)
        val root: View = binding.root
-         initRecycleView()
+         mostrarShimmer()
        return root
     }
 
-    private fun initRecycleView() {
+    private fun mostrarShimmer(){
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
         obtenerDatos()
         binding.searchView.setOnQueryTextListener(this)
-
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.viewClientList.isVisible= false
+            binding.clientsList.isVisible = true
+        }, 2800)
     }
 
 
@@ -69,8 +75,8 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
             ) {
                 if(response.body()!= null){
                     listClient = response.body()!!.entities // obtener el resultado
-                    clientAdapter = ClientAdapter(listClient, this@PaymentFragment)
-                    binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
+                    paymentAdapter = PaymentAdapter(listClient, this@PaymentFragment)
+                    binding.clientsList.adapter = paymentAdapter//enviamos al adaptador el lsitado
                 }else{
                     //ImprimirRespuesta()
                     Log.d("name", "no hay datos")
@@ -100,9 +106,6 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
             .build()
     }
 
-
-
-
     override fun onCellClickListener(
         id:Int,
         type:Int,
@@ -111,9 +114,7 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
         userLastName: String,
         address: String,
         telephone:String,
-        service: Service,
-        plan:Plan,
-        city:String
+        plan:Plan
     ) {
 
         var intent = Intent(this.context, ShowServiceActivity::class.java)
@@ -124,10 +125,7 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
         intent.putExtra("userLastName" ,userLastName )
         intent.putExtra("address" ,address)
         intent.putExtra("telephone" ,telephone)
-        intent.putExtra("service", service)
         intent.putExtra("plan", plan)
-        intent.putExtra("town" ,city)
-
         startActivity(intent)
     }
 
@@ -136,7 +134,7 @@ class PaymentFragment : Fragment() , ClientAdapter.CellClickListener, SearchView
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        clientAdapter.filter.filter(newText)
+        paymentAdapter.filter.filter(newText)
         return true
     }
 

@@ -10,13 +10,13 @@
     <string name="identificationcard">Cédula</string>
     <string name="names">Nombres</string>
     <string name="surname">Apellidos</string>
-    <string name="description">Descripcion</string>
+    <string name="description">Descripción</string>
     <string name="telephone">Teléfono</string>
-    <string name="email">Correo Electronico</string>
+    <string name="email">Correo Electrónico</string>
     <string name="personalInformation">Datos personales</string>
     <string name="contactDetails">Detalle del contacto</string>
     <string name="newClient">Nuevo Cliente</string>
-    <string name="contactAddress">Direccion de contacto</string>
+    <string name="contactAddress">Dirección de contacto</string>
     <string name="direction">Dirección</string>
     <string name="town">Ciudad</string>
     <string name="country">Pais</string>
@@ -49,5 +49,7 @@
     <string name="close">Cerrar</string>
     <string name="clientInformation">Información del cliente</string>
     <string name="clientStatus">Estado</string>
+    <string name="editClient">Editar Cliente</string>
+
 
 </resources>

@@ -20,5 +20,6 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorFondo">#3A75C7</color>
     <color name="colorFondoShimmer">#DCD2D2</color>
+    <color name="Black">#000000</color>
 
 </resources>
