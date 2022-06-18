@@ -56,7 +56,9 @@
     <string name="clientInformation">Client Information</string>
     <string name="clientStatus">Status</string>
     <string name="editClient">Edit Client</string>
-
+    <string name="newEquipment">New Equipment</string>
+    <string name="versionDevice">Version</string>
+    <string name="provider">Provider</string>
 
 </resources>
 

@@ -3,11 +3,16 @@
     <item
         android:id="@+id/show"
         android:icon="@drawable/ico_show"
-        android:title="Mostrar"></item>
+        android:title="Mostrar">
+
+    </item>
 
     <item
         android:id="@+id/edit"
         android:icon="@drawable/ic_edit_24"
         android:title="Editar"></item>
-
+    <item
+        android:id="@+id/newService"
+        android:icon="@drawable/ico_add_circle_24"
+        android:title="Nuevo Servicio"></item>
 </menu>

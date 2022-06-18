@@ -2,8 +2,6 @@ package com.loogika.mikroisp.app.device
 
 
 import android.app.AlertDialog
-import android.app.Application
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -50,6 +48,11 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
        val root: View = binding.root
 
          showContent(root.context)
+
+         binding.btNewDevice.setOnClickListener {
+             var intent = Intent(this.context, NewDeviceActivity::class.java)
+             startActivity(intent)
+         }
          return root
     }
 
@@ -88,7 +91,7 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
     }
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
+        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

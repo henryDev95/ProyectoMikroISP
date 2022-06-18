@@ -2,14 +2,18 @@ package com.loogika.mikroisp.app.device.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.R
+import com.loogika.mikroisp.app.client.EditClientActivity
 import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.databinding.ActivityEditClientBinding
 import com.loogika.mikroisp.app.databinding.ActivityShowDeviceBinding
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.databinding.ItemDeviceBinding
@@ -84,6 +88,10 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
                              }
                              .create()
                              .show()
+                         true
+                     }
+
+                     R.id.edit->{
                          true
                      }
                      else ->true

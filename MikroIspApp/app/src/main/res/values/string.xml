@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="TypeClient">
-        <item>Seleccione</item>
         <item>Residencial</item>
         <item>Empresarial</item>
+    </string-array>
+
+    <string-array name="typeDevice">
+        <item>Radio-Antena</item>
+        <item>Router</item>
+    </string-array>
+
+    <string-array name="provider">
+        <item>ZC Mayoristas</item>
+        <item>TecnoMega C.A</item>
+        <item>INTCOMEX</item>
+        <item>PLUS COMPU</item>
+        <item>Lanbowan</item>
+    </string-array>
+
+
+    <string-array name="brand">
+        <item>Ubiquiti</item>
+        <item>Mikrotik</item>
+        <item>DLink</item>
+        <item>Cisco</item>
+        <item>QPCOM</item>
+        <item>Tp-LINK</item>
+    </string-array>
+
+    <string-array name="statusDevice">
+        <item>Activo</item>
+        <item>Deshabilitado</item>
+        <item>Dañado</item>
     </string-array>
 </resources>

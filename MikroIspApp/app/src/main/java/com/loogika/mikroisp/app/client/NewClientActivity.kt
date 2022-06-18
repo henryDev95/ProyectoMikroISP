@@ -1,5 +1,6 @@
 package com.loogika.mikroisp.app.client
 
+import android.content.Intent
 import android.os.Bundle
 import android.system.ErrnoException
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.entity.ClientPost
+import com.loogika.mikroisp.app.client.service.ServiceClientActivity
 import com.loogika.mikroisp.app.client.validarForm.ValidarForm
 import com.loogika.mikroisp.app.databinding.ActivityNewClientBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
@@ -27,7 +29,6 @@ import java.util.logging.ErrorManager
 
 
 class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
-
     private lateinit var binding: ActivityNewClientBinding
     private var typeClient: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,22 +37,34 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         setContentView(binding.root)
         ObtenerDatosSpinner()
         binding.save.setOnClickListener {
+            FancyToast.makeText(this,"!Se ingreso correctamente!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
+            val cliente = crearObjetoClient()
+            val intent = Intent(this, DetailClientActivity::class.java)
+            intent.putExtra("type", cliente.type)
+            intent.putExtra("dni" ,cliente.dni )
+            intent.putExtra("userFirstName" ,cliente.user_first_name )
+            intent.putExtra("userLastName" ,cliente.user_last_name )
+            intent.putExtra("address" ,cliente.address)
+            intent.putExtra("telephone" ,cliente.phone1)
+            intent.putExtra("email" ,cliente.email)
+            startActivity(intent)
+            /*
             try{
                 //val cliente = crearObjetoClient()
                 //guarDatos(cliente)
-                //Log.d("cliente",cliente.toString() )
-                FancyToast.makeText(this,"!Se ingreso correctamente! ${typeClient.toString()}",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
+               // Log.d("cliente",cliente.toString())
+             FancyToast.makeText(this,"!Se ingreso correctamente!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
+
             }catch (e: ArithmeticException){
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
             }
-
+           */
         }
         binding.buttCancel.setOnClickListener {
             cancelarResultado()
             finish()
         }
     }
-
 
     fun validarCampo() {
         var validar = ValidarForm(
@@ -109,7 +122,7 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.104/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
@@ -124,7 +137,6 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     fun ObtenerDatosSpinner(){
-
         val tipoCliente = resources.getStringArray(R.array.TypeClient)
         val adapter = ArrayAdapter(this, R.layout.items_spinner,tipoCliente)
         with(binding.autoCompleteText){

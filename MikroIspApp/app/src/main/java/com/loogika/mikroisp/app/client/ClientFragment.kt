@@ -1,7 +1,4 @@
 package com.loogika.mikroisp.app.client
-
-
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -48,16 +45,16 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
          binding = FragmentClientBinding.inflate(inflater, container, false)
          val root: View = binding.root
 
-         mostrarShimmer()
+         mostrarShimmer(root.context)
          binding.btNewCLient.setOnClickListener {
               var intent = Intent(this.context,NewClientActivity::class.java)
               startActivity(intent)
          }
         return root
     }
-    private fun mostrarShimmer(){
+    private fun mostrarShimmer(context:Context){
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-        obtenerDatos()
+        obtenerDatos(context)
         binding.searchView.setOnQueryTextListener(this)
         Handler(Looper.getMainLooper()).postDelayed({
             binding.viewClientList.isVisible= false
@@ -65,7 +62,7 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
         }, 2800)
     }
 
-    private fun obtenerDatos() { // funcion para obtener los datos del api
+    private fun obtenerDatos(context:Context) { // funcion para obtener los datos del api
         val call = getRetrofit().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
@@ -74,7 +71,7 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
             ) {
                 if(response.body()!= null){
                     clients = response.body()!!.entities // obtener el resultado
-                    clientAdapter = ClientAdapter(clients, this@ClientFragment)
+                    clientAdapter = ClientAdapter(context,clients, this@ClientFragment)
                     binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
                 }else{
                     ImprimirRespuesta()
@@ -92,7 +89,8 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
     }
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        // 34.238.198.216 ---> direccion ip del servidor
+        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

@@ -23,7 +23,7 @@
             android:id="@+id/imagen_list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:src="@drawable/client" />
 
         <LinearLayout
@@ -37,7 +37,7 @@
                 android:id="@+id/userFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombres completos "
+                android:text="Nombres y apellidos completos "
                 android:textColor="@color/Black"
                 android:textStyle="bold" />
 
@@ -55,11 +55,11 @@
             android:layout_height="match_parent"
             >
             <ImageView
-                android:id="@+id/ic_option"
+                android:id="@+id/btOpcion"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_more" />
+                android:src="@drawable/ic__more_horizontal" />
 
         </LinearLayout>
 

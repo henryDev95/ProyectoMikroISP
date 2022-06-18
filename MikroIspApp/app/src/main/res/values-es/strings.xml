@@ -50,6 +50,8 @@
     <string name="clientInformation">Información del cliente</string>
     <string name="clientStatus">Estado</string>
     <string name="editClient">Editar Cliente</string>
-
+    <string name="newEquipment">Nuevo Equipo</string>
+    <string name="versionDevice">Versión</string>
+    <string name="provider">Proveedor</string>
 
 </resources>

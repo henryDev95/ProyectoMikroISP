@@ -35,7 +35,7 @@ class PaymentAdapter(val clientsService: List<Client>, val itemsClick: CellClick
             name.text = "${client.userFirstName} ${client.userLastName}"
             dni.text = client.dni
             binding.cobrar.setOnClickListener {
-                itemsClick.onCellClickListener( client.id,client.type,client.dni,client.userFirstName.toString(),client.userLastName.toString(),client.address,client.phone1 , client.services[0].plan)
+                itemsClick.onCellClickListener( client.id,client.type,client.dni,client.userFirstName.toString(),client.userLastName.toString(),client.address.toString(),client.phone1.toString() , client.services[0].plan)
             }
         }
     }

@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".payment.FacturaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".client.service.ServiceClientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".device.NewDeviceActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.EditClientActivity"
             android:exported="false" />
         <activity
@@ -34,7 +43,9 @@
             android:exported="true" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".client.NewClientActivity" />
-        <activity android:name=".client.ShowClientActivity" />
+        <activity
+            android:name=".client.ShowClientActivity"
+            android:exported="false" />
         <activity android:name=".client.DetailClientActivity" />
         <activity android:name=".payment.ShowServiceActivity" />
     </application>

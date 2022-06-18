@@ -1,20 +1,24 @@
 package com.loogika.mikroisp.app.client.adapter
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.loogika.mikroisp.app.R
+import com.loogika.mikroisp.app.client.EditClientActivity
+import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.loogika.mikroisp.app.payment.entity.Service
 
-class ClientAdapter(val clients: List<Client> , val itemsClick: CellClickListener):RecyclerView.Adapter<ClientAdapter.ClientHolder>(), Filterable {
+class ClientAdapter(val context:Context, val clients: List<Client> , val itemsClick: CellClickListener):RecyclerView.Adapter<ClientAdapter.ClientHolder>(), Filterable {
 
     var filteredClientList:List<Client> = mutableListOf()
 
@@ -28,28 +32,67 @@ class ClientAdapter(val clients: List<Client> , val itemsClick: CellClickListene
 
     }
     // Clase para refeenciar el diseño del item
-    class ClientHolder(val binding:ItemClientBinding , var itemsClick: CellClickListener) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
+    class ClientHolder(val binding:ItemClientBinding , var itemsClick: CellClickListener ,val context: Context) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
         private var name: TextView = binding.userFirstName
         private var dni: TextView = binding.dni
 
         fun bind(client : Client) {
             name.text = "${client.userFirstName}  ${client.userLastName}"
             dni.text = client.dni
+           /*
             binding.itemsClient.setOnClickListener {
                 itemsClick.onCellClickListener( client.id ,client.type ,client.dni,client.userFirstName.toString(),client.userLastName.toString(),client.address, client.phone1 ,client.services[0],client.services[0].plan, client.city)
             }
-           /*
-            binding.icOption.setOnClickListener {
-                Toast.makeText(it.context, "clicn obpcion", Toast.LENGTH_SHORT).show()
+            
+            */
+
+            binding.btOpcion.setOnClickListener {
+                menuOpcion(it,client)
             }
-             */
+        }
+
+        fun menuOpcion(view: View, client:Client){
+            val popup = PopupMenu(context.applicationContext, view)
+            popup.inflate(R.menu.show_client)
+            popup.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.show ->{
+                        val intent  = Intent(context, ShowClientActivity::class.java)
+                        intent.putExtra("client",client)
+                        context.startActivity(intent)
+                        true
+                    }
+
+                    R.id.edit->{
+                        val intent = Intent(context, EditClientActivity::class.java)
+                        intent.putExtra("client",client)
+                        context.startActivity(intent)
+                          true
+                    }
+                    else ->true
+
+                }
+            }
+            popup.show()
+            try {
+                val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+                fieldMPopup.isAccessible = true
+                val mPopup = fieldMPopup.get(popup)
+                mPopup.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mPopup, true)
+            } catch (e: Exception){
+                Log.d("Main", "Error showing menu icons.", e)
+            } finally {
+                popup.show()
+            }
         }
     }
     // Returns a new ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientHolder {
 
         val binding_Items_client = ItemClientBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return ClientHolder(binding_Items_client ,itemsClick)
+        return ClientHolder(binding_Items_client ,itemsClick,context)
     }
 
     // Returns size of data list
