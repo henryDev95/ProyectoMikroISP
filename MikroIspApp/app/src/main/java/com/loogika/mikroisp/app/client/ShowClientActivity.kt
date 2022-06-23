@@ -38,7 +38,7 @@ class ShowClientActivity :AppCompatActivity(){
         if(type == 1 ){
             return "Activo"
         }else{
-            return "Cancelado"
+            return "En conte"
         }
     }
 

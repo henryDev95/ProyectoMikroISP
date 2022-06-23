@@ -26,7 +26,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
-
     </androidx.appcompat.widget.Toolbar>
     <TextView
         android:id="@+id/titleSub"
@@ -41,12 +40,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarb" />
 
+    <Button
+        android:id="@+id/pdfInvoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_brakground"
+        android:backgroundTint="@color/colorFondo"
+        android:drawableLeft="@drawable/view_password"
+        android:padding="5dp"
+        android:text="Factura"
+        android:textColor="@color/colorText"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textSize="15dp"
+        android:layout_margin="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarb"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <LinearLayout
         android:id="@+id/identification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@id/detallContact"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +125,7 @@
         android:id="@+id/detallContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -276,9 +292,9 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/shape_brakground"
         android:backgroundTint="@color/colorFondo"
-        android:drawableLeft="@drawable/ico_payment"
+        android:drawableLeft="@drawable/ico_invoice_client"
         android:padding="9dp"
-        android:text="COBRAR"
+        android:text="Generar Factura"
         android:textColor="@color/colorText"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -15,11 +15,13 @@
     <color name="colorDevice">#D5F8AE</color>
     <color name="colorClient">#B3DBF6</color>
     <color name="colorPayment">#F7DCD9</color>
-    <color name="colorCancel">#F38D82</color>
+    <color name="colorCancel">#E81017</color>
     <color name="colorLetras">@color/colorItems</color>
     <color name="colorText">#FFFFFF</color>
     <color name="colorFondo">#3A75C7</color>
     <color name="colorFondoShimmer">#DCD2D2</color>
     <color name="Black">#000000</color>
+    <color name="colorEnCorte">#FFE201</color>
+    <color name="colorActivo">#73FF3F</color>
 
 </resources>

@@ -14,8 +14,10 @@ data class Client(
     var address:String?,
     var country:String?,
     var city:String?,
-    var state:State,
+    var state:State?,
     var phone1:String?,
+    var email:String?,
+    var description:String?,
     var invoiceMaturityDays:String?,
     var invoiceMaturityDaysOverride:Boolean?,
     var services:List<Service>

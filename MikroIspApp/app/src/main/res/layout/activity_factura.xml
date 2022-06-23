@@ -1,19 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".payment.FacturaActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/createPDF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="createPDF"/>
+      <LinearLayout
+          android:id="@+id/items"
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFondo"
+                >
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="12dp"
+                      android:text="Detalle de la factura"
+                      android:textSize="20sp"
+                      android:textStyle="bold"
+                      android:textColor="@color/colorText"
+                      android:layout_gravity="left"
+                      />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+      </LinearLayout>
+
+      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+          android:id="@+id/cobrar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentBottom="true"
+          android:layout_marginStart="60dp"
+          android:layout_marginEnd="5dp"
+          android:layout_marginBottom="20dp"
+          android:textColor="@color/colorText"
+          android:text="cobrar"
+          android:backgroundTint="@color/colorFondo"
+          android:textSize="16sp"
+          app:iconTint ="@color/colorText"
+          app:icon="@drawable/ico_payment"/>
+
+      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+          android:id="@+id/cancelar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentBottom="true"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="30dp"
+          android:layout_marginBottom="20dp"
+          android:textColor="@color/colorText"
+          android:text="Cerrar"
+          android:backgroundTint="@color/colorCancel"
+          android:textSize="16sp"
+          app:iconTint ="@color/colorText"
+          app:icon="@drawable/ic_clear_black_24dp"/>
+</RelativeLayout>

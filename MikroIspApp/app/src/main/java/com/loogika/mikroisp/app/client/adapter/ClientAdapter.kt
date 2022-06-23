@@ -130,8 +130,7 @@ class ClientAdapter(val context:Context, val clients: List<Client> , val itemsCl
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 filteredClientList = results?.values as ArrayList<Client>
-                Log.d("valores de busqyed", results?.values.toString())
-               notifyDataSetChanged()
+                notifyDataSetChanged()
            }
         }
     }

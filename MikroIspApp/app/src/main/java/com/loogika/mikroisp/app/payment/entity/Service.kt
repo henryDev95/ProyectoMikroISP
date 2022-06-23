@@ -17,6 +17,7 @@ data class Plan (
     var name:String,
     var downloadSpeed:Int,
     var uploadSpeed:Int,
+    var value:Float,
     var status:String,
     var valueServiceReactivation:Int,
     var valueServiceInstallation:Int,

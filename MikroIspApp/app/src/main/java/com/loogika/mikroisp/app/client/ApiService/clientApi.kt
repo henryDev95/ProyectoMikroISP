@@ -15,4 +15,7 @@ interface clientApi {
 
     @POST("newClient?institution_id=1")
     fun createClient(@Body client:ClientPost): Call<clientResp>
+
+    @POST("{id}/editClient?institution_id=1")
+    fun editClient(@Body client:ClientPost,@Path("id") id:Int): Call<clientResp>
 }

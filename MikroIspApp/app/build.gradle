@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.loogika.mikroisp.app"
-        minSdk 16
+        minSdk 19
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -70,4 +70,8 @@ dependencies {
     // libreria de shimmer
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // libreria de pdf
+
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

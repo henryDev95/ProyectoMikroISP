@@ -14,13 +14,13 @@ data class Device(
 data class Brand(
     var id: Int,
     var name : String,
-    var description : String,
+    var description : String?,
     var status : Boolean
 )
 
 data class StatusDevice(
     var id: Int,
     var name : String,
-    var description : String,
+    var description : String?,
     var status : Boolean
 )

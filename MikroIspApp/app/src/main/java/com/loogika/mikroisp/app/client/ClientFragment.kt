@@ -34,6 +34,8 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
 
     private lateinit var binding: FragmentClientBinding
     private var clients:List<Client> = mutableListOf()
+    private var clientsActivos = mutableListOf<Client>()
+    private var clientsSuspendidos = mutableListOf<Client>()
     private lateinit var clientAdapter: ClientAdapter
 
      override fun onCreateView(
@@ -71,7 +73,15 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
             ) {
                 if(response.body()!= null){
                     clients = response.body()!!.entities // obtener el resultado
-                    clientAdapter = ClientAdapter(context,clients, this@ClientFragment)
+                    clients.forEach { client->
+                        if(client.services[0].status == 1){
+                            clientsActivos.add(client)
+                        }
+                        if(client.services[0].status == 2){
+                            clientsSuspendidos.add(client)
+                        }
+                    }
+                    clientAdapter = ClientAdapter(context,clientsActivos, this@ClientFragment)
                     binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
                 }else{
                     ImprimirRespuesta()
@@ -90,7 +100,7 @@ class ClientFragment : Fragment() , ClientAdapter.CellClickListener, SearchView.
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
         // 34.238.198.216 ---> direccion ip del servidor
-        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.2.253/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
