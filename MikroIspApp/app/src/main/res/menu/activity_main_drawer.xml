@@ -28,6 +28,5 @@
             android:icon="@drawable/ic_report"
             android:title="@string/reports"/>
 
-
     </group>
 </menu>

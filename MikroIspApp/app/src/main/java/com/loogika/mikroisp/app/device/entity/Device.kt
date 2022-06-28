@@ -8,7 +8,8 @@ data class Device(
     var mac:String,
     var isAssigned:Boolean,
     var brand:Brand,
-    var statusDevice:StatusDevice
+    var statusDevice:StatusDevice,
+    var typeDevice:TypeDevice
 )
 
 data class Brand(
@@ -23,4 +24,11 @@ data class StatusDevice(
     var name : String,
     var description : String?,
     var status : Boolean
+)
+
+data class TypeDevice(
+    var id:Int,
+    var name:String,
+    var description:String?,
+    var status : Boolean,
 )

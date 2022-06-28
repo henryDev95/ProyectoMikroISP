@@ -4,6 +4,7 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.pdf.PdfDocument
@@ -20,6 +21,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.EnvironmentCompat
+import com.loogika.mikroisp.app.DashboardActivity
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.databinding.ActivityFacturaBinding
 import com.loogika.mikroisp.app.payment.adapter.PdfDocumentAdapter
@@ -45,6 +47,10 @@ class FacturaActivity : AppCompatActivity() {
 
         binding.cobrar.setOnClickListener{
             sucessResuul()
+        }
+        binding.cancelar.setOnClickListener {
+            val intent = Intent(this,DashboardActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -86,7 +92,7 @@ class FacturaActivity : AppCompatActivity() {
         FancyToast.makeText(
             this,
             "Se a realizado el cobro correctamente !",
-            FancyToast.LENGTH_LONG,
+            FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
         ).show()

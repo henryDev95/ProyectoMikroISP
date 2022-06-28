@@ -52,7 +52,7 @@ class HomeFragment : Fragment(),  ClientAdapter.CellClickListener , SearchView.O
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        obtenerDatos(root.context)
+        obtenerDatos()
 
         binding.cantidadClient.setOnClickListener {
             mostrarShimmer(root.context , 1)
@@ -82,7 +82,7 @@ class HomeFragment : Fragment(),  ClientAdapter.CellClickListener , SearchView.O
     }
 
 
-    private fun obtenerDatos(context: Context) { // funcion para obtener los datos del api
+    private fun obtenerDatos() { // funcion para obtener los datos del api
         val call = getRetrofit().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
@@ -101,16 +101,12 @@ class HomeFragment : Fragment(),  ClientAdapter.CellClickListener , SearchView.O
                             cantidadEnCorte++
                         }
                     }
-                    binding.cantidadClient.text = clientsActivos.count().toString()
+                    binding.cantidadClient.text = (clientsActivos.count()-110).toString()
                     binding.cantidadEnCorte.text = clientsSuspendidos.count().toString()
-                   /*
-                    clientAdapter = ClientAdapter(context, clientsActivos, this@HomeFragment)
-                    binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
 
-                    */
                 } else {
                     ImprimirRespuesta()
-                    Log.d("name", "no hay datos")
+
                 }
             }
 

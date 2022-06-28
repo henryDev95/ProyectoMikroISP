@@ -113,8 +113,8 @@ class ShowServiceActivity : AppCompatActivity() {
     fun cancelarResultado() {
         val toast = FancyToast.makeText(
             this,
-            "No se realizo el cobro!",
-            FancyToast.LENGTH_LONG,
+            "No se genero la factura!",
+            FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
         )
@@ -126,7 +126,7 @@ class ShowServiceActivity : AppCompatActivity() {
         val toast =   FancyToast.makeText(
             this,
             "Se a realizado correctamente el cobro!",
-            FancyToast.LENGTH_LONG,
+            FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
         )
@@ -289,8 +289,8 @@ class ShowServiceActivity : AppCompatActivity() {
     fun sucessResuulPdf(){
         FancyToast.makeText(
             this,
-            "Se a creado el pdf!",
-            FancyToast.LENGTH_LONG,
+            "Se a creado el pdf correctamente!",
+            FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
         ).show()

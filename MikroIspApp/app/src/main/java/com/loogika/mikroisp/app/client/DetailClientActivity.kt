@@ -1,7 +1,9 @@
 package com.loogika.mikroisp.app.client
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.loogika.mikroisp.app.client.service.ServiceClientActivity
 import com.loogika.mikroisp.app.databinding.ActivityDetailClientBinding
 import com.loogika.mikroisp.app.payment.entity.Plan
 
@@ -14,6 +16,15 @@ class DetailClientActivity :AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityDetailClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        recuperarDatos()
+        binding.addService.setOnClickListener {
+           val intent = Intent(this,ServiceClientActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    fun recuperarDatos(){
         var type = intent.getIntExtra("type",0)
         var dni = intent.getStringExtra("dni")
         var userFirstName = intent.getStringExtra("userFirstName")
@@ -33,7 +44,6 @@ class DetailClientActivity :AppCompatActivity(){
         binding.direction.text = address
         binding.telephone.text = telephone
         binding.email.text = email
-
     }
 
 }
