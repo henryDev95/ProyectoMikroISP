@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.ApiService.clientApi
+import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.ClientPost
 import com.loogika.mikroisp.app.client.service.ServiceClientActivity
 import com.loogika.mikroisp.app.client.validarForm.ValidarForm
@@ -31,39 +32,45 @@ import java.util.logging.ErrorManager
 class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private lateinit var binding: ActivityNewClientBinding
     private var typeClient: Int = 0
+    var id:Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ObtenerDatosSpinner()
+        showToolbar()
         binding.save.setOnClickListener {
-            FancyToast.makeText(this,"!Se ingreso correctamente!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
             val cliente = crearObjetoClient()
-            val intent = Intent(this, DetailClientActivity::class.java)
-            intent.putExtra("type", cliente.type)
-            intent.putExtra("dni" ,cliente.dni )
-            intent.putExtra("userFirstName" ,cliente.user_first_name )
-            intent.putExtra("userLastName" ,cliente.user_last_name )
-            intent.putExtra("address" ,cliente.address)
-            intent.putExtra("telephone" ,cliente.phone1)
-            intent.putExtra("email" ,cliente.email)
-            startActivity(intent)
+            enviarDatos(cliente, id)
             /*
             try{
-                //val cliente = crearObjetoClient()
-                //guarDatos(cliente)
-               // Log.d("cliente",cliente.toString())
-             FancyToast.makeText(this,"!Se ingreso correctamente!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS, false).show()
-
+                guarDatos(cliente)
+                successResultado()
             }catch (e: ArithmeticException){
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
             }
-           */
+
+             */
         }
-        binding.buttCancel.setOnClickListener {
-            cancelarResultado()
-            finish()
-        }
+    }
+
+    fun showToolbar(){
+        setSupportActionBar(binding.toolbarb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    fun enviarDatos(cliente:ClientPost, idCli:Int){
+        val intent = Intent(this, DetailClientActivity::class.java)
+        intent.putExtra("id",idCli)
+        Toast.makeText(this, "id--->"+idCli.toString(), Toast.LENGTH_SHORT).show()
+        intent.putExtra("type", cliente.type)
+        intent.putExtra("dni" ,cliente.dni )
+        intent.putExtra("userFirstName" ,cliente.user_first_name)
+        intent.putExtra("userLastName" ,cliente.user_last_name)
+        intent.putExtra("address" ,cliente.address)
+        intent.putExtra("telephone" ,cliente.phone1)
+        intent.putExtra("email" ,cliente.email)
+        startActivity(intent)
     }
 
     fun validarCampo() {
@@ -82,20 +89,24 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     }
 
-    private fun guarDatos(clientePost: ClientPost) { // funcion para obtener los datos del api
+    private fun guarDatos(clientePost:ClientPost) { // funcion para obtener los datos del api
+
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(clientApi::class.java).createClient(clientePost)
                 .execute()
             val puppies = call.body()
             runOnUiThread {
                 if (call.isSuccessful) {
-                     Log.d("Exito", puppies.toString())
+                    var clientResponse = puppies!!.client
+                    id = clientResponse.id
+                    enviarDatos(clientePost, id)
+                    Log.d("id", clientResponse.id.toString())
                 } else {
                     Log.d("error cancelado", "solicitud fue abortada")
                 }
-
             }
         }
+
     }
 
 
@@ -107,16 +118,8 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             binding.firstName.editText?.text.toString(),
             binding.lastName.editText?.text.toString(),
             binding.address.editText?.text.toString(),
-            "Pujíli",
-            "EC",
-            1,
             binding.telephone.editText?.text.toString(),
             binding.email.editText?.text.toString(),
-            0,
-            true,
-            true,
-            false,
-            true,
             binding.descripcion.editText?.text.toString()
         )
     }
@@ -151,6 +154,18 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             "No se realizo el registro del cliente!",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+    fun successResultado() {
+        val toast = FancyToast.makeText(
+            this,
+            "Se registro el cliente correctamente!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.SUCCESS,
             false
         )
         toast.setGravity(Gravity.CENTER, 0, 0)

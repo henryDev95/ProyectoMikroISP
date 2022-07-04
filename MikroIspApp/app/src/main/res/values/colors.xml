@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#3A75C7</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="whitesmoke">#F5F5F5</color>
     <color name="colorBottonDefault">#0277bd</color>
@@ -23,5 +23,7 @@
     <color name="Black">#000000</color>
     <color name="colorEnCorte">#FFE201</color>
     <color name="colorActivo">#73FF3F</color>
+    <color name="colorDesactivado">#333333</color>
+
 
 </resources>

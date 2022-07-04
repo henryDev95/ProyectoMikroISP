@@ -1,7 +1,12 @@
 package com.loogika.mikroisp.app
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -50,5 +55,31 @@ class DashboardActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_dashboard)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    // controlar el botton atras
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+
+        if(keyCode == KeyEvent.KEYCODE_BACK && event?.getAction() == KeyEvent.ACTION_DOWN){
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Salir")
+                .setMessage("¿Desea salir de MikroISP ?")
+                .setPositiveButton(R.string.accept,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        val intent= Intent(Intent.ACTION_MAIN)
+                        intent.addCategory(Intent.CATEGORY_HOME)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    })
+                .setNegativeButton(R.string.cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.dismiss()
+                    })
+            builder.show()
+
+            return true
+
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }

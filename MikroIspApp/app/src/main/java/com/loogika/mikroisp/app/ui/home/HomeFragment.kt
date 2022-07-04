@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loogika.mikroisp.app.client.ApiService.clientApi
-import com.loogika.mikroisp.app.client.ClientFragment
 import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.databinding.FragmentHomeBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
-import com.loogika.mikroisp.app.payment.ShowServiceActivity
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.loogika.mikroisp.app.payment.entity.Service
 import okhttp3.OkHttpClient
@@ -33,7 +30,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class HomeFragment : Fragment(),  ClientAdapter.CellClickListener , SearchView.OnQueryTextListener {
+class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentHomeBinding
     private var clients: List<Client> = mutableListOf()
@@ -68,9 +65,9 @@ class HomeFragment : Fragment(),  ClientAdapter.CellClickListener , SearchView.O
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
         //obtenerDatos(context)
         if(select == 1){
-            clientAdapter = ClientAdapter(context, clientsActivos, this@HomeFragment)
+            clientAdapter = ClientAdapter(context, clientsActivos)
         }else{
-            clientAdapter = ClientAdapter(context, clientsSuspendidos, this@HomeFragment)
+            clientAdapter = ClientAdapter(context, clientsSuspendidos)
         }
 
         binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
@@ -132,33 +129,6 @@ class HomeFragment : Fragment(),  ClientAdapter.CellClickListener , SearchView.O
             .addConverterFactory(GsonConverterFactory.create())
             .client(getInterceptor())
             .build()
-    }
-
-
-    override fun onCellClickListener(
-        id:Int,
-        type:Int,
-        dni: String,
-        userFirstName: String,
-        userLastName: String,
-        address: String,
-        telephone:String,
-        service: Service,
-        plan: Plan,
-        city:String
-    ) {
-        var intent = Intent(this.context, ShowClientActivity::class.java)
-        intent.putExtra("id",id)
-        intent.putExtra("type",type)
-        intent.putExtra("dni" ,dni )
-        intent.putExtra("userFirstName" ,userFirstName )
-        intent.putExtra("userLastName" ,userLastName )
-        intent.putExtra("address" ,address)
-        intent.putExtra("telephone" ,telephone)
-        intent.putExtra("service", service)
-        intent.putExtra("plan", plan)
-        intent.putExtra("city" ,city)
-        startActivity(intent)
     }
 
     private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil

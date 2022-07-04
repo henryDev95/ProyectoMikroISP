@@ -28,15 +28,17 @@
 
         <LinearLayout
             android:layout_width="283dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="match_parent"
+            android:padding="6dp"
             android:orientation="vertical"
-            android:padding="12dp">
+            >
 
             <TextView
                 android:id="@+id/userFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:paddingStart="20dp"
                 android:text="Nombres y apellidos completos "
                 android:textColor="@color/Black"
                 android:textStyle="bold" />
@@ -46,6 +48,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cedula"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="12dp"
+                android:paddingStart="20dp"
                 android:textStyle="bold" />
 
         </LinearLayout>

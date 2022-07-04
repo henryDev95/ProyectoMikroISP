@@ -17,6 +17,7 @@ import com.loogika.mikroisp.app.databinding.ActivityEditClientBinding
 import com.loogika.mikroisp.app.databinding.ActivityShowDeviceBinding
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.databinding.ItemDeviceBinding
+import com.loogika.mikroisp.app.device.EditDeviceActivity
 import com.loogika.mikroisp.app.device.entity.Brand
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.StatusDevice
@@ -24,7 +25,7 @@ import com.loogika.mikroisp.app.device.entity.StatusDevice
 class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsClick: CellClickListener):RecyclerView.Adapter<DeviceAdapter.DeviceHolder>(), Filterable {
 
     var filteredDeviceList:List<Device> = mutableListOf()
-    lateinit var bindingShow:ActivityShowDeviceBinding
+
     init {
         this.filteredDeviceList = devices
     }
@@ -92,10 +93,13 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
                      }
 
                      R.id.edit->{
+
+                         val intent = Intent(con,EditDeviceActivity::class.java)
+                         intent.putExtra("device",device)
+                         con.startActivity(intent)
                          true
                      }
                      else ->true
-
                  }
              }
             popup.show()

@@ -10,32 +10,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.databinding.ItemServiceClientBinding
+import com.loogika.mikroisp.app.payment.entity.Payment
 import com.loogika.mikroisp.app.payment.entity.Plan
 
 
-class PaymentAdapter(val clientsService: List<Client>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>(),Filterable {
+class PaymentAdapter(val clientsService: List<Payment>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>(),Filterable {
 
-    var filteredClientList:List<Client> = mutableListOf()
+    var filteredClientList:List<Payment> = mutableListOf()
 
     init {
         this.filteredClientList = clientsService
     }
 
     interface CellClickListener {
-        fun onCellClickListener(id:Int,type:Int,dni:String, userFirstName:String , userLastName : String, address:String, telephone:String, plan:Plan)
+        fun onCellClickListener(idInvoice:Int,numberInvoice:String,total:Float, id:Int,type:Int,dni:String, userFirstName:String , userLastName : String, address:String, telephone:String, plan:Plan)
 
     }
 
     // Clase para refeenciar el diseño del item
     class ClientHolder(val binding:ItemServiceClientBinding , var itemsClick: CellClickListener) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
         private var name: TextView = binding.name
-        private var dni: TextView = binding.dni
-
-        fun bind(client : Client) {
-            name.text = "${client.userFirstName} ${client.userLastName}"
-            dni.text = client.dni
+        fun bind(payment:Payment) {
+            name.text = "${payment.client.userFirstName} ${payment.client.userLastName}"
             binding.cobrar.setOnClickListener {
-                itemsClick.onCellClickListener( client.id,client.type,client.dni,client.userFirstName.toString(),client.userLastName.toString(),client.address.toString(),client.phone1.toString() , client.services[0].plan)
+                itemsClick.onCellClickListener( payment.id,payment.number.toString(), payment.total,payment.client.id,payment.client.type,payment.client.dni,payment.client.userFirstName.toString(),payment.client.userLastName.toString(),payment.client.address.toString(),payment.client.phone1.toString() , payment.client.services[0].plan)
             }
         }
     }
@@ -65,10 +63,10 @@ class PaymentAdapter(val clientsService: List<Client>, val itemsClick: CellClick
                 if (charSearch.isEmpty()) {
                     filteredClientList = clientsService
                 } else {
-                    val resultList = ArrayList<Client>()
+                    val resultList = ArrayList<Payment>()
                     clientsService.forEach { row->
-                        Log.d("encontrado",row.userFirstName?.toLowerCase().toString())
-                        if (row.userFirstName?.toLowerCase().toString().contains(charSearch.lowercase())) {
+
+                        if (row.client.userFirstName?.toLowerCase().toString().contains(charSearch.lowercase())) {
                             resultList.add(row)
 
                         }
@@ -81,7 +79,7 @@ class PaymentAdapter(val clientsService: List<Client>, val itemsClick: CellClick
             }
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredClientList = results?.values as ArrayList<Client>
+                filteredClientList = results?.values as ArrayList<Payment>
                 notifyDataSetChanged()
             }
         }

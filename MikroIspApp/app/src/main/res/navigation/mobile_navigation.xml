@@ -5,33 +5,35 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.loogika.mikroisp.app.ui.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_client"
-        android:name="com.loogika.mikroisp.app.client.ClientFragment"
+        android:name="com.loogika.mikroisp.app.client.ClientActivity"
         android:label="@string/client"
-        tools:layout="@layout/fragment_client" />
+        tools:layout="@layout/activity_client" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_equipment"
-        android:name="com.loogika.mikroisp.app.device.DeviceFragment"
+        android:name="com.loogika.mikroisp.app.device.DeviceActivity"
         android:label="@string/equipment"
-        tools:layout="@layout/fragment_device" />
+        tools:layout="@layout/activity_device" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_payment"
-        android:name="com.loogika.mikroisp.app.payment.PaymentFragment"
+        android:name="com.loogika.mikroisp.app.payment.PaymentActivity"
         android:label="@string/payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/activity_payment" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_reports"
-        android:name="com.loogika.mikroisp.app.client.ClientFragment"
+        android:name="com.loogika.mikroisp.app.report.ReportActivity"
         android:label="listado"
-        tools:layout="@layout/fragment_listclient" />
+        tools:layout="@layout/activity_report" />
+
 </navigation>

@@ -286,7 +286,7 @@
                     android:background="@drawable/shape_brakground"
                     android:backgroundTint="@color/colorFondo"
                     android:drawableLeft="@drawable/ic_add"
-                    android:padding="10dp"
+                    android:padding="8dp"
                     android:text="Guardar"
                     android:textColor="@color/colorText"
                     android:textSize="15sp" />

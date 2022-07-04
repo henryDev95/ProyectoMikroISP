@@ -45,11 +45,9 @@ class FacturaActivity : AppCompatActivity() {
         userLastName = intent.getStringExtra("userLastName").toString()
         binding.pdfView.fromFile(getFilePath(userLastName)).load()
 
-        binding.cobrar.setOnClickListener{
-            sucessResuul()
-        }
+
         binding.cancelar.setOnClickListener {
-            val intent = Intent(this,DashboardActivity::class.java)
+            val intent = Intent(this,PaymentActivity::class.java)
             startActivity(intent)
         }
 

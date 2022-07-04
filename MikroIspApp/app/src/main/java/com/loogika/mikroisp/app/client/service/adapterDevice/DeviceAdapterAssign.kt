@@ -33,7 +33,7 @@ class DeviceAdapterAssign(val context:Context, val devices: List<Device>, val it
     }
 
     interface CellClickListener {
-        fun onCellClickListener(id:Int , cont:Int)
+        fun onCellClickListener(id:Int)
     }
 
     class DeviceHolder(val binding:ItemDeviceAssignBinding , var itemsClick: CellClickListener , val con:Context) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
@@ -45,7 +45,8 @@ class DeviceAdapterAssign(val context:Context, val devices: List<Device>, val it
             state.text = device.brand.name
 
             binding.itemsDevice.setOnClickListener {
-                itemsClick.onCellClickListener(device.id, 1)
+                itemsClick.onCellClickListener(device.id)
+                binding.textAceptado.isVisible = true
 
             }
         }
@@ -86,8 +87,6 @@ class DeviceAdapterAssign(val context:Context, val devices: List<Device>, val it
     override fun onBindViewHolder(holder: DeviceHolder, position: Int) { // devuelve los items
         var items = filteredDeviceList[position]
         holder.bind(items)
-        holder.itemView.setBackgroundColor(Color.BLUE)
-
     }
 
     override fun getFilter(): Filter { // metodo para filtar la busqueda un valor

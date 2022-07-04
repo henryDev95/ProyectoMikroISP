@@ -148,16 +148,8 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
             binding.firstName.editText?.text.toString(),
             binding.lastName.editText?.text.toString(),
             binding.address.editText?.text.toString(),
-            "Pujíli",
-            "EC",
-            1,
             binding.telephone.editText?.text.toString(),
             binding.email.editText?.text.toString(),
-            0,
-            true,
-            true,
-            false,
-            true,
             binding.descripcion.editText?.text.toString()
         )
     }
@@ -166,7 +158,7 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
     fun cancelarResultado() {
         val toast = FancyToast.makeText(
             this,
-            "No se realizo el registro del cliente!",
+            "No se edito los datos del cliente!",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false

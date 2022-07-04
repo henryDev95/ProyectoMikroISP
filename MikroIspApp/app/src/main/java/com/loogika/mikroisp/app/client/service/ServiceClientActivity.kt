@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -17,12 +19,28 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.loogika.mikroisp.app.R
+import com.loogika.mikroisp.app.client.ApiService.clientApi
+import com.loogika.mikroisp.app.client.DetailClientActivity
+import com.loogika.mikroisp.app.client.entity.ClientPost
+import com.loogika.mikroisp.app.client.entity.ServicePost
 import com.loogika.mikroisp.app.databinding.ActivityServiceClientBinding
+import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
+import com.shashank.sony.fancytoastlib.FancyToast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.jar.Manifest
 
 class ServiceClientActivity : AppCompatActivity(), OnMapReadyCallback , GoogleMap.OnMyLocationClickListener{
     lateinit var binding: ActivityServiceClientBinding
     lateinit var map: GoogleMap
+    var planType:Int = 0
+    var idClient:Int=0
+    var id:Int = 1
+    var mostrar:String = "no"
 
     companion object{
         const val REQUEST_CODE_LOCATION=200
@@ -31,14 +49,50 @@ class ServiceClientActivity : AppCompatActivity(), OnMapReadyCallback , GoogleMa
         super.onCreate(savedInstanceState)
         binding = ActivityServiceClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        obtenerIdClient()
         ObtenerDatosSpinnerPlan()
         createFragment()
+
+        if(mostrar == "mostrar"){
+            showToolbar()
+        }
         binding.save.setOnClickListener {
-            val intent =Intent(this, AssignedDeviceActivity::class.java)
-            startActivity(intent)
+            try{
+                val service = crearObjetoService()
+                guarDatosService(service)
+                successResultado()
+            }catch (e: ArithmeticException){
+                cancelarResultado()
+            }
+
         }
 
     }
+
+    fun showToolbar(){
+        setSupportActionBar(binding.toolbarb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    fun obtenerIdClient(){
+        mostrar = intent.getStringExtra("mostrar")!!
+        idClient = intent.getIntExtra("id",0)
+    }
+
+    private fun crearObjetoService(): ServicePost {
+        return ServicePost(
+            planType,
+            1,
+            idClient,
+            1,
+            binding.description.editText?.text.toString(),
+            binding.address.editText?.text.toString(),
+            binding.latitud.editText?.text.toString().toFloat(),
+            binding.longuitud.editText?.text.toString().toFloat()
+        )
+    }
+
+
 
     fun createFragment() {
         val mapFragment =
@@ -121,10 +175,90 @@ class ServiceClientActivity : AppCompatActivity(), OnMapReadyCallback , GoogleMa
         val adapter = ArrayAdapter(this, R.layout.items_spinner,plan)
         binding.autoCompletePlan.setAdapter(adapter)
         binding.autoCompletePlan.setOnItemClickListener{ AdapterView, view, i,l->
-            val typeDevice = AdapterView.getItemAtPosition(i).toString()
+            val typePlan = AdapterView.getItemAtPosition(i).toString()
+            when(typePlan){
+                "Plan 1 - 5 Megas"->{ planType = 1
+                    true
+                }
+                "Plan 2 - 8 Megas"->{ planType = 2
+                    true
+                }
+                "Plan 3 - 11 Megas"->{  planType = 3
+                    true
+                }
 
+                else->{  planType = -1
+                }
+            }
         }
     }
+
+    private fun guarDatosService(service: ServicePost) { // funcion para obtener los datos del api
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(clientApi::class.java).createServiceClient(service)
+                .execute()
+            val puppies = call.body()
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    var serviceResponse = puppies!!.service
+                    id = serviceResponse.id
+                    enviarDatos(id)
+                    Log.d("id", serviceResponse.id.toString())
+                } else {
+                    Log.d("error cancelado", "solicitud fue abortada")
+                }
+
+            }
+        }
+    }
+
+    fun enviarDatos(idService:Int){
+        val intent = Intent(this, AssignedDeviceActivity::class.java)
+        intent.putExtra("id",idService)
+        Toast.makeText(this, "id--->"+idService.toString(), Toast.LENGTH_SHORT).show()
+        startActivity(intent)
+    }
+
+
+    private fun getRetrofit(): Retrofit { // funcion de retrofil
+        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/service/"
+        return Retrofit.Builder()
+            .baseUrl(urlBase)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getInterceptor())
+            .build()
+    }
+
+    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
+        return OkHttpClient.Builder()
+            .addInterceptor(HeaderInterceptor())
+            .build()
+    }
+
+    fun cancelarResultado() {
+        val toast = FancyToast.makeText(
+            this,
+            "No se realizo el registro del servicio!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+    fun successResultado() {
+        val toast = FancyToast.makeText(
+            this,
+            "Se registro el servicio correctamente!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.SUCCESS,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
 
 
 }

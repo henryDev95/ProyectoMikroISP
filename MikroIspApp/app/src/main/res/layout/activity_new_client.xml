@@ -15,21 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorFondo"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:theme="@style/MyThemeOverlay_Toolbar"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/titleSub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
+                android:paddingStart="70dp"
                 android:text="@string/newClient"
                 android:textColor="@color/colorText"
-                android:textSize="25sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -253,29 +252,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="15dp">
-
                 <Button
                     android:id="@+id/save"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_gravity="center"
                     android:background="@drawable/shape_brakground"
                     android:backgroundTint="@color/colorFondo"
-                    android:drawableLeft="@drawable/ic_add"
+                    android:drawableLeft="@drawable/ico_save_content"
                     android:padding="5dp"
                     android:text="Guardar"
-                    android:textColor="@color/colorText"
-                    android:textSize="15sp" />
-
-                <Button
-                    android:id="@+id/buttCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="67dp"
-                    android:layout_marginLeft="20dp"
-                    android:backgroundTint="@color/colorCancel"
-                    android:drawableLeft="@drawable/ico_cancel"
-                    android:padding="15dp"
-                    android:text="Cancelar"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:textColor="@color/colorText"
                     android:textSize="15sp" />
 

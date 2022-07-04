@@ -13,12 +13,13 @@ import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.EditClientActivity
 import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.client.service.ServiceClientActivity
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.loogika.mikroisp.app.payment.entity.Service
 
-class ClientAdapter(val context:Context, val clients: List<Client> , val itemsClick: CellClickListener):RecyclerView.Adapter<ClientAdapter.ClientHolder>(), Filterable {
+class ClientAdapter(val context:Context, val clients: List<Client>):RecyclerView.Adapter<ClientAdapter.ClientHolder>(), Filterable {
 
     var filteredClientList:List<Client> = mutableListOf()
 
@@ -26,18 +27,20 @@ class ClientAdapter(val context:Context, val clients: List<Client> , val itemsCl
         this.filteredClientList = clients
     }
 
-
+/*
     interface CellClickListener {
         fun onCellClickListener( id: Int, type:Int,dni:String, userFirstName:String , userLastName : String, address:String,telephone:String, service:Service, plan: Plan, city:String)
 
     }
+
+ */
     // Clase para refeenciar el diseño del item
-    class ClientHolder(val binding:ItemClientBinding , var itemsClick: CellClickListener ,val context: Context) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
+    class ClientHolder(val binding:ItemClientBinding , val context: Context) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
         private var name: TextView = binding.userFirstName
         private var dni: TextView = binding.dni
 
         fun bind(client : Client) {
-            name.text = "${client.userFirstName}  ${client.userLastName}"
+            name.text = "${client.userFirstName} ${client.userLastName}"
             dni.text = client.dni
            /*
             binding.itemsClient.setOnClickListener {
@@ -69,6 +72,14 @@ class ClientAdapter(val context:Context, val clients: List<Client> , val itemsCl
                         context.startActivity(intent)
                           true
                     }
+
+                    R.id.newService->{
+                        val intent = Intent(context, ServiceClientActivity::class.java)
+                        intent.putExtra("id",client.id)
+                        intent.putExtra("mostrar", "mostrar")
+                        context.startActivity(intent)
+                        true
+                    }
                     else ->true
 
                 }
@@ -92,7 +103,7 @@ class ClientAdapter(val context:Context, val clients: List<Client> , val itemsCl
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientHolder {
 
         val binding_Items_client = ItemClientBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return ClientHolder(binding_Items_client ,itemsClick,context)
+        return ClientHolder(binding_Items_client ,context)
     }
 
     // Returns size of data list

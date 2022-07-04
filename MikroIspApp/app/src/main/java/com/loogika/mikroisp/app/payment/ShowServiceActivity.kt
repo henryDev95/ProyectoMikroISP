@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
@@ -21,10 +22,21 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.loogika.mikroisp.app.R
+import com.loogika.mikroisp.app.client.ApiService.clientApi
+import com.loogika.mikroisp.app.client.entity.ClientPost
 import com.loogika.mikroisp.app.databinding.ActivityShowServiceBinding
+import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
+import com.loogika.mikroisp.app.payment.apiService.PaymentApi
+import com.loogika.mikroisp.app.payment.entity.PaymentPost
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.shashank.sony.fancytoastlib.FancyToast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import org.w3c.dom.Document
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -33,13 +45,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ShowServiceActivity : AppCompatActivity() {
-
     lateinit var binding: ActivityShowServiceBinding
     lateinit var bitmap: Bitmap
     lateinit var scaleBitmap: Bitmap
     lateinit var date: Date
     lateinit var formateDate: DateFormat
     lateinit var FormatTime: DateFormat
+    var IdInvoice:Int = 0
+    var numberInvoice:String=""
+    var value:Float= 0f
     var dni:String = ""
     var userFirstName:String = ""
     var userLastName: String = ""
@@ -50,9 +64,8 @@ class ShowServiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityShowServiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        showToolbar()
         showDateClient()
-
         binding.cobrarButton.setOnClickListener {
             mostrarDialog(it.context)
         }
@@ -63,14 +76,28 @@ class ShowServiceActivity : AppCompatActivity() {
         }
 
         binding.pdfInvoice.setOnClickListener(View.OnClickListener {
-           val intent = Intent(this, FacturaActivity::class.java)
+            createPDf()
+            val intent = Intent(this, FacturaActivity::class.java)
             intent.putExtra("userLastName",userLastName)
             startActivity(intent)
         })
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    fun showToolbar(){
+        setSupportActionBar(binding.toolbarb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
 
     fun showDateClient(){
+        IdInvoice = intent.getIntExtra("idInvoice", 0)
+        numberInvoice = intent.getStringExtra("numberInvoice").toString()
+        value = intent.getFloatExtra("total",0f)
         dni = intent.getStringExtra("dni").toString()
         userFirstName = intent.getStringExtra("userFirstName").toString()
         userLastName = intent.getStringExtra("userLastName").toString()
@@ -95,11 +122,17 @@ class ShowServiceActivity : AppCompatActivity() {
 
     private fun mostrarDialog(contex: Context) {
         val builder = AlertDialog.Builder(contex)
-        builder.setTitle("Generar Factura")
-            .setMessage("Desea generar la factura?")
+        builder.setTitle("Cobrar")
+            .setMessage("Desea cobrar el servicio de internet?")
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
-                    createPDf()
+                    val payment = createObjectPayment()
+                    try{
+                        guarDatos(payment)
+                        successResultado()
+                    }catch (e: ArithmeticException){
+                        Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+                    }
                     binding.pdfInvoice.isVisible = true
                 })
             .setNegativeButton(R.string.cancel,
@@ -113,7 +146,7 @@ class ShowServiceActivity : AppCompatActivity() {
     fun cancelarResultado() {
         val toast = FancyToast.makeText(
             this,
-            "No se genero la factura!",
+            "No se realizo el cobro!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
@@ -169,22 +202,22 @@ class ShowServiceActivity : AppCompatActivity() {
         paint.textAlign= Paint.Align.LEFT
         paint.textSize = 35f
         paint.color = Color.BLACK
-        canvas.drawText("Cédula :" + dni,20f, 450f, paint)
-        canvas.drawText("Nombres :" + userFirstName,20f, 500f, paint)
-        canvas.drawText("Apellidos :" + userLastName,20f, 550f, paint)
-        canvas.drawText("Direccion:" + address,20f, 600f, paint)
-        canvas.drawText("Ciudad:" + "Pujili,Ecuador",20f, 650f, paint)
-        canvas.drawText("Teléfono:" + telephone ,20f, 700f, paint)
+        canvas.drawText("Cédula :" + dni,30f, 450f, paint)
+        canvas.drawText("Nombres :" + userFirstName,30f, 500f, paint)
+        canvas.drawText("Apellidos :" + userLastName,30f, 550f, paint)
+        canvas.drawText("Direccion:" + address,30f, 600f, paint)
+        canvas.drawText("Ciudad:" + "Pujili,Ecuador",30f, 650f, paint)
+        canvas.drawText("Teléfono:" + telephone ,30f, 700f, paint)
 
         // para el numero de factura
         date = Date()
         formateDate = SimpleDateFormat("dd/mm/yy")
         FormatTime = SimpleDateFormat("HH:mm:ss")
         paint.textAlign = Paint.Align.RIGHT
-        canvas.drawText("Número Factura:" + "2332234", 1200f - 20f,  450f, paint)
-        canvas.drawText("Fecha:" + formateDate.format(date), 1200f - 20f, 500f, paint)
-        canvas.drawText("Hora:" + FormatTime.format(date), 1200f - 20f, 550f, paint)
-        canvas.drawText("Estado:" + "Pagado", 1200f - 20f, 600f, paint)
+        canvas.drawText("Número Factura:" +numberInvoice, 1200f - 30f,  450f, paint)
+        canvas.drawText("Fecha:" + formateDate.format(date), 1200f - 30f, 500f, paint)
+        canvas.drawText("Hora:" + FormatTime.format(date), 1200f - 30f, 550f, paint)
+        canvas.drawText("Estado:" + "Pagado", 1200f - 30f, 600f, paint)
 
         // para poner el cuadro
         paint.style = Paint.Style.STROKE
@@ -286,10 +319,52 @@ class ShowServiceActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun guarDatos(paymentPost: PaymentPost) { // funcion para obtener los datos del api
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = getRetrofit().create(PaymentApi::class.java).createPayment(paymentPost)
+                .execute()
+            val puppies = call.body()
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    var paymentResponse = puppies!!.client
+                    Log.d("id", paymentResponse.id.toString())
+                } else {
+                    Log.d("error cancelado", "solicitud fue abortada")
+                }
+            }
+        }
+
+    }
+
+    private fun getRetrofit(): Retrofit { // funcion de retrofil
+        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/payment/"
+        return Retrofit.Builder()
+            .baseUrl(urlBase)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getInterceptor())
+            .build()
+    }
+
+    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
+        return OkHttpClient.Builder()
+            .addInterceptor(HeaderInterceptor())
+            .build()
+    }
+
+    fun createObjectPayment():PaymentPost{
+        return PaymentPost(
+            IdInvoice,
+            value,
+            null
+        )
+    }
+
     fun sucessResuulPdf(){
         FancyToast.makeText(
             this,
-            "Se a creado el pdf correctamente!",
+            "Se genero el pdf correctamente!",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false

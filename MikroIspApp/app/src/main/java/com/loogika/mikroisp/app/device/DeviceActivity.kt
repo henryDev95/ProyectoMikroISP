@@ -1,25 +1,23 @@
 package com.loogika.mikroisp.app.device
 
-
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loogika.mikroisp.app.R
-import com.loogika.mikroisp.app.databinding.FragmentDeviceBinding
+import com.loogika.mikroisp.app.databinding.ActivityDeviceBinding
 import com.loogika.mikroisp.app.device.adapter.DeviceAdapter
 import com.loogika.mikroisp.app.device.apiService.deviceApi
+import androidx.core.view.isVisible
 import com.loogika.mikroisp.app.device.entity.Brand
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.DeviceResponse
@@ -29,35 +27,32 @@ import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView.OnQueryTextListener  {
-    lateinit var  binding:FragmentDeviceBinding
+class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, SearchView.OnQueryTextListener {
+    lateinit var binding:ActivityDeviceBinding
     private var deviceList:List<Device>  = mutableListOf()
     private lateinit var deviceAdapter: DeviceAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityDeviceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        showToolbar()
+        showContent(this)
+        binding.btNewDevice.setOnClickListener {
+            var intent = Intent(this, NewDeviceActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
-     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-       binding = FragmentDeviceBinding.inflate(inflater, container, false)
-       val root: View = binding.root
-
-         showContent(root.context)
-
-         binding.btNewDevice.setOnClickListener {
-             var intent = Intent(this.context, NewDeviceActivity::class.java)
-             startActivity(intent)
-         }
-         return root
+    fun showToolbar(){
+        setSupportActionBar(binding.toolbarb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun showContent( context: Context){
-        binding.deviceList.layoutManager = LinearLayoutManager(this.context)
+        binding.deviceList.layoutManager = LinearLayoutManager(this)
         obtenerDatos(context)
         binding.searchView.setOnQueryTextListener(this)
         Handler(Looper.getMainLooper()).postDelayed({
@@ -65,8 +60,6 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
             binding.deviceList.isVisible = true
         }, 2000)
     }
-
-
 
     private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
         val call = getRetrofit().create(deviceApi::class.java)
@@ -77,7 +70,7 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
             ) {
                 if(response.body()!= null){
                     deviceList = response.body()!!.devices // obtener el resultado
-                    deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceFragment)
+                    deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceActivity)
                     binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
                 }else{
                     ImprimirRespuesta()
@@ -90,8 +83,10 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
         })
     }
 
+
+
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
+        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
@@ -107,11 +102,11 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
 
 
     private fun ImprimirRespuesta() {
-        Toast.makeText(this.context, "No hay datos del cliente con ese nombre ", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "No hay datos del equipo", Toast.LENGTH_SHORT).show()
     }
 
     private fun error() { // metodo para informar el error
-        Toast.makeText(this.context, "No se realizo la llamada", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "No se realizo la llamada", Toast.LENGTH_SHORT).show()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -120,17 +115,23 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
 
     override fun onQueryTextChange(newText: String?): Boolean {
         deviceAdapter.filter.filter(newText)
+
+        if(newText!!.isEmpty()){
+            binding.btNewDevice.isVisible = true
+        }else{
+            binding.btNewDevice.isVisible = false
+        }
+
         return true
     }
 
     fun mostrarInformacion(){
-        val infter = LayoutInflater.from(this.context) // permite darla unicacion de poder habri
+        val infter = LayoutInflater.from(this) // permite darla unicacion de poder habri
         val viewEdit = infter.inflate(R.layout.edit_device,null)
-        val addDialog = AlertDialog.Builder(this.context)
+        val addDialog = AlertDialog.Builder(this)
         addDialog.setView(viewEdit)
             .create()
             .show()
-
     }
 
     override fun onCellClickListener(
@@ -159,5 +160,3 @@ class DeviceFragment : Fragment() ,  DeviceAdapter.CellClickListener, SearchView
         */
     }
 }
-
-

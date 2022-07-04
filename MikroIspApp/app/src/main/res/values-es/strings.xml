@@ -15,7 +15,7 @@
     <string name="email">Correo Electrónico</string>
     <string name="personalInformation">Datos personales</string>
     <string name="contactDetails">Detalle del contacto</string>
-    <string name="newClient">Nuevo Cliente</string>
+    <string name="newClient">NUEVO CLIENTE</string>
     <string name="contactAddress">Dirección de contacto</string>
     <string name="direction">Dirección</string>
     <string name="town">Ciudad</string>
@@ -49,8 +49,8 @@
     <string name="close">Cerrar</string>
     <string name="clientInformation">Información del cliente</string>
     <string name="clientStatus">Estado</string>
-    <string name="editClient">Editar Cliente</string>
-    <string name="newEquipment">Nuevo Equipo</string>
+    <string name="editClient">EDITAR CLIENTE</string>
+    <string name="newEquipment">NUEVO EQUIPO</string>
     <string name="versionDevice">Versión</string>
     <string name="provider">Proveedor</string>
 

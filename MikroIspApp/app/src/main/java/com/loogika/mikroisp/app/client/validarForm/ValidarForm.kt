@@ -2,7 +2,6 @@ package com.loogika.mikroisp.app.client.validarForm
 
 import android.util.Log
 import com.loogika.mikroisp.app.databinding.ActivityNewClientBinding
-import com.loogika.mikroisp.app.databinding.FragmentClientBinding
 
 class ValidarForm(
       dni: String,

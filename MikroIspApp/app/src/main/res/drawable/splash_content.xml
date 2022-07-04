@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list android:opacity="opaque"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/colorFondo"/>
+    <item android:drawable="@color/colorText"/>
     <item
         android:left="10dp"
         android:right="10dp"
         android:top="260dp"
         android:bottom="260dp"
         android:gravity="center">
-        <bitmap android:src="@drawable/internet"/>
-
+        <bitmap android:src="@drawable/icono_principal_app"/>
+    </item>
+    <item
+        android:left="10dp"
+        android:right="10dp"
+        android:top="580dp"
+        android:bottom="0dp"
+        android:gravity="center">
+        <bitmap android:src="@drawable/ico_letra"/>
     </item>
 
 

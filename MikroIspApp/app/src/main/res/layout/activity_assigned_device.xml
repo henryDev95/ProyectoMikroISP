@@ -51,7 +51,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ico_latitud_24"
+            app:startIconDrawable="@drawable/ic_user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/typeclient">
@@ -60,7 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/Black"
-                android:enabled="false"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +78,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ico_latitud_24"
+            app:startIconDrawable="@drawable/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email">
@@ -116,7 +115,7 @@
                android:layout_marginStart="50dp"
                android:layout_marginTop="10dp"
                android:enabled="false"
-               android:backgroundTint="@color/colorFondo"
+               android:backgroundTint="@color/colorDesactivado"
                android:textSize="16sp"
                app:iconTint ="@color/colorText"
                app:icon="@drawable/ico_add_circle_24"/>
