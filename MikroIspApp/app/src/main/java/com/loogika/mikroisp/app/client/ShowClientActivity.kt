@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.client.service.ListServiceActivity
 import com.loogika.mikroisp.app.client.service.ServiceShowActivity
 
 
@@ -72,7 +73,7 @@ class ShowClientActivity :AppCompatActivity(){
     }
 
     fun enviarDatos(){
-        val intent = Intent(this, ServiceShowActivity::class.java)
+        val intent = Intent(this, ListServiceActivity ::class.java)
         intent.putExtra("client", client)
         startActivity(intent)
     }

@@ -62,6 +62,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun mostrarShimmer(context:Context , select:Int){
         binding.items.isVisible = true
+        binding.logoClient.isVisible=false
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
         //obtenerDatos(context)
         if(select == 1){
@@ -77,7 +78,6 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
             binding.clientsList.isVisible = true
         }, 2800)
     }
-
 
     private fun obtenerDatos() { // funcion para obtener los datos del api
         val call = getRetrofit().create(clientApi::class.java)

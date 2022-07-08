@@ -101,7 +101,7 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
         // 34.238.198.216 ---> direccion ip del servidor
-        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.0.102/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

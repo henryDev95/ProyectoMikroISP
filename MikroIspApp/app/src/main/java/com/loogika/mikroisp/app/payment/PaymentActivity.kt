@@ -79,7 +79,7 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.CellClickListener,
     }
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/invoice/"
+        var urlBase = "http://192.168.0.102/proyectos-web/adminwisp/web/app_dev.php/api/v1/invoice/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

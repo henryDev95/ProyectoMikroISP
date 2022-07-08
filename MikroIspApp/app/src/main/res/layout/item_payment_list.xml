@@ -17,54 +17,40 @@
         android:animateLayoutChanges="true"
         android:background="@color/colorText"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="2dp">
 
         <ImageView
             android:id="@+id/imagen_list"
             android:layout_width="wrap_content"
-            android:padding="10dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ico_service_internet" />
+            android:src="@drawable/ico_payment_list" />
 
         <LinearLayout
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombres del servicio "
+                android:paddingTop="5dp"
+                android:text="Nombres del cliente "
                 android:textColor="@color/Black"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/stateDevice"
+                android:id="@+id/dni"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estado"
+                android:text="Cédula"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="12dp">
-            <TextView
-                android:id="@+id/numero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                />
-        </LinearLayout>
-
-
 
     </LinearLayout>
 

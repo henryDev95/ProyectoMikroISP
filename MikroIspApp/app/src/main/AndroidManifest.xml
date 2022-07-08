@@ -20,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".report.ShowReportActivity"
+            android:exported="false"
+            android:label=""
+            android:parentActivityName=".report.ReportActivity"/>
+        <activity
             android:name=".client.service.ListServiceActivity"
             android:exported="false" />
         <activity
@@ -33,7 +38,7 @@
         <activity
             android:name=".report.ReportActivity"
             android:exported="false"
-            android:parentActivityName=".DashboardActivity" />
+            />
         <activity
             android:name=".device.DeviceActivity"
             android:exported="false"
@@ -82,7 +87,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/buttonSelector"/>
         <activity android:name=".DashboardActivity" />
         <activity
             android:name=".client.NewClientActivity"

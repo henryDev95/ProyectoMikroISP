@@ -59,11 +59,12 @@
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_new_service.xml" value="0.33" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_payment.xml" value="0.25" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_prueba.xml" value="0.19947916666666668" />
-        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_report.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_report.xml" value="0.25" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_service_client.xml" value="0.22" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_service_show.xml" value="0.25" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_client.xml" value="0.25" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_device.xml" value="0.25" />
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_report.xml" value="0.2" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_service.xml" value="0.33" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_show_service2.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/activity_toast.xml" value="0.25" />
@@ -80,8 +81,9 @@
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_client_shimmer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_device.xml" value="0.33" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_device_assign.xml" value="0.25" />
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_payment_list.xml" value="0.33" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_service_client.xml" value="0.25" />
-        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_service_list.xml" value="0.2" />
+        <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/item_service_list.xml" value="0.25" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/items_spinner.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/layaut_toast.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hendrix/Documents/ProyectoMikroISP/MikroIspApp/app/src/main/res/layout/nav_header_dashboard.xml" value="0.20416666666666666" />
