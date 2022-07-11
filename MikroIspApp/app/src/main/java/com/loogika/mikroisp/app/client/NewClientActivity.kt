@@ -12,10 +12,12 @@ import android.widget.Toast
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.loogika.mikroisp.app.R
+import com.loogika.mikroisp.app.client.ApiService.RetrofitService
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.ClientPost
 import com.loogika.mikroisp.app.client.service.ServiceClientActivity
+import com.loogika.mikroisp.app.client.toast.ImprimirResultado
 import com.loogika.mikroisp.app.client.validarForm.ValidarForm
 import com.loogika.mikroisp.app.databinding.ActivityNewClientBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
@@ -31,8 +33,8 @@ import java.util.logging.ErrorManager
 
 class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private lateinit var binding: ActivityNewClientBinding
-    private var typeClient: Int = 0
-    var id:Int = 1
+    var typeClient: Int = 0
+    var id: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewClientBinding.inflate(layoutInflater)
@@ -40,59 +42,76 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         ObtenerDatosSpinner()
         showToolbar()
         binding.save.setOnClickListener {
-            val cliente = crearObjetoClient()
-            enviarDatos(cliente, id)
+            validarCampo()
+            //val cliente = crearObjetoClient()
+            // enviarDatos(cliente, id)
             /*
             try{
                 guarDatos(cliente)
-                successResultado()
+                ImprimirResultado.successResultado(this)
             }catch (e: ArithmeticException){
-                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+                ImprimirResultado.cancelarResultado(this)
             }
-
-             */
+            */
         }
     }
 
-    fun showToolbar(){
+    fun showToolbar() {
         setSupportActionBar(binding.toolbarb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 
-    fun enviarDatos(cliente:ClientPost, idCli:Int){
+    fun enviarDatos(cliente: ClientPost, idCli: Int) {
         val intent = Intent(this, DetailClientActivity::class.java)
-        intent.putExtra("id",idCli)
-        Toast.makeText(this, "id--->"+idCli.toString(), Toast.LENGTH_SHORT).show()
+        intent.putExtra("id", idCli)
+        Toast.makeText(this, "id--->" + idCli.toString(), Toast.LENGTH_SHORT).show()
         intent.putExtra("type", cliente.type)
-        intent.putExtra("dni" ,cliente.dni )
-        intent.putExtra("userFirstName" ,cliente.user_first_name)
-        intent.putExtra("userLastName" ,cliente.user_last_name)
-        intent.putExtra("address" ,cliente.address)
-        intent.putExtra("telephone" ,cliente.phone1)
-        intent.putExtra("email" ,cliente.email)
+        intent.putExtra("dni", cliente.dni)
+        intent.putExtra("userFirstName", cliente.user_first_name)
+        intent.putExtra("userLastName", cliente.user_last_name)
+        intent.putExtra("address", cliente.address)
+        intent.putExtra("telephone", cliente.phone1)
+        intent.putExtra("email", cliente.email)
         startActivity(intent)
     }
 
     fun validarCampo() {
         var validar = ValidarForm(
-            //binding.dni.text.toString(),
-            "dada",
-            "daadad",
-            "dada",
-            "dada",
-            "dada",
-            "dada",
-            "dadada",
+            binding.dni.editText?.text.toString(),
+            binding.firstName.editText?.text.toString(),
+            binding.lastName.editText?.text.toString(),
+            binding.address.editText?.text.toString(),
+            binding.telephone.editText?.text.toString(),
+            binding.email.editText?.text.toString(),
+            binding.descripcion.editText?.text.toString(),
+            typeClient.toString(),
             binding
         )
-        validar.validarCedula()
 
+        val result = arrayOf(
+            validar.validarCedula(),
+            validar.validarFistName(),
+            validar.validarLastName(),
+            validar.validarDirection(),
+            validar.validarTelephone(),
+            validar.validarEmail(),
+            validar.validarDescription(),
+            validar.validarType()
+        )
+        if (false in result) {
+            return
+        }
     }
 
-    private fun guarDatos(clientePost:ClientPost) { // funcion para obtener los datos del api
+    private fun guarDatos(clientePost: ClientPost) { // funcion para obtener los datos del api
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(clientApi::class.java).createClient(clientePost)
+            val call = RetrofitService.getRetrofit().create(clientApi::class.java)
+                .createClient(clientePost)
                 .execute()
             val puppies = call.body()
             runOnUiThread {
@@ -106,10 +125,7 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 }
             }
         }
-
     }
-
-
 
     private fun crearObjetoClient(): ClientPost {
         return ClientPost(
@@ -124,61 +140,31 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         )
     }
 
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
 
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-    fun ObtenerDatosSpinner(){
+    fun ObtenerDatosSpinner() {
         val tipoCliente = resources.getStringArray(R.array.TypeClient)
-        val adapter = ArrayAdapter(this, R.layout.items_spinner,tipoCliente)
-        with(binding.autoCompleteText){
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, tipoCliente)
+        with(binding.autoCompleteText) {
             setAdapter(adapter)
             onItemClickListener = this@NewClientActivity
         }
     }
 
-    fun cancelarResultado() {
-        val toast = FancyToast.makeText(
-            this,
-            "No se realizo el registro del cliente!",
-            FancyToast.LENGTH_LONG,
-            FancyToast.WARNING,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
-
-    fun successResultado() {
-        val toast = FancyToast.makeText(
-            this,
-            "Se registro el cliente correctamente!",
-            FancyToast.LENGTH_SHORT,
-            FancyToast.SUCCESS,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val type = parent?.getItemAtPosition(position).toString()
-        if (type == "Residencial") {
-            typeClient = 1
-        } else {
-            typeClient = 2
+        when(type){
+            "Residencial" -> {
+                typeClient = 1
+                true
+            }
+            "Empresarial" -> {
+                typeClient = 2
+                true
+            }
+            else->{
+                typeClient = 0
+            }
         }
     }
-
 }

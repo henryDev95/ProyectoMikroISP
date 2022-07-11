@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.loogika.mikroisp.app.client.ApiService.RetrofitService
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.clientResponse
+import com.loogika.mikroisp.app.client.toast.ImprimirResultado
 import com.loogika.mikroisp.app.databinding.ActivityClientBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.entity.Plan
@@ -66,7 +68,7 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun obtenerDatos(context: Context) { // funcion para obtener los datos del api
-        val call = getRetrofit().create(clientApi::class.java)
+        val call = RetrofitService.getRetrofit().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
                 call: Call<clientResponse>,
@@ -85,38 +87,14 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     clientAdapter = ClientAdapter(context,clientsActivos)
                     binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
                 }else{
-                    ImprimirRespuesta()
-                    Log.d("name", "no hay datos")
+                    ImprimirResultado.ImprimirRespuesta(this@ClientActivity)
+
                 }
             }
             override fun onFailure(call: Call<clientResponse>, t: Throwable) {
-                error()
+                ImprimirResultado.error(this@ClientActivity)
             }
         })
-    }
-
-    private fun ImprimirRespuesta() {
-        Toast.makeText(this, "No tiene datos ", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        // 34.238.198.216 ---> direccion ip del servidor
-        var urlBase = "http://192.168.0.102/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-    private fun error() { // metodo para informar el error
-        Toast.makeText(this, "No tiene informaion", Toast.LENGTH_SHORT).show()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

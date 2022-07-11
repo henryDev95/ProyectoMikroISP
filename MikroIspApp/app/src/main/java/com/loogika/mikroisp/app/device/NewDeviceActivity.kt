@@ -1,6 +1,7 @@
 package com.loogika.mikroisp.app.device
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +13,11 @@ import android.widget.Toast
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.entity.ClientPost
 import com.loogika.mikroisp.app.databinding.ActivityNewDeviceBinding
+import com.loogika.mikroisp.app.device.apiService.RetrofilService
 import com.loogika.mikroisp.app.device.apiService.deviceApi
 import com.loogika.mikroisp.app.device.entity.DevicePost
+import com.loogika.mikroisp.app.device.toast.ImprimirResulNewDevice
+import com.loogika.mikroisp.app.device.validation.ValidarCampo
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.coroutines.CoroutineScope
@@ -27,151 +31,202 @@ import java.lang.Exception
 
 class NewDeviceActivity : AppCompatActivity() {
     lateinit var binding: ActivityNewDeviceBinding
-    var type:Int = 0
-    var providerDevice:Int = 0
-    var brandType : Int = 0
+    var type: Int = 0
+    var providerDevice: Int = 0
+    var brandType: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewDeviceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showToolbar()
         ObtenerDatosSpinnerProvider()
         ObtenerDatosSpinnerType()
         ObtenerDatosSpinnerBrand()
 
         binding.save.setOnClickListener {
-            val device = createDevicePost()
-            try{
-                 guarDatos(device)
-            }catch (e:Exception){
-                Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
-            }
+            validationCampos()
         }
         binding.buttCancel.setOnClickListener {
-           finish()
+            ImprimirResulNewDevice.warningNewDevice(this)
+            finish()
+        }
+    }
+
+    fun showToolbar() {
+        setSupportActionBar(binding.toolbarb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+
+    fun validationCampos() {
+        var name = binding.name.editText?.text.toString()
+        var code = binding.code.editText?.text.toString()
+        var model = binding.model.editText?.text.toString()
+        var mac = binding.mac.editText?.text.toString()
+        var version = binding.version.editText?.text.toString()
+        var description = binding.descripcion.editText?.text.toString()
+        val validarCampos = ValidarCampo(
+            name,
+            code,
+            model,
+            mac,
+            version,
+            description,
+            providerDevice.toString(),
+            brandType.toString(),
+            type.toString(),
+            binding
+        )
+        val result = arrayOf(
+            validarCampos.validarName(),
+            validarCampos.validarCode(),
+            validarCampos.validarModel(),
+            validarCampos.validarMac(),
+            validarCampos.validarProvider(),
+            validarCampos.validarVersion(),
+            validarCampos.validarDescription(),
+            validarCampos.validarBrand(),
+            validarCampos.validarType()
+        )
+        if (false in result) {
+            return
+        }
+
+        val device = createDevicePost()
+        try{
+            guarDatos(device)
+            regresarActivityDevice()
+        }catch (e:Exception){
+            Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun guarDatos(devicePost: DevicePost) { // funcion para obtener los datos del api
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(deviceApi::class.java).createDevice(devicePost).execute()
+            val call =
+                RetrofilService.getRetrofit().create(deviceApi::class.java).createDevice(devicePost)
+                    .execute()
             val puppies = call.body()
             runOnUiThread {
                 if (call.isSuccessful) {
-                    if(puppies?.status != "warning"){
-                       successResult()
-                    }else{
-                        warningResult()
+                    if (puppies?.status != "warning") {
+                        ImprimirResulNewDevice.successResult(this@NewDeviceActivity)
+                    } else {
+                        ImprimirResulNewDevice.warningResult(this@NewDeviceActivity)
                     }
                 } else {
-                    Log.d("error cancelado", "No se realizo la llamada")
+                    ImprimirResulNewDevice.errorLlamada(this@NewDeviceActivity)
                 }
             }
         }
     }
 
-    private fun warningResult() {
-        FancyToast.makeText(
-            this,
-            "!Existe un registro con el mismo código!",
-            FancyToast.LENGTH_LONG,
-            FancyToast.WARNING,
-            false
-        ).show()
+    private fun regresarActivityDevice() {
+        val intent= Intent(this, DeviceActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun successResult() {
-        FancyToast.makeText(
-            this,
-            "!Se a ingresado correctamente!",
-            FancyToast.LENGTH_LONG,
-            FancyToast.SUCCESS,
-            false
-        ).show()
-    }
-
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-    fun ObtenerDatosSpinnerProvider(){
-        val provider = resources.getStringArray(R.array.brand)
-        val adapter = ArrayAdapter(this, R.layout.items_spinner,provider)
+    fun ObtenerDatosSpinnerProvider() {
+        val provider = resources.getStringArray(R.array.provider)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, provider)
         binding.autoCompleteProvider.setAdapter(adapter)
-        binding.autoCompleteProvider.setOnItemClickListener{ AdapterView, view, i,l->
+        binding.autoCompleteProvider.setOnItemClickListener { AdapterView, view, i, l ->
             val providerDev = AdapterView.getItemAtPosition(i).toString()
-            when(providerDev){
-                "ZC Mayoristas"->{ providerDevice = 1
+            when (providerDev) {
+                "ZC Mayoristas" -> {
+                    providerDevice = 1
                     true
                 }
-                "TecnoMega C.A"->{ providerDevice = 2
+                "TecnoMega C.A" -> {
+                    providerDevice = 2
                     true
                 }
-                "INTCOMEX"->{  providerDevice = 8
+                "INTCOMEX" -> {
+                    providerDevice = 8
                     true
                 }
-                "PLUS COMPU"->{  providerDevice = 7
+                "PLUS COMPU" -> {
+                    providerDevice = 7
                     true
                 }
-                else->{  providerDevice = 9
+                "Lanbowan" -> {
+                    providerDevice = 9
+                    true
+                }
+                else -> {
+                    providerDevice = 0
                 }
             }
         }
     }
 
-    fun ObtenerDatosSpinnerType(){
+    fun ObtenerDatosSpinnerType() {
         val tipoDevice = resources.getStringArray(R.array.typeDevice)
-        val adapter = ArrayAdapter(this, R.layout.items_spinner,tipoDevice)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, tipoDevice)
         binding.autoCompleteText.setAdapter(adapter)
-        binding.autoCompleteText.setOnItemClickListener{ AdapterView, view, i,l->
+        binding.autoCompleteText.setOnItemClickListener { AdapterView, view, i, l ->
             val typeDevice = AdapterView.getItemAtPosition(i).toString()
-            if(typeDevice=="Radio-Antena"){
-                type = 1
-            }else{
-                type = 2
+            when (typeDevice) {
+                "Radio-Antena" -> {
+                    type = 1
+                    true
+                }
+                "Router" -> {
+                    type = 2
+                    true
+                }
+                else -> {
+                    type = 0
+                }
+
             }
         }
     }
 
-    fun ObtenerDatosSpinnerBrand(){
+    fun ObtenerDatosSpinnerBrand() {
         val brand = resources.getStringArray(R.array.brand)
-        val adapter = ArrayAdapter(this, R.layout.items_spinner,brand)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, brand)
         binding.autoCompleteBrand.setAdapter(adapter)
-        binding.autoCompleteBrand.setOnItemClickListener{ AdapterView, view, i,l->
+        binding.autoCompleteBrand.setOnItemClickListener { AdapterView, view, i, l ->
             val brandDevice = AdapterView.getItemAtPosition(i).toString()
-            when(brandDevice){
-                "Ubiquiti"->{ brandType= 1
-                    true
-                  }
-                "Mikrotik"->{ brandType= 2
+            when (brandDevice) {
+                "Ubiquiti" -> {
+                    brandType = 1
                     true
                 }
-                "DLink"->{ brandType= 4
+                "Mikrotik" -> {
+                    brandType = 2
                     true
                 }
-                "Cisco"->{ brandType= 6
+                "DLink" -> {
+                    brandType = 4
                     true
                 }
-                "QPCOM"->{ brandType= 3
+                "Cisco" -> {
+                    brandType = 6
                     true
                 }
-                else->{ brandType= 5
+                "QPCOM" -> {
+                    brandType = 3
+                    true
+                }
+                "TP-LINK" -> {
+                    brandType = 3
+                    true
+                }
+                else -> {
+                    brandType = 0
                 }
             }
         }
     }
 
-    fun createDevicePost():DevicePost{
+    fun createDevicePost(): DevicePost {
         return DevicePost(
             providerDevice,
             brandType,
@@ -186,5 +241,6 @@ class NewDeviceActivity : AppCompatActivity() {
             binding.descripcion.editText?.text.toString()
         )
     }
+
 
 }

@@ -42,7 +42,7 @@
         <activity
             android:name=".device.DeviceActivity"
             android:exported="false"
-            android:parentActivityName=".DashboardActivity" />
+           />
         <activity
             android:name=".client.ClientActivity"
             android:exported="false" />
@@ -88,7 +88,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:theme="@style/buttonSelector"/>
+            />
         <activity android:name=".DashboardActivity" />
         <activity
             android:name=".client.NewClientActivity"

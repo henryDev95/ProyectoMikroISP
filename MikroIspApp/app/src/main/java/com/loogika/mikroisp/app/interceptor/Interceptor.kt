@@ -1,6 +1,5 @@
-package com.loogika.mikroisp.app.report.webservice
+package com.loogika.mikroisp.app.interceptor
 
-import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import okhttp3.OkHttpClient
 
 object Interceptor {

@@ -26,4 +26,15 @@ object ShowResult {
         ).show()
 
     }
+
+    fun sucessResultList(context:Context){
+        FancyToast.makeText(
+            context,
+            "No hay cobros realizados!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        ).show()
+
+    }
 }

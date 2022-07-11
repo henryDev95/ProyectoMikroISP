@@ -18,10 +18,12 @@ import com.loogika.mikroisp.app.databinding.ActivityDeviceBinding
 import com.loogika.mikroisp.app.device.adapter.DeviceAdapter
 import com.loogika.mikroisp.app.device.apiService.deviceApi
 import androidx.core.view.isVisible
+import com.loogika.mikroisp.app.device.apiService.RetrofilService
 import com.loogika.mikroisp.app.device.entity.Brand
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.DeviceResponse
 import com.loogika.mikroisp.app.device.entity.StatusDevice
+import com.loogika.mikroisp.app.device.toast.ImprimirResultado
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -46,6 +48,11 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
     fun showToolbar(){
         setSupportActionBar(binding.toolbarb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -62,7 +69,7 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
     }
 
     private fun obtenerDatos(view: Context) { // funcion para obtener los datos del api
-        val call = getRetrofit().create(deviceApi::class.java)
+        val call = RetrofilService.getRetrofit().create(deviceApi::class.java)
         call.getAll().enqueue(object : Callback<DeviceResponse> {
             override fun onResponse(
                 call: Call<DeviceResponse>,
@@ -73,40 +80,13 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
                     deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceActivity)
                     binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
                 }else{
-                    ImprimirRespuesta()
-                    Log.d("name", "no hay datos")
+                    ImprimirResultado.ImprimirRespuestoLlamada(this@DeviceActivity)
                 }
             }
             override fun onFailure(call: Call<DeviceResponse>, t: Throwable) {
-                error()
+                ImprimirResultado.errorLlamada(this@DeviceActivity)
             }
         })
-    }
-
-
-
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.102/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-
-    private fun ImprimirRespuesta() {
-        Toast.makeText(this, "No hay datos del equipo", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun error() { // metodo para informar el error
-        Toast.makeText(this, "No se realizo la llamada", Toast.LENGTH_SHORT).show()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -123,15 +103,6 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
         }
 
         return true
-    }
-
-    fun mostrarInformacion(){
-        val infter = LayoutInflater.from(this) // permite darla unicacion de poder habri
-        val viewEdit = infter.inflate(R.layout.edit_device,null)
-        val addDialog = AlertDialog.Builder(this)
-        addDialog.setView(viewEdit)
-            .create()
-            .show()
     }
 
     override fun onCellClickListener(

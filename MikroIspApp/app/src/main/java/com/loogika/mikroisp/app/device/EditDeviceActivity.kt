@@ -14,9 +14,11 @@ import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.entity.ClientPost
 import com.loogika.mikroisp.app.databinding.ActivityEditDeviceBinding
+import com.loogika.mikroisp.app.device.apiService.RetrofilService
 import com.loogika.mikroisp.app.device.apiService.deviceApi
 import com.loogika.mikroisp.app.device.entity.Device
 import com.loogika.mikroisp.app.device.entity.DeviceEdit
+import com.loogika.mikroisp.app.device.toast.ImprimirResultado
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.shashank.sony.fancytoastlib.FancyToast
@@ -59,6 +61,10 @@ class EditDeviceActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
     fun obtenerDatos(){
        device = intent.getParcelableExtra<Device>("device")!!
     }
@@ -78,7 +84,7 @@ class EditDeviceActivity : AppCompatActivity() {
                 DialogInterface.OnClickListener { dialog, id ->
                     try{
                         guarDatos(device,idDevice)
-                        successResultado()
+                        ImprimirResultado.successResultadoEdit(this)
                         volverPanerPrincipal()
                         Log.d("device",device.toString())
                     }catch (e: ArithmeticException){
@@ -88,7 +94,7 @@ class EditDeviceActivity : AppCompatActivity() {
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
-                    cancelarResultado()
+                    ImprimirResultado.cancelarResultadoEdit(this)
                     finish()
                 })
         builder.show()
@@ -97,7 +103,7 @@ class EditDeviceActivity : AppCompatActivity() {
 
     private fun guarDatos(device: DeviceEdit, id:Int) { // funcion para obtener los datos del api
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(deviceApi::class.java).editDevice(device,id)
+            val call = RetrofilService.getRetrofit().create(deviceApi::class.java).editDevice(device,id)
                 .execute()
             val puppies = call.body()
             runOnUiThread {
@@ -109,46 +115,6 @@ class EditDeviceActivity : AppCompatActivity() {
 
             }
         }
-    }
-
-
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.101/proyectos-web/adminwisp/web/app_dev.php/api/v1/device/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-    fun cancelarResultado() {
-        val toast = FancyToast.makeText(
-            this,
-            "No se edito los datos del equipo!",
-            FancyToast.LENGTH_LONG,
-            FancyToast.WARNING,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
-
-    fun successResultado() {
-        val toast = FancyToast.makeText(
-            this,
-            "Se edito los datos del equipo correctamente!",
-            FancyToast.LENGTH_LONG,
-            FancyToast.SUCCESS,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
     }
 
     fun volverPanerPrincipal(){

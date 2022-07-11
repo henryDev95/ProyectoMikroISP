@@ -35,33 +35,33 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ReportActivity : AppCompatActivity() {
-    lateinit var binding:ActivityReportBinding
+    lateinit var binding: ActivityReportBinding
     var reportList = mutableListOf<Report>()
     lateinit var bitmap: Bitmap
     lateinit var scaleBitmap: Bitmap
     lateinit var date: Date
-    lateinit var dateBakend:Date
+    lateinit var dateBakend: Date
     lateinit var formateDate: DateFormat
     lateinit var FormatTime: DateFormat
     lateinit var FormatBakendDate: DateFormat
-    var startDate:String = ""
-    var endDate:String = ""
-    var dayStart:Int =0
-    var monthStart:Int =0
-    var yearStart:Int =0
+    var startDate: String = ""
+    var endDate: String = ""
+    var dayStart: Int = 0
+    var monthStart: Int = 0
+    var yearStart: Int = 0
     private lateinit var reportAdapter: ReportAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showToolbar()
-        binding.viewPaymentList.isVisible= false
+        binding.viewPaymentList.isVisible = false
         binding.startDate.setOnClickListener {
-             showDatePikerDialog()
+            showDatePikerDialog()
         }
         binding.finaltDate.setOnClickListener {
             showDatePikerDialogDos()
-       }
+        }
 
         binding.showReport.setOnClickListener {
             createPDf()
@@ -79,30 +79,37 @@ class ReportActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    private fun mostrarShimmer(){
-        binding.viewPaymentList.isVisible= true
+    private fun mostrarShimmer() {
+        binding.viewPaymentList.isVisible = true
         binding.paymentsList.layoutManager = LinearLayoutManager(this)
-        buscarRegistroReport("",startDate,endDate)
+        buscarRegistroReport("", startDate, endDate)
         Handler(Looper.getMainLooper()).postDelayed({
-            binding.viewPaymentList.isVisible= false
+            binding.viewPaymentList.isVisible = false
             binding.paymentsList.isVisible = true
         }, 3500)
     }
 
-    fun buscarRegistroReport(dni:String,starDate:String,endDate:String){
+    fun buscarRegistroReport(dni: String, starDate: String, endDate: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val call = RetrofitService.getRetrofil().create(ReportService::class.java)
-            val executeApi = call.getReportDate(dni,starDate,endDate).execute()
+            val executeApi = call.getReportDate(dni, starDate, endDate).execute()
             val report = executeApi.body()
-            runOnUiThread{
-                if(executeApi.isSuccessful){
+            runOnUiThread {
+                if (executeApi.isSuccessful) {
                     val reports = report?.report ?: emptyList()
-                    reportList.clear()
-                    reportList.addAll(reports)
-                    reportAdapter = ReportAdapter(reportList)
-                    binding.paymentsList.adapter = reportAdapter
-                    Log.d("valor encontrado", reportList.toString())
-                }else{
+                    if (reports.isNotEmpty()) {
+                        reportList.clear()
+                        reportList.addAll(reports)
+                        reportAdapter = ReportAdapter(reportList)
+                        binding.paymentsList.adapter = reportAdapter
+                        Log.d("valor encontrado", reportList.toString())
+                    } else {
+                        binding.showReport.isEnabled = false
+                        binding.showReport.setBackgroundColor(resources.getColor(R.color.colorDesactivado))
+                        ShowResult.sucessResultList(this@ReportActivity)
+                    }
+                } else {
+                    return@runOnUiThread
                     Log.d("error cancelado", "solicitud fue abortada")
                 }
             }
@@ -110,41 +117,41 @@ class ReportActivity : AppCompatActivity() {
     }
 
     private fun showDatePikerDialog() {
-        val datepiker= DatePikerFragment{day,month,year->onDateSelector(day, month,year)}
-        datepiker.show(supportFragmentManager,"DatePiker")
+        val datepiker = DatePikerFragment { day, month, year -> onDateSelector(day, month, year) }
+        datepiker.show(supportFragmentManager, "DatePiker")
     }
 
     private fun showDatePikerDialogDos() {
-        val datePiker2= DatePikerFragment{day,month,year->onDateSelector2(day, month,year)}
-        datePiker2.show(supportFragmentManager,"DatePiker")
+        val datePiker2 = DatePikerFragment { day, month, year -> onDateSelector2(day, month, year) }
+        datePiker2.show(supportFragmentManager, "DatePiker")
     }
 
-    fun onDateSelector(day:Int, month:Int, year:Int){
+    fun onDateSelector(day: Int, month: Int, year: Int) {
         binding.startDate.setText("${year}-${month}-${day}")
         dayStart = day
-        monthStart= month
+        monthStart = month
         yearStart = year
         startDate = binding.startDate.text.toString()
     }
 
-    fun onDateSelector2(day:Int, month:Int, year:Int){
-        if(validaFecha(day,month,year)){
+    fun onDateSelector2(day: Int, month: Int, year: Int) {
+        if (validaFecha(day, month, year)) {
             binding.finaltDate.setText("${year}-${month}-${day}")
             endDate = binding.finaltDate.text.toString()
-            binding.logoReport.isVisible=false
-            binding.showReport.isEnabled=true
-            binding.showReport.setBackgroundColor(Color.BLUE)
+            binding.logoReport.isVisible = false
+            binding.showReport.isEnabled = true
+            binding.showReport.setBackgroundColor(resources.getColor(R.color.colorFondo))
             mostrarShimmer()
-        }else{
+        } else {
             ShowResult.errorResuulDate(this)
         }
     }
 
-    fun validaFecha( day:Int, month:Int, year:Int):Boolean{
+    fun validaFecha(day: Int, month: Int, year: Int): Boolean {
         return (year >= yearStart) && (month >= monthStart) && (day >= dayStart)
     }
 
-    fun showToolbar(){
+    fun showToolbar() {
         setSupportActionBar(binding.toolbarb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -152,13 +159,18 @@ class ReportActivity : AppCompatActivity() {
     private fun createPDf() {
         var pdfDocument = PdfDocument()
         var titulo = Paint()
-        var heightPage= 2010
-        var widthPage=1200
-        var cantidad=1
+        var heightPage = 2010
+        var widthPage = 1200
+        var cantidad = 1
         var total = 0f
-        for(i in 1..2){
+        var longuitudIncial = 0
+        var longuitudFinal = 16
+        var sizeList = reportList.size
+        var numeroPaginas = (sizeList/16).toInt()+1
+
+        for (l in 1..numeroPaginas) {
             var paint = Paint()
-            var paginaInfor = PdfDocument.PageInfo.Builder(widthPage, heightPage, i).create()
+            var paginaInfor = PdfDocument.PageInfo.Builder(widthPage, heightPage,l).create()
             var pagina1 = pdfDocument.startPage(paginaInfor)
             var canvas = pagina1.canvas
 
@@ -175,7 +187,7 @@ class ReportActivity : AppCompatActivity() {
             paint.setColor(Color.rgb(0, 113, 118))
             paint.textSize = 20f
             paint.textAlign = Paint.Align.RIGHT
-            canvas.drawText("Fecha Emitida:"+ formateDate.format(date) , 1100f, 100f, paint)
+            canvas.drawText("Fecha Emitida:" + formateDate.format(date), 1100f, 100f, paint)
             canvas.drawText("Hora:" + FormatTime.format(date), 1100f, 150f, paint)
 
 
@@ -183,7 +195,7 @@ class ReportActivity : AppCompatActivity() {
             titulo.textAlign = Paint.Align.CENTER
             titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
             titulo.textSize = 30f
-            canvas.drawText("REPORTE DE COBROS REALIZADOS", 1200f/2f, 250f, titulo)
+            canvas.drawText("REPORTE DE COBROS REALIZADOS", 1200f / 2f, 250f, titulo)
 
             // para el numero de factura
             paint.textAlign = Paint.Align.LEFT
@@ -193,52 +205,84 @@ class ReportActivity : AppCompatActivity() {
             // para poner el cuadro
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 2f
-            canvas.drawRect(5f,450f,1200f-5f,550f,paint)
+            canvas.drawRect(5f, 450f, 1200f - 5f, 550f, paint)
             paint.textAlign = Paint.Align.LEFT
             paint.style = Paint.Style.FILL
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
-            paint.textSize= 20f
-            canvas.drawText("Nª",50f,510f,paint)
-            canvas.drawText("Nombre",300f,510f,paint)
-            canvas.drawText("Cédula",650f,510f,paint)
-            canvas.drawText("Fecha",900f,510f,paint)
-            canvas.drawText("Valor",1100f,510f,paint)
+            paint.textSize = 20f
+            canvas.drawText("Nª", 50f, 510f, paint)
+            canvas.drawText("Nombre", 300f, 510f, paint)
+            canvas.drawText("Cédula", 650f, 510f, paint)
+            canvas.drawText("Fecha", 900f, 510f, paint)
+            canvas.drawText("Valor", 1100f, 510f, paint)
 
-            canvas.drawLine(120f, 450f, 120f,550f,paint)
-            canvas.drawLine(550f, 450f, 550f,550f,paint)
-            canvas.drawLine(800f, 450f, 800f,550f,paint)
-            canvas.drawLine(1050f, 450f, 1050f,550f,paint)
+            canvas.drawLine(120f, 450f, 120f, 550f, paint)
+            canvas.drawLine(550f, 450f, 550f, 550f, paint)
+            canvas.drawLine(800f, 450f, 800f, 550f, paint)
+            canvas.drawLine(1050f, 450f, 1050f, 550f, paint)
 
             paint.textSize = 20f
             paint.color = Color.BLACK
             FormatBakendDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
             val formatat = SimpleDateFormat("dd MMM yyyy HH:mm:ss")
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
+
+
+
             var i = 0f
-            for( j in  reportList.indices)
-            {
-                if(j < 10){
-                    canvas.drawText(cantidad.toString(), 30f,600f+i,paint)
-                    canvas.drawText(reportList[j].invoice.client.userFirstName!!+" "+reportList[j].invoice.client.userLastName!!, 150f,600f+i,paint)
-                    canvas.drawText(reportList[j].invoice.client.dni!!, 610f,600f+i,paint)
+
+            if (l == numeroPaginas) {
+
+                for (j in longuitudIncial..sizeList-1) {
+                    canvas.drawText(cantidad.toString(), 30f, 600f + i, paint)
+                    canvas.drawText(
+                        reportList[j].invoice.client.userFirstName!! + " " + reportList[j].invoice.client.userLastName!!,
+                        150f,
+                        600f + i,
+                        paint
+                    )
+                    canvas.drawText(reportList[j].invoice.client.dni!!, 610f, 600f + i, paint)
                     dateBakend = FormatBakendDate.parse(reportList[j].createdAt!!)
-                    canvas.drawText( formatat.format(dateBakend), 830f,600f+i,paint)
-                    canvas.drawText( reportList[j].value.toString(), 1090f,600f+i,paint)
+                    canvas.drawText(formatat.format(dateBakend), 830f, 600f + i, paint)
+                    canvas.drawText(reportList[j].value.toString(), 1090f, 600f + i, paint)
                     i += 90f
+                    cantidad++
+                    total += reportList[j].value
                 }
-                cantidad++
-                total += reportList[j].value
+
+
+                paint.textAlign = Paint.Align.RIGHT
+                paint.textSize = 30f
+                paint.color = Color.BLACK
+                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
+                canvas.drawText("Total:", 900f, 600f + i, paint)
+
+                // valor total
+                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
+                canvas.drawText(total.toString(), 1090f, 600f + i, paint)
+
+
+            }else{
+                for (j in longuitudIncial..longuitudFinal-1) {
+                    canvas.drawText(cantidad.toString(), 30f, 600f + i, paint)
+                    canvas.drawText(
+                        reportList[j].invoice.client.userFirstName!! + " " + reportList[j].invoice.client.userLastName!!,
+                        150f,
+                        600f + i,
+                        paint
+                    )
+                    canvas.drawText(reportList[j].invoice.client.dni!!, 610f, 600f + i, paint)
+                    dateBakend = FormatBakendDate.parse(reportList[j].createdAt!!)
+                    canvas.drawText(formatat.format(dateBakend), 830f, 600f + i, paint)
+                    canvas.drawText(reportList[j].value.toString(), 1090f, 600f + i, paint)
+                    i += 90f
+                    cantidad++
+                    total += reportList[j].value
+                }
+                longuitudIncial += 16
+                longuitudFinal+=16
+
             }
-
-            paint.textAlign = Paint.Align.RIGHT
-            paint.textSize = 30f
-            paint.color =Color.BLACK
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD))
-            canvas.drawText("Total:", 900f , 600f+i, paint)
-
-            // valor total
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL))
-            canvas.drawText(total.toString(), 1090f , 600f+i, paint)
             pdfDocument.finishPage(pagina1)
         }
 
@@ -256,7 +300,7 @@ class ReportActivity : AppCompatActivity() {
     private fun getFilePath(): String? {
         val contextWrapper = ContextWrapper(applicationContext)
         val documentDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        val file = File(documentDirectory, "fac-"+"creada"+".pdf")
+        val file = File(documentDirectory, "fac-" + "creada" + ".pdf")
         return file.path
     }
 
