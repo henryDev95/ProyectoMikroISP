@@ -3,6 +3,7 @@ package com.loogika.mikroisp.app.client.ApiService
 import com.loogika.mikroisp.app.client.entity.*
 import com.loogika.mikroisp.app.client.service.entity.ServiceDevicePost
 import com.loogika.mikroisp.app.client.service.entity.ServiceDeviceResponse
+import com.loogika.mikroisp.app.client.service.entity.ServiceEdit
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -28,4 +29,8 @@ interface clientApi {
     // para ingresar el equipo por servicio
     @POST("newAssignDevice?institution_id=1")
     fun createServiceDeviceAssign(@Body serviceDevice:ServiceDevicePost): Call<ServiceDeviceResponse>
+
+    // para edit el servicio
+    @POST("{id}/editService?institution_id=1")
+    fun editService(@Body service:ServiceEdit, @Path("id") id:Int): Call<ServiceResponse>
 }

@@ -42,17 +42,10 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         ObtenerDatosSpinner()
         showToolbar()
         binding.save.setOnClickListener {
-            validarCampo()
-            //val cliente = crearObjetoClient()
-            // enviarDatos(cliente, id)
-            /*
-            try{
-                guarDatos(cliente)
-                ImprimirResultado.successResultado(this)
-            }catch (e: ArithmeticException){
-                ImprimirResultado.cancelarResultado(this)
-            }
-            */
+           validarCampo()
+        }
+        binding.buttCancel.setOnClickListener {
+            finish()
         }
     }
 
@@ -65,19 +58,16 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         return super.onSupportNavigateUp()
     }
 
-    fun enviarDatos(cliente: ClientPost, idCli: Int) {
-        val intent = Intent(this, DetailClientActivity::class.java)
-        intent.putExtra("id", idCli)
-        Toast.makeText(this, "id--->" + idCli.toString(), Toast.LENGTH_SHORT).show()
-        intent.putExtra("type", cliente.type)
-        intent.putExtra("dni", cliente.dni)
-        intent.putExtra("userFirstName", cliente.user_first_name)
-        intent.putExtra("userLastName", cliente.user_last_name)
-        intent.putExtra("address", cliente.address)
-        intent.putExtra("telephone", cliente.phone1)
-        intent.putExtra("email", cliente.email)
-        startActivity(intent)
+    fun guadarDatosServidor(){
+        val cliente = crearObjetoClient()
+        try{
+            guarDatos(cliente)
+        }catch (e: ArithmeticException){
+            ImprimirResultado.cancelarResultado(this)
+        }
+
     }
+
 
     fun validarCampo() {
         var validar = ValidarForm(
@@ -105,26 +95,51 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if (false in result) {
             return
         }
+        guadarDatosServidor()
     }
 
     private fun guarDatos(clientePost: ClientPost) { // funcion para obtener los datos del api
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call = RetrofitService.getRetrofit().create(clientApi::class.java)
+            val call = RetrofitService.getRetrofitClient().create(clientApi::class.java)
                 .createClient(clientePost)
                 .execute()
             val puppies = call.body()
             runOnUiThread {
                 if (call.isSuccessful) {
-                    var clientResponse = puppies!!.client
-                    id = clientResponse.id
-                    enviarDatos(clientePost, id)
-                    Log.d("id", clientResponse.id.toString())
+                    if(puppies!!.status == "ok"){
+                        var clientResponse = puppies!!.client
+                        id = clientResponse.id
+                        enviarDatos(clientePost, id)
+                        ImprimirResultado.successResultado(this@NewClientActivity)
+                        //Log.d("id", clientResponse.id.toString())
+                    }else{
+                        typeClient = 0
+                        limpiarDatosForm()
+                        ImprimirResultado.validarCedulaExistente(this@NewClientActivity)
+                        return@runOnUiThread
+                    }
+
                 } else {
                     Log.d("error cancelado", "solicitud fue abortada")
+                    return@runOnUiThread
                 }
             }
         }
+    }
+
+
+    fun enviarDatos(cliente: ClientPost, idCli: Int) {
+        val intent = Intent(this, DetailClientActivity::class.java)
+        intent.putExtra("id", idCli)
+        intent.putExtra("type", cliente.type)
+        intent.putExtra("dni", cliente.dni)
+        intent.putExtra("userFirstName", cliente.user_first_name)
+        intent.putExtra("userLastName", cliente.user_last_name)
+        intent.putExtra("address", cliente.address)
+        intent.putExtra("telephone", cliente.phone1)
+        intent.putExtra("email", cliente.email)
+        startActivity(intent)
     }
 
     private fun crearObjetoClient(): ClientPost {
@@ -166,5 +181,16 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 typeClient = 0
             }
         }
+    }
+
+    fun limpiarDatosForm(){
+        binding.dni.editText?.setText("")
+        binding.firstName.editText?.setText("")
+        binding.lastName.editText?.setText("").toString()
+        binding.address.editText?.setText("").toString()
+        binding.telephone.editText?.setText("").toString()
+        binding.autoCompleteText?.setText("").toString()
+        binding.email.editText?.setText("").toString()
+        binding.descripcion.editText?.setText("").toString()
     }
 }

@@ -33,6 +33,7 @@ import java.io.IOException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class ReportActivity : AppCompatActivity() {
     lateinit var binding: ActivityReportBinding
@@ -65,6 +66,7 @@ class ReportActivity : AppCompatActivity() {
 
         binding.showReport.setOnClickListener {
             createPDf()
+            finish()
             mostrarReporteCobros()
         }
     }
@@ -105,6 +107,9 @@ class ReportActivity : AppCompatActivity() {
                         Log.d("valor encontrado", reportList.toString())
                     } else {
                         binding.showReport.isEnabled = false
+                        binding.startDate.setText("")
+                        binding.finaltDate.setText("")
+                        binding.logoReport.isVisible = true
                         binding.showReport.setBackgroundColor(resources.getColor(R.color.colorDesactivado))
                         ShowResult.sucessResultList(this@ReportActivity)
                     }
@@ -227,8 +232,6 @@ class ReportActivity : AppCompatActivity() {
             val formatat = SimpleDateFormat("dd MMM yyyy HH:mm:ss")
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
 
-
-
             var i = 0f
 
             if (l == numeroPaginas) {
@@ -259,7 +262,7 @@ class ReportActivity : AppCompatActivity() {
 
                 // valor total
                 paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
-                canvas.drawText(total.toString(), 1090f, 600f + i, paint)
+                canvas.drawText(((total * 100.0).roundToInt()/100.0).toString(), 1090f, 600f + i, paint)
 
 
             }else{

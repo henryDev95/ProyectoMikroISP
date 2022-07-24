@@ -35,6 +35,17 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingrese la antena:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"
+            />
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/user"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

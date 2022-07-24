@@ -64,7 +64,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.items.isVisible = true
         binding.logoClient.isVisible=false
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-        //obtenerDatos(context)
+        obtenerDatos()
         if(select == 1){
             clientAdapter = ClientAdapter(context, clientsActivos)
         }else{

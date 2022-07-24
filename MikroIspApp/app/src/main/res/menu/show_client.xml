@@ -15,4 +15,9 @@
         android:id="@+id/newService"
         android:icon="@drawable/ico_add_circle_24"
         android:title="Nuevo Servicio"></item>
+
+    <item
+        android:id="@+id/editService"
+        android:icon="@drawable/ic_edit_24"
+        android:title="Editar Servicio"></item>
 </menu>

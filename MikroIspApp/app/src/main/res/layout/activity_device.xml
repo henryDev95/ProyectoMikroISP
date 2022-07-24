@@ -59,6 +59,16 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_device"
         />
+    <ImageView
+        android:id="@+id/logoDevices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_router_equipo"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/viewLoading"

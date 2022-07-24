@@ -27,8 +27,10 @@ import com.loogika.mikroisp.app.client.entity.ClientPost
 import com.loogika.mikroisp.app.databinding.ActivityShowServiceBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.apiService.PaymentApi
+import com.loogika.mikroisp.app.payment.apiService.RetrofilServicePayment
 import com.loogika.mikroisp.app.payment.entity.PaymentPost
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.toast.ImprimirResultado
 import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,15 +53,15 @@ class ShowServiceActivity : AppCompatActivity() {
     lateinit var date: Date
     lateinit var formateDate: DateFormat
     lateinit var FormatTime: DateFormat
-    var IdInvoice:Int = 0
-    var numberInvoice:String=""
-    var value:Float= 0f
-    var dni:String = ""
-    var userFirstName:String = ""
+    var IdInvoice: Int = 0
+    var numberInvoice: String = ""
+    var value: Float = 0f
+    var dni: String = ""
+    var userFirstName: String = ""
     var userLastName: String = ""
-    var address:String = ""
-    var telephone:String = ""
-    lateinit var plan:Plan
+    var address: String = ""
+    var telephone: String = ""
+    lateinit var plan: Plan
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowServiceBinding.inflate(layoutInflater)
@@ -71,14 +73,14 @@ class ShowServiceActivity : AppCompatActivity() {
         }
 
         binding.cancelarButton.setOnClickListener {
-            cancelarResultado()
+            ImprimirResultado.cancelarResultado(this)
             finish()
         }
 
         binding.pdfInvoice.setOnClickListener(View.OnClickListener {
             createPDf()
             val intent = Intent(this, FacturaActivity::class.java)
-            intent.putExtra("userLastName",userLastName)
+            intent.putExtra("userLastName", userLastName)
             startActivity(intent)
         })
     }
@@ -88,16 +90,16 @@ class ShowServiceActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    fun showToolbar(){
+    fun showToolbar() {
         setSupportActionBar(binding.toolbarb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 
-    fun showDateClient(){
+    fun showDateClient() {
         IdInvoice = intent.getIntExtra("idInvoice", 0)
         numberInvoice = intent.getStringExtra("numberInvoice").toString()
-        value = intent.getFloatExtra("total",0f)
+        value = intent.getFloatExtra("total", 0f)
         dni = intent.getStringExtra("dni").toString()
         userFirstName = intent.getStringExtra("userFirstName").toString()
         userLastName = intent.getStringExtra("userLastName").toString()
@@ -119,52 +121,31 @@ class ShowServiceActivity : AppCompatActivity() {
         binding.detailPlanValue.text = plan.fullValue.toString()
     }
 
-
     private fun mostrarDialog(contex: Context) {
         val builder = AlertDialog.Builder(contex)
         builder.setTitle("Cobrar")
             .setMessage("Desea cobrar el servicio de internet?")
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
+                    ImprimirResultado.successResultado(this)
+                    /*
                     val payment = createObjectPayment()
-                    try{
+                    try {
                         guarDatos(payment)
-                        successResultado()
-                    }catch (e: ArithmeticException){
+
+                    } catch (e: ArithmeticException) {
                         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                     }
+
+                     */
                     binding.pdfInvoice.isVisible = true
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
-                    cancelarResultado()
+                    ImprimirResultado.cancelarResultado(this)
                     finish()
                 })
         builder.show()
-    }
-
-    fun cancelarResultado() {
-        val toast = FancyToast.makeText(
-            this,
-            "No se realizo el cobro!",
-            FancyToast.LENGTH_SHORT,
-            FancyToast.WARNING,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
-
-    fun successResultado() {
-        val toast =   FancyToast.makeText(
-            this,
-            "Se a realizado correctamente el cobro!",
-            FancyToast.LENGTH_SHORT,
-            FancyToast.SUCCESS,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
     }
 
     private fun createPDf() {
@@ -195,26 +176,26 @@ class ShowServiceActivity : AppCompatActivity() {
         titulo.textAlign = Paint.Align.CENTER
         titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC))
         titulo.textSize = 70f
-        canvas.drawText("Factura", 1200f/2f, 350f, titulo)
+        canvas.drawText("COMPROBANTE DE PAGO", 1200f / 2f, 350f, titulo)
 
         // datos de informacion
 
-        paint.textAlign= Paint.Align.LEFT
+        paint.textAlign = Paint.Align.LEFT
         paint.textSize = 35f
         paint.color = Color.BLACK
-        canvas.drawText("Cédula :" + dni,30f, 450f, paint)
-        canvas.drawText("Nombres :" + userFirstName,30f, 500f, paint)
-        canvas.drawText("Apellidos :" + userLastName,30f, 550f, paint)
-        canvas.drawText("Direccion:" + address,30f, 600f, paint)
-        canvas.drawText("Ciudad:" + "Pujili,Ecuador",30f, 650f, paint)
-        canvas.drawText("Teléfono:" + telephone ,30f, 700f, paint)
+        canvas.drawText("Cédula :" + dni, 30f, 450f, paint)
+        canvas.drawText("Nombres :" + userFirstName, 30f, 500f, paint)
+        canvas.drawText("Apellidos :" + userLastName, 30f, 550f, paint)
+        canvas.drawText("Direccion:" + address, 30f, 600f, paint)
+        canvas.drawText("Ciudad:" + "Pujili,Ecuador", 30f, 650f, paint)
+        canvas.drawText("Teléfono:" + telephone, 30f, 700f, paint)
 
         // para el numero de factura
         date = Date()
         formateDate = SimpleDateFormat("dd/mm/yy")
         FormatTime = SimpleDateFormat("HH:mm:ss")
         paint.textAlign = Paint.Align.RIGHT
-        canvas.drawText("Número Factura:" +numberInvoice, 1200f - 30f,  450f, paint)
+        canvas.drawText("Número del comprobante:" + numberInvoice, 1200f - 30f, 450f, paint)
         canvas.drawText("Fecha:" + formateDate.format(date), 1200f - 30f, 500f, paint)
         canvas.drawText("Hora:" + FormatTime.format(date), 1200f - 30f, 550f, paint)
         canvas.drawText("Estado:" + "Pagado", 1200f - 30f, 600f, paint)
@@ -222,47 +203,47 @@ class ShowServiceActivity : AppCompatActivity() {
         // para poner el cuadro
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 2f
-        canvas.drawRect(20f,750f,1200f-20f,850f,paint)
+        canvas.drawRect(20f, 750f, 1200f - 20f, 850f, paint)
         paint.textAlign = Paint.Align.LEFT
         paint.style = Paint.Style.FILL
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
-        paint.textSize= 40f
-        canvas.drawText("Descripción",200f,810f,paint)
-        canvas.drawText("Cantidad",580f,810f,paint)
-        canvas.drawText("Precio",800f,810f,paint)
-        canvas.drawText("Total",1000f,810f,paint)
+        paint.textSize = 40f
+        canvas.drawText("Descripción", 200f, 810f, paint)
+        canvas.drawText("Cantidad", 580f, 810f, paint)
+        canvas.drawText("Precio", 800f, 810f, paint)
+        canvas.drawText("Total", 1000f, 810f, paint)
 
-        canvas.drawLine(550f, 750f, 550f,850f,paint)
-        canvas.drawLine(750f, 750f, 750f,850f,paint)
-        canvas.drawLine(950f, 750f, 950f,850f,paint)
+        canvas.drawLine(550f, 750f, 550f, 850f, paint)
+        canvas.drawLine(750f, 750f, 750f, 850f, paint)
+        canvas.drawLine(950f, 750f, 950f, 850f, paint)
 
         paint.textSize = 35f
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
-        canvas.drawText("Internet,"+plan.name, 100f,950f,paint)
-        canvas.drawText("1", 630f,950f,paint)
-        canvas.drawText( plan.value.toString(), 830f,950f,paint)
-        canvas.drawText( plan.value.toString(), 1020f,950f,paint)
+        canvas.drawText("Internet," + plan.name, 100f, 950f, paint)
+        canvas.drawText("1", 630f, 950f, paint)
+        canvas.drawText(plan.value.toString(), 830f, 950f, paint)
+        canvas.drawText(plan.value.toString(), 1020f, 950f, paint)
 
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
-        paint.textSize= 35f
-        canvas.drawText("SubTotal:",800f,1050f,paint)
-        canvas.drawText("Impuesto(12%):",700f,1100f,paint)
-        canvas.drawText("Total: ",860f,1150f,paint)
+        paint.textSize = 35f
+        canvas.drawText("SubTotal:", 800f, 1050f, paint)
+        canvas.drawText("Impuesto(12%):", 700f, 1100f, paint)
+        canvas.drawText("Total: ", 860f, 1150f, paint)
 
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
-        paint.textSize= 35f
-        canvas.drawText(plan.value.toString(),1020f,1050f,paint)
-        when(plan.id){
-            1->  canvas.drawText("2.40",1020f,1100f,paint)
-            2->  canvas.drawText("3.36",1020f,1100f,paint)
-            else->canvas.drawText("4.32",1020f,1100f,paint)
+        paint.textSize = 35f
+        canvas.drawText(plan.value.toString(), 1020f, 1050f, paint)
+        when (plan.id) {
+            1 -> canvas.drawText("2.40", 1020f, 1100f, paint)
+            2 -> canvas.drawText("3.36", 1020f, 1100f, paint)
+            else -> canvas.drawText("4.32", 1020f, 1100f, paint)
         }
 
-        canvas.drawText(plan.fullValue.toString(),1020f,1150f,paint)
+        canvas.drawText(plan.fullValue.toString(), 1020f, 1150f, paint)
         pdfDocument.finishPage(pagina1)
         try {
             pdfDocument.writeTo(FileOutputStream(getFilePath()))
-            sucessResuulPdf()
+            ImprimirResultado.sucessResuulPdf(this)
         } catch (e: IOException) {
             Toast.makeText(this, "fallo" + e.printStackTrace().toString(), Toast.LENGTH_SHORT)
                 .show()
@@ -279,10 +260,12 @@ class ShowServiceActivity : AppCompatActivity() {
     }
 
     fun seleccionarPermiso(): Boolean {
-        val permiso1 = ContextCompat.checkSelfPermission(applicationContext,
+        val permiso1 = ContextCompat.checkSelfPermission(
+            applicationContext,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-        val permiso2 = ContextCompat.checkSelfPermission(applicationContext,
+        val permiso2 = ContextCompat.checkSelfPermission(
+            applicationContext,
             Manifest.permission.READ_EXTERNAL_STORAGE
         )
         return permiso1 == PackageManager.PERMISSION_GRANTED && permiso2 == PackageManager.PERMISSION_GRANTED
@@ -323,7 +306,7 @@ class ShowServiceActivity : AppCompatActivity() {
     private fun guarDatos(paymentPost: PaymentPost) { // funcion para obtener los datos del api
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(PaymentApi::class.java).createPayment(paymentPost)
+            val call = RetrofilServicePayment.getRetrofitPayment().create(PaymentApi::class.java).createPayment(paymentPost)
                 .execute()
             val puppies = call.body()
             runOnUiThread {
@@ -338,38 +321,12 @@ class ShowServiceActivity : AppCompatActivity() {
 
     }
 
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/payment/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-    fun createObjectPayment():PaymentPost{
+    fun createObjectPayment(): PaymentPost {
         return PaymentPost(
             IdInvoice,
             value,
             null
         )
-    }
-
-    fun sucessResuulPdf(){
-        FancyToast.makeText(
-            this,
-            "Se genero el pdf correctamente!",
-            FancyToast.LENGTH_SHORT,
-            FancyToast.SUCCESS,
-            false
-        ).show()
-
     }
 
 }

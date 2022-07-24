@@ -80,11 +80,17 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
                     deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceActivity)
                     binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
                 }else{
+
+                    binding.logoDevices.isVisible = true
                     ImprimirResultado.ImprimirRespuestoLlamada(this@DeviceActivity)
+                    return
                 }
             }
             override fun onFailure(call: Call<DeviceResponse>, t: Throwable) {
+
+                binding.logoDevices.isVisible = true
                 ImprimirResultado.errorLlamada(this@DeviceActivity)
+                return
             }
         })
     }

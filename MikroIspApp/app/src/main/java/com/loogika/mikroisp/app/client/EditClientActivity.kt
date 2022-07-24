@@ -12,9 +12,13 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.loogika.mikroisp.app.R
+import com.loogika.mikroisp.app.client.ApiService.RetrofitService
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.ClientPost
+import com.loogika.mikroisp.app.client.toast.ImprimirResultado
+import com.loogika.mikroisp.app.client.validarForm.ValidarForm
+import com.loogika.mikroisp.app.client.validarForm.ValidarFormFormEdit
 import com.loogika.mikroisp.app.databinding.ActivityEditClientBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.shashank.sony.fancytoastlib.FancyToast
@@ -34,16 +38,15 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
         binding = ActivityEditClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showDateClient()
-
+        ObtenerDatosSpinner()
         binding.save.setOnClickListener {
             var cliente = crearObjetoClient()
-            Toast.makeText(this, cliente.email, Toast.LENGTH_SHORT).show()
             mostrarDialog(it.context, cliente , id)
         }
 
         binding.buttCancel.setOnClickListener {
-            cancelarResultado()
-            finish()
+             finish()
+            ImprimirResultado.cancelarResultadoClientEdit(this)
         }
     }
 
@@ -56,16 +59,16 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
         binding.address.editText?.setText(client.address).toString()
         binding.telephone.editText?.setText(client.phone1).toString()
         if(client.type == 1){
-            binding.autoCompleteText.hint= "Residencial"
+            binding.autoCompleteText.setText("Residencial")
+            typeClient = 1
         }else{
-            binding.autoCompleteText.hint= "Empresarial"
+            typeClient = 2
+            binding.autoCompleteText.setText("Empresarial")
         }
         binding.email.editText?.setText(client.email).toString()
         binding.descripcion.editText?.setText(client.description).toString()
-        ObtenerDatosSpinner()
-
-
     }
+
 
 
     private fun mostrarDialog(contex: Context ,cliente:ClientPost , idCliente:Int) {
@@ -74,20 +77,54 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
             .setMessage("Deseas editar los datos del cliente?")
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
-                    try{
-                        guarDatos(cliente,idCliente)
-                        Log.d("cliente",cliente.toString())
-                    }catch (e: ArithmeticException){
-                        Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
-                    }
+                    validarCampo(cliente,idCliente)
 
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
-                    cancelarResultado()
-                    finish()
+                     finish()
+                    ImprimirResultado.cancelarResultadoClientEdit(this)
                 })
         builder.show()
+    }
+
+
+    fun validarCampo(client:ClientPost , id:Int) {
+        var validar = ValidarFormFormEdit(
+            binding.dni.editText?.text.toString(),
+            binding.firstName.editText?.text.toString(),
+            binding.lastName.editText?.text.toString(),
+            binding.address.editText?.text.toString(),
+            binding.telephone.editText?.text.toString(),
+            binding.email.editText?.text.toString(),
+            binding.descripcion.editText?.text.toString(),
+            typeClient.toString(),
+            binding
+        )
+
+        val result = arrayOf(
+            validar.validarCedula(),
+            validar.validarFistName(),
+            validar.validarLastName(),
+            validar.validarDirection(),
+            validar.validarTelephone(),
+            validar.validarEmail(),
+            validar.validarDescription(),
+            validar.validarType()
+        )
+        if (false in result) {
+            return
+        }
+        guadarDatosServidor(client,id)
+    }
+
+    private fun guadarDatosServidor( cliente: ClientPost, idCliente:Int) {
+        try{
+            guarDatos(cliente,idCliente)
+            ImprimirResultado.successResultadoClientEdit(this)
+        }catch (e: ArithmeticException){
+            ImprimirResultado.cancelarResultadoClientEdit(this)
+        }
     }
 
     fun ObtenerDatosSpinner(){
@@ -111,7 +148,7 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
 
     private fun guarDatos(clientePost: ClientPost , id:Int) { // funcion para obtener los datos del api
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(clientApi::class.java).editClient(clientePost,id)
+            val call = RetrofitService.getRetrofitClient().create(clientApi::class.java).editClient(clientePost,id)
                 .execute()
             val puppies = call.body()
             runOnUiThread {
@@ -125,23 +162,7 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
         }
     }
 
-
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.2.253/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
-
-    private fun crearObjetoClient(): ClientPost {
+   private fun crearObjetoClient(): ClientPost {
         return ClientPost(
             typeClient,
             binding.dni.editText?.text.toString(),
@@ -155,15 +176,5 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
     }
 
 
-    fun cancelarResultado() {
-        val toast = FancyToast.makeText(
-            this,
-            "No se edito los datos del cliente!",
-            FancyToast.LENGTH_LONG,
-            FancyToast.WARNING,
-            false
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
+
 }

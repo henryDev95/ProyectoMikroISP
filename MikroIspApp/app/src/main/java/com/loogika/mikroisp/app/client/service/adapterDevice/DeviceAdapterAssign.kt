@@ -42,7 +42,7 @@ class DeviceAdapterAssign(val context:Context, val devices: List<Device>, val it
 
         fun bind(device : Device) {
             name.text = "${device.name}"
-            state.text = device.brand.name
+            state.text = device.brand?.name
 
             binding.itemsDevice.setOnClickListener {
                 itemsClick.onCellClickListener(device.id)

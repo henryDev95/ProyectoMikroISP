@@ -2,10 +2,11 @@ package com.loogika.mikroisp.app.client.validarForm
 
 import android.util.Log
 import androidx.core.util.PatternsCompat
+import com.loogika.mikroisp.app.databinding.ActivityEditClientBinding
 import com.loogika.mikroisp.app.databinding.ActivityNewClientBinding
 import org.intellij.lang.annotations.Pattern
 
-class ValidarForm(
+class ValidarFormFormEdit(
       dni: String,
       firstName: String,
       lastName: String,
@@ -14,7 +15,7 @@ class ValidarForm(
       email: String,
       description: String,
       type:String,
-      binding:ActivityNewClientBinding
+      binding:ActivityEditClientBinding
 ) {
     var dni: String = ""
     var firstName: String = ""
@@ -24,7 +25,7 @@ class ValidarForm(
     var email: String  = ""
     var description: String = ""
     var type:String=""
-    lateinit var binding: ActivityNewClientBinding
+    lateinit var binding: ActivityEditClientBinding
 
     init{
         this.dni = dni

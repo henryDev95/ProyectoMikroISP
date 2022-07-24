@@ -8,11 +8,24 @@ import com.shashank.sony.fancytoastlib.FancyToast
 object ImprimirResultado {
 
     fun ImprimirRespuesta(context: Context) {
-        Toast.makeText(context, "No se realizo la llamada al servidor ", Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(
+            context,
+            "!No se realizo la petición!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        ).show()
+
     }
 
     fun error(context: Context) { // metodo para informar el error
-        Toast.makeText(context, "No se realizo la petición", Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(
+            context,
+            "!El servidor se encuentra fuera d servicio!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        ).show()
     }
 
 
@@ -108,6 +121,74 @@ object ImprimirResultado {
         toast.show()
     }
 
+
+    fun successResultadoServiceEdit(context: Context) {
+        val toast = FancyToast.makeText(
+            context,
+            "Información editada correctamente!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.SUCCESS,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+    fun cancelarResultadoServiceEdit(context: Context) {
+        val toast = FancyToast.makeText(
+            context,
+            "No se editó la información del servicio!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+
+    //////////////// Nuevo cliente
+
+
+    fun validarCedulaExistente(context: Context) { // metodo para informar el error
+        val toast = FancyToast.makeText(
+            context,
+            "!Existe un cliente con número de cédula ingresada!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+
+    /// editar cliente //
+
+
+    fun successResultadoClientEdit(context: Context) {
+        val toast = FancyToast.makeText(
+            context,
+            "Información editada correctamente!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.SUCCESS,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
+    fun cancelarResultadoClientEdit(context: Context) {
+        val toast = FancyToast.makeText(
+            context,
+            "No se editó los datos del cliente!",
+            FancyToast.LENGTH_LONG,
+            FancyToast.WARNING,
+            false
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
 
 
 }

@@ -17,9 +17,11 @@ import com.loogika.mikroisp.app.databinding.ActivityPaymentBinding
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.adapter.PaymentAdapter
 import com.loogika.mikroisp.app.payment.apiService.PaymentApi
+import com.loogika.mikroisp.app.payment.apiService.RetrofilServicePayment
 import com.loogika.mikroisp.app.payment.entity.Payment
 import com.loogika.mikroisp.app.payment.entity.PaymentResponse
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.toast.ImprimirResultado
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,7 +58,7 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.CellClickListener,
     }
 
     private fun obtenerDatos() { // funcion para obtener los datos del api
-        val call = getRetrofit().create(PaymentApi::class.java)
+        val call = RetrofilServicePayment.getRetrofitInvoice().create(PaymentApi::class.java)
         call.getAll().enqueue(object : Callback<PaymentResponse> {
             override fun onResponse(
                 call: Call<PaymentResponse>,
@@ -67,34 +69,15 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.CellClickListener,
                     paymentAdapter = PaymentAdapter(listClient, this@PaymentActivity)
                     binding.clientsList.adapter = paymentAdapter//enviamos al adaptador el lsitado
                 } else {
-                    //ImprimirRespuesta()
-                    Log.d("name", "no hay datos")
+
+                    ImprimirResultado.resultNullContent(this@PaymentActivity)
                 }
             }
 
             override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
-                error()
+                ImprimirResultado.error(this@PaymentActivity)
             }
         })
-    }
-
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        var urlBase = "http://192.168.0.102/proyectos-web/adminwisp/web/app_dev.php/api/v1/invoice/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun error() { // metodo para informar el error
-        Toast.makeText(this, "No tiene informaion", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
     }
 
     override fun onCellClickListener(

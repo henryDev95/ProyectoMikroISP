@@ -15,6 +15,7 @@ import com.loogika.mikroisp.app.client.ApiService.RetrofitService
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.client.entity.ClientPrueba
 import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.client.toast.ImprimirResultado
 import com.loogika.mikroisp.app.databinding.ActivityClientBinding
@@ -25,8 +26,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     lateinit var binding:ActivityClientBinding
@@ -57,7 +56,7 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun mostrarShimmer(context:Context){
+     fun mostrarShimmer(context:Context){
         binding.clientsList.layoutManager = LinearLayoutManager(this)
         obtenerDatos(context)
         binding.searchView.setOnQueryTextListener(this)
@@ -67,8 +66,8 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }, 2800)
     }
 
-    private fun obtenerDatos(context: Context) { // funcion para obtener los datos del api
-        val call = RetrofitService.getRetrofit().create(clientApi::class.java)
+     fun obtenerDatos(context: Context) { // funcion para obtener los datos del api
+        val call = RetrofitService.getRetrofitClient().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
                 call: Call<clientResponse>,
@@ -76,6 +75,7 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             ) {
                 if(response.body()!= null){
                     clients = response.body()!!.entities // obtener el resultado
+
                     clients.forEach { client->
                         if(client.services[0].status == 1){
                             clientsActivos.add(client)
@@ -86,13 +86,17 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     }
                     clientAdapter = ClientAdapter(context,clientsActivos)
                     binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
-                }else{
-                    ImprimirResultado.ImprimirRespuesta(this@ClientActivity)
 
+                }else{
+                     binding.logoCLients.isVisible = true
+                    ImprimirResultado.ImprimirRespuesta(this@ClientActivity)
+                    return
                 }
             }
             override fun onFailure(call: Call<clientResponse>, t: Throwable) {
-                ImprimirResultado.error(this@ClientActivity)
+                      binding.logoCLients.isVisible = true
+                      ImprimirResultado.error(this@ClientActivity)
+                      return
             }
         })
     }

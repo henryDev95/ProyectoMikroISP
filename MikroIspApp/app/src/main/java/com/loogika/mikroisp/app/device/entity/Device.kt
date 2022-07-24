@@ -8,13 +8,14 @@ data class Device(
     var id:Int,
     var code:String,
     var name:String,
-    var model:String,
-    var mac:String,
+    var model:String?,
+    var mac:String?,
     var isAssigned:Boolean,
-    var brand:Brand,
+    var brand:Brand?,
     var osVersion:String?,
-    var statusDevice:StatusDevice,
+    var statusDevice:StatusDevice?,
     var typeDevice:TypeDevice?,
+    var provider:Provider?,
     var description:String?
 ): Parcelable
 
@@ -24,6 +25,14 @@ data class Brand(
     var name : String,
     var description : String?,
     var status : Boolean
+):Parcelable
+
+@Parcelize
+data class Provider(
+    var id: Int,
+    var name : String?,
+    var description : String?,
+    var status : Boolean?
 ):Parcelable
 
 @Parcelize

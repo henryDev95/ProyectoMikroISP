@@ -4,15 +4,15 @@ import androidx.core.util.PatternsCompat
 import com.loogika.mikroisp.app.databinding.ActivityLoginBinding
 
 
-class ValidarCampos (Email: String, Password: String, users: List<User>) {
+class ValidarCampos (Email: String, Password: String) {
 
     var Email: String = ""
     var Password: String = ""
-    var users: List<User>
+
     init {
         this.Email = Email
         this.Password = Password
-        this.users=users
+
 
     }
 
@@ -37,16 +37,6 @@ class ValidarCampos (Email: String, Password: String, users: List<User>) {
             binding.email.error = null
             true
         }
-    }
-
-   fun VerificarUserContraseña():Boolean {
-        var encontrado = false
-        users.forEach {
-            if((it.email == Email) && (it.password == Password)){
-                encontrado = true
-            }
-        }
-        return encontrado
     }
 
 }

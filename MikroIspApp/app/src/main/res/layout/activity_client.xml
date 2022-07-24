@@ -63,6 +63,16 @@
             tools:listitem="@layout/item_client"
             />
 
+        <ImageView
+            android:id="@+id/logoCLients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_client"
+            android:layout_gravity="center"
+            android:padding="30dp"
+            android:layout_margin="60dp"
+            android:visibility="gone"/>
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/viewClientList"
             android:layout_width="match_parent"

@@ -32,6 +32,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class EditDeviceActivity : AppCompatActivity() {
     lateinit var binding:ActivityEditDeviceBinding
     lateinit var device:Device
+    var type: Int = 0
+    var providerDevice: Int = 0
+    var brandType: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditDeviceBinding.inflate(layoutInflater)
@@ -39,6 +42,9 @@ class EditDeviceActivity : AppCompatActivity() {
         showToolbar()
         obtenerDatos()
         showDataDevice()
+        ObtenerDatosSpinnerType()
+        ObtenerDatosSpinnerProvider()
+        ObtenerDatosSpinnerBrand()
         binding.buttCancel.setOnClickListener {
             finish()
         }
@@ -53,7 +59,13 @@ class EditDeviceActivity : AppCompatActivity() {
         return DeviceEdit(
             binding.name.editText?.text.toString(),
             binding.version.editText?.text.toString(),
-            binding.descripcion.editText?.text.toString()
+            binding.descripcion.editText?.text.toString(),
+            type,
+            providerDevice,
+            brandType,
+            binding.mac.editText?.text.toString(),
+            binding.model.editText?.text.toString(),
+            binding.code.editText?.text.toString(),
         )
     }
 
@@ -71,8 +83,21 @@ class EditDeviceActivity : AppCompatActivity() {
 
     fun showDataDevice(){
         binding.name.editText?.setText(device.name).toString()
+        binding.code.editText?.setText(device.code).toString()
+        binding.mac.editText?.setText(device.mac).toString()
+        binding.autoCompleteProvider.setText(device.provider?.name.toString())
+
+        if(device.provider != null  || device.typeDevice != null ||device.brand != null ){
+            providerDevice = device.provider!!.id
+            type = device.typeDevice!!.id
+            brandType = device.brand!!.id
+        }
+
+        binding.autoCompleteText.setText(device.typeDevice?.name.toString())
+        binding.autoCompleteBrand.setText(device.brand?.name.toString())
         binding.version.editText?.setText(device.osVersion.toString())
         binding.descripcion.editText?.setText(device.description.toString())
+        binding.model.editText?.setText(device.model).toString()
     }
 
 
@@ -84,8 +109,9 @@ class EditDeviceActivity : AppCompatActivity() {
                 DialogInterface.OnClickListener { dialog, id ->
                     try{
                         guarDatos(device,idDevice)
-                        ImprimirResultado.successResultadoEdit(this)
+                        finish()
                         volverPanerPrincipal()
+                        ImprimirResultado.successResultadoEdit(this)
                         Log.d("device",device.toString())
                     }catch (e: ArithmeticException){
                         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
@@ -111,6 +137,7 @@ class EditDeviceActivity : AppCompatActivity() {
                     Log.d("Exito", puppies.toString())
                 } else {
                     Log.d("error cancelado", "solicitud fue abortada")
+                    return@runOnUiThread
                 }
 
             }
@@ -121,6 +148,103 @@ class EditDeviceActivity : AppCompatActivity() {
         val intent = Intent(this, DeviceActivity::class.java)
         startActivity(intent)
     }
+
+
+    fun ObtenerDatosSpinnerProvider() {
+        val provider = resources.getStringArray(R.array.provider)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, provider)
+        binding.autoCompleteProvider.setAdapter(adapter)
+        binding.autoCompleteProvider.setOnItemClickListener { AdapterView, view, i, l ->
+            val providerDev = AdapterView.getItemAtPosition(i).toString()
+            when (providerDev) {
+                "ZC Mayoristas" -> {
+                    providerDevice = 1
+                    true
+                }
+                "TecnoMega C.A" -> {
+                    providerDevice = 2
+                    true
+                }
+                "INTCOMEX" -> {
+                    providerDevice = 8
+                    true
+                }
+                "PLUS COMPU" -> {
+                    providerDevice = 7
+                    true
+                }
+                "Lanbowan" -> {
+                    providerDevice = 9
+                    true
+                }
+                else -> {
+                    providerDevice = 0
+                }
+            }
+        }
+    }
+
+    fun ObtenerDatosSpinnerType() {
+        val tipoDevice = resources.getStringArray(R.array.typeDevice)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, tipoDevice)
+        binding.autoCompleteText.setAdapter(adapter)
+        binding.autoCompleteText.setOnItemClickListener { AdapterView, view, i, l ->
+            val typeDevice = AdapterView.getItemAtPosition(i).toString()
+            when (typeDevice) {
+                "Radio-Antena" -> {
+                    type = 1
+                    true
+                }
+                "Router" -> {
+                    type = 2
+                    true
+                }
+                else -> {
+                    type = 0
+                }
+
+            }
+        }
+    }
+
+    fun ObtenerDatosSpinnerBrand() {
+        val brand = resources.getStringArray(R.array.brand)
+        val adapter = ArrayAdapter(this, R.layout.items_spinner, brand)
+        binding.autoCompleteBrand.setAdapter(adapter)
+        binding.autoCompleteBrand.setOnItemClickListener { AdapterView, view, i, l ->
+            val brandDevice = AdapterView.getItemAtPosition(i).toString()
+            when (brandDevice) {
+                "Ubiquiti" -> {
+                    brandType = 1
+                    true
+                }
+                "Mikrotik" -> {
+                    brandType = 2
+                    true
+                }
+                "DLink" -> {
+                    brandType = 4
+                    true
+                }
+                "Cisco" -> {
+                    brandType = 6
+                    true
+                }
+                "QPCOM" -> {
+                    brandType = 3
+                    true
+                }
+                "TP-LINK" -> {
+                    brandType = 3
+                    true
+                }
+                else -> {
+                    brandType = 0
+                }
+            }
+        }
+    }
+
 
 
 }

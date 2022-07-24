@@ -175,9 +175,6 @@
                     android:textColor="@color/Black"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
-
             <fragment
                 android:id="@+id/googleMap"
                 android:layout_width="match_parent"
@@ -199,8 +196,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_brakground"
-                    android:backgroundTint="@color/colorFondo"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_selector_content"
                     android:drawableLeft="@drawable/ico_save_content"
                     android:padding="5dp"
                     android:text="Guardar"

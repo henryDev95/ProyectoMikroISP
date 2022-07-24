@@ -10,11 +10,23 @@ import com.shashank.sony.fancytoastlib.FancyToast
 object ImprimirResultado {
 
     fun ImprimirRespuestoLlamada(context: Context) {
-        Toast.makeText(context, "No hay datos del equipo", Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(
+            context,
+            "!No se realizo la petición!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        ).show()
     }
 
     fun errorLlamada(context:Context) { // metodo para informar el error
-        Toast.makeText(context, "No se realizo la llamada", Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(
+            context,
+            "!El servidor se encuentra fuera d servicio!",
+            FancyToast.LENGTH_SHORT,
+            FancyToast.WARNING,
+            false
+        ).show()
     }
 
     // resultado para editar el equipo//////////////////////////////////////////////////////////////////

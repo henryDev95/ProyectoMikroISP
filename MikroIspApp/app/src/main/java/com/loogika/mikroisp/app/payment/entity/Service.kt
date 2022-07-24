@@ -11,6 +11,8 @@ data class Service(
     var latitude:Float?,
     var longitude:Float?,
     var plan:Plan,
+    var description:String?,
+    var address:String?,
     var serviceDevices:List<ServiceDevice>
 ):Parcelable
 @Parcelize

@@ -13,6 +13,7 @@ import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.client.EditClientActivity
 import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.entity.Client
+import com.loogika.mikroisp.app.client.service.EditServiceActivity
 import com.loogika.mikroisp.app.client.service.ServiceClientActivity
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.device.entity.Device
@@ -80,6 +81,14 @@ class ClientAdapter(val context:Context, val clients: List<Client>):RecyclerView
                         context.startActivity(intent)
                         true
                     }
+
+                    R.id.editService->{
+                        val intent = Intent(context, EditServiceActivity::class.java)
+                        intent.putExtra("client",client)
+                        context.startActivity(intent)
+                        true
+                    }
+
                     else ->true
 
                 }

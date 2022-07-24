@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"
-            android:enabled="true"
+            android:enabled="false"
             android:textColor="@color/colorText"
             android:backgroundTint="@color/colorDesactivado"
             android:drawableLeft="@drawable/ico_invoice_client"

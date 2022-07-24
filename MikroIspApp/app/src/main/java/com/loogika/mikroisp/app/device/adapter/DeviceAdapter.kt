@@ -43,16 +43,19 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
 
         fun bind(device : Device) {
             name.text = "${device.name}  ${device.model}"
-            state.text = device.brand.name
+            state.text = device.brand?.name
 
-           /* binding.itemsClient.setOnClickListener {
-                itemsClick.onCellClickListener( device.id,device.name,device.code,device.model,device.mac,device.brand,device.statusDevice)
+            binding.itemsClient.setOnClickListener {
+
+               // itemsClick.onCellClickListener( device.id,device.name,device.code,device.model,device.mac,device.brand,device.statusDevice)
             }
-            */
+
 
             binding.icOption.setOnClickListener {
                   menuOpcion(it,device)
             }
+
+
         }
 
         fun menuOpcion(view:View , device:Device){
@@ -78,8 +81,8 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
                          }else{
                              isAssigng.text = "Cancelado"
                          }
-                         brand.text = device.brand.name
-                         status.text = device.statusDevice.name
+                         brand.text = device.brand?.name
+                         status.text = device.statusDevice!!.name
 
                          AlertDialog.Builder(con)
                              .setView(v)

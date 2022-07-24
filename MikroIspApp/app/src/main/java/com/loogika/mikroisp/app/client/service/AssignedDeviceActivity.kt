@@ -105,10 +105,14 @@ class AssignedDeviceActivity : AppCompatActivity(), DeviceAdapterAssign.CellClic
                 binding.items.isVisible=false
                 binding.user.editText?.setText("")
                 binding.password.editText?.setText("")
+                binding.title.text = "Ingrese el Router"
 
             }else{
-                ImprimirResultado.successResultadoRouter(this)
+
+                finish()
                 regresarPanelPrincipal()
+                ImprimirResultado.successResultadoRouter(this)
+
             }
         }catch (e: ArithmeticException){
             ImprimirResultado.cancelarResult(this)

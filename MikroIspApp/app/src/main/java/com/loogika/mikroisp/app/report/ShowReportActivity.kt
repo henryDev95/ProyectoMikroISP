@@ -25,6 +25,7 @@ class ShowReportActivity : AppCompatActivity() {
         showToolbar()
         binding.pdfView.fromFile(getFilePath("creada")).load()
         binding.cancelar.setOnClickListener {
+            finish()
             val intent = Intent(this, ReportActivity::class.java)
             startActivity(intent)
         }
