@@ -1,5 +1,6 @@
 package com.loogika.mikroisp.app.device.adapter
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -96,7 +97,6 @@ class DeviceAdapter(val context:Context, val devices: List<Device>, val itemsCli
                      }
 
                      R.id.edit->{
-
                          val intent = Intent(con,EditDeviceActivity::class.java)
                          intent.putExtra("device",device)
                          con.startActivity(intent)

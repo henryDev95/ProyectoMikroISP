@@ -21,6 +21,7 @@ import com.loogika.mikroisp.app.payment.apiService.RetrofilServicePayment
 import com.loogika.mikroisp.app.payment.entity.Payment
 import com.loogika.mikroisp.app.payment.entity.PaymentResponse
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 import com.loogika.mikroisp.app.payment.toast.ImprimirResultado
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -91,9 +92,8 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.CellClickListener,
         userLastName: String,
         address: String,
         telephone: String,
-        plan: Plan
+        service: Service
     ) {
-
         var intent = Intent(this, ShowServiceActivity::class.java)
         intent.putExtra("idInvoice", idInvoice)
         intent.putExtra("numberInvoice", numberInvoice)
@@ -105,7 +105,7 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.CellClickListener,
         intent.putExtra("userLastName", userLastName)
         intent.putExtra("address", address)
         intent.putExtra("telephone", telephone)
-        intent.putExtra("plan", plan)
+        intent.putExtra("service", service)
         startActivity(intent)
     }
 

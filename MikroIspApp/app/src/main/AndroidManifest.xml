@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".client.service.ListServiceEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.service.EditServiceActivity"
             android:exported="false" />
         <activity

@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofilServiceUser {
     fun retrofitUser():Retrofit{
-       var urlBase = "http://192.168.0.100/proyectos-web/adminwisp/web/app_dev.php/api/v1/users/"
+       var urlBase = "http://192.168.0.105/proyectos-web/adminwisp/web/app_dev.php/api/v1/users/"
        return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

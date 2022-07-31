@@ -47,6 +47,7 @@ class FacturaActivity : AppCompatActivity() {
 
 
         binding.cancelar.setOnClickListener {
+            finish()
             val intent = Intent(this,PaymentActivity::class.java)
             startActivity(intent)
         }

@@ -43,6 +43,7 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
         showToolbar()
         showContent(this)
         binding.btNewDevice.setOnClickListener {
+            finish()
             var intent = Intent(this, NewDeviceActivity::class.java)
             startActivity(intent)
         }

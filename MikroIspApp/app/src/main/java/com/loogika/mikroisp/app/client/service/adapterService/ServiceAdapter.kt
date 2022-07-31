@@ -28,17 +28,15 @@ import com.loogika.mikroisp.app.payment.entity.Service
 
 class ServiceAdapter(val context:Context, val service: List<Service>, val itemsClick: CellClickListener):RecyclerView.Adapter<ServiceAdapter.DeviceHolder>(){
 
-
-
     interface CellClickListener {
-        fun onCellClickListener(id:Int)
+        fun onCellClickListener(id:Int , position: Int)
     }
 
     class DeviceHolder(val binding:ItemServiceListBinding , var itemsClick: CellClickListener , val con:Context) : RecyclerView.ViewHolder(binding.root) {  // hace referencia m al diseño de los items
         private var name: TextView = binding.name
         private var state: TextView = binding.stateDevice
 
-        fun bind(service : Service) {
+        fun bind(service : Service , position: Int) {
             name.text = "${service.name}"
             if(service.status == 1){
                 state.text = "Activo"
@@ -47,7 +45,8 @@ class ServiceAdapter(val context:Context, val service: List<Service>, val itemsC
             }
 
             binding.itemsService.setOnClickListener {
-                itemsClick.onCellClickListener(service.id)
+                itemsClick.onCellClickListener(service.id , position)
+
             }
         }
     }
@@ -65,7 +64,7 @@ class ServiceAdapter(val context:Context, val service: List<Service>, val itemsC
     // Displays data at a certain position
     override fun onBindViewHolder(holder: DeviceHolder, position: Int) { // devuelve los items
         var items = service[position]
-        holder.bind(items)
+        holder.bind(items, position)
     }
 
 

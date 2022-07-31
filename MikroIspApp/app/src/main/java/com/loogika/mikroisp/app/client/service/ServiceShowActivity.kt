@@ -43,16 +43,17 @@ class ServiceShowActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun showDateService(){
         val client = intent.getParcelableExtra<Client>("client")!!
-        latitud = client.services[0].latitude!!.toDouble()
-        longitud = client.services[0].longitude!!.toDouble()
-        binding.plan.text = client.services[0].plan.name
-        if(client.services[0].status == 1){
+        var position = intent.getIntExtra("position",0)
+        latitud = client.services[position].latitude!!.toDouble()
+        longitud = client.services[position].longitude!!.toDouble()
+        binding.plan.text = client.services[position].plan.name
+        if(client.services[position].status == 1){
             binding.estado.text = "Activo"
         }else{
             binding.estado.text = "En corte"
         }
-        binding.antenaName.text = client.services[0].serviceDevices[0].device?.name
-        binding.router.text = client.services[0].serviceDevices[1].device?.name
+        binding.antenaName.text = client.services[position].serviceDevices[0].device?.name
+        binding.router.text = client.services[position].serviceDevices[1].device?.name
     }
 
     fun createFragment() {

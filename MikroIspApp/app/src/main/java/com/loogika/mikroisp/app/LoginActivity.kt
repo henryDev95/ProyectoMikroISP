@@ -36,8 +36,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.login.setOnClickListener {
              // validate()
-            val internt = Intent(this@LoginActivity, DashboardActivity::class.java)
-            startActivity(internt)
+
+           var intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+
         }
     }
 
@@ -61,22 +63,21 @@ class LoginActivity : AppCompatActivity() {
                 if (response.body() != null) {
                     val User = response.body()!!.entities
                     if(User != null && User.rol[1].id == 9){
-                        val internt = Intent(this@LoginActivity, DashboardActivity::class.java)
-                        startActivity(internt)
-                         ImprimirResultado.suceessResulLogin(this@LoginActivity)
+                         finish()
+                         //ImprimirResultado.suceessResulLogin(this@LoginActivity)
+                         val internt = Intent(this@LoginActivity, DashboardActivity::class.java)
+                         startActivity(internt)
+
                     }else{
                          ImprimirResultado.warningResulLogin(this@LoginActivity)
-
                         borrarCampos()
                         return
-
                     }
                 } else {
                     borrarCampos()
                     return
                 }
             }
-
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 borrarCampos()
                 return

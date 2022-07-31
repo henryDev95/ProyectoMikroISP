@@ -2,6 +2,7 @@ package com.loogika.mikroisp.app.client
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -78,7 +79,8 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
                     validarCampo(cliente,idCliente)
-
+                    finish()
+                    regresarPanelClient()
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
@@ -173,6 +175,11 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
             binding.email.editText?.text.toString(),
             binding.descripcion.editText?.text.toString()
         )
+    }
+
+    fun regresarPanelClient(){
+        val intent = Intent(this, ClientActivity::class.java)
+        startActivity(intent)
     }
 
 

@@ -132,20 +132,21 @@ class ReportActivity : AppCompatActivity() {
     }
 
     fun onDateSelector(day: Int, month: Int, year: Int) {
-        binding.startDate.setText("${year}-${month}-${day}")
+        binding.startDate.setText("${year}-${month+1}-${day}")
         dayStart = day
-        monthStart = month
+        monthStart = month+1
         yearStart = year
         startDate = binding.startDate.text.toString()
     }
 
     fun onDateSelector2(day: Int, month: Int, year: Int) {
-        if (validaFecha(day, month, year)) {
-            binding.finaltDate.setText("${year}-${month}-${day}")
+        if (validaFecha(day, month+1, year)) {
+            binding.finaltDate.setText("${year}-${month+1}-${day}")
             endDate = binding.finaltDate.text.toString()
             binding.logoReport.isVisible = false
             binding.showReport.isEnabled = true
             binding.showReport.setBackgroundColor(resources.getColor(R.color.colorFondo))
+            binding.titulo.isVisible = true
             mostrarShimmer()
         } else {
             ShowResult.errorResuulDate(this)

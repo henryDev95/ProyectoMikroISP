@@ -77,18 +77,19 @@ class EditServiceActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
 
     fun showDateService() {
         val client = intent.getParcelableExtra<Client>("client")!!
-        latitud = client.services[0].latitude!!.toDouble()
-        longitud = client.services[0].longitude!!.toDouble()
+        var position = intent.getIntExtra("position",0)
+        latitud = client.services[position].latitude!!.toDouble()
+        longitud = client.services[position].longitude!!.toDouble()
         idClient = client.id
-        idService = client.services[0].id
-        binding.autoCompletePlan.setText(client.services[0].plan.name!!)
-        binding.description.editText?.setText(client.services[0].description!!)
-        binding.address.editText?.setText(client.services[0].address!!)
-        binding.latitud.editText?.setText(client.services[0].latitude!!.toDouble().toString())
-        binding.longuitud.editText?.setText(client.services[0].longitude!!.toDouble().toString())
+        idService = client.services[position].id
+        binding.autoCompletePlan.setText(client.services[position].plan.name!!)
+        binding.description.editText?.setText(client.services[position].description!!)
+        binding.address.editText?.setText(client.services[position].address!!)
+        binding.latitud.editText?.setText(client.services[position].latitude!!.toDouble().toString())
+        binding.longuitud.editText?.setText(client.services[position].longitude!!.toDouble().toString())
 
-        if (client.services[0].plan != null) {
-            planType = client.services[0].plan.id
+        if (client.services[position].plan != null) {
+            planType = client.services[position].plan.id
         }
     }
 

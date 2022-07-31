@@ -31,7 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
-
     private lateinit var binding: FragmentHomeBinding
     private var clients: List<Client> = mutableListOf()
     private var clientsActivos = mutableListOf<Client>()
@@ -49,12 +48,13 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        obtenerDatos()
-
+        mostrarDatosClientActivos(root.context)
         binding.cantidadClient.setOnClickListener {
+            binding.titulo.text = "Listado de clientes activos:"
             mostrarShimmer(root.context , 1)
         }
         binding.cantidadEnCorte.setOnClickListener {
+            binding.titulo.text = "Listado de clientes el corte:"
             mostrarShimmer(root.context , 2)
         }
         return root
@@ -62,15 +62,12 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun mostrarShimmer(context:Context , select:Int){
         binding.items.isVisible = true
-        binding.logoClient.isVisible=false
         binding.clientsList.layoutManager = LinearLayoutManager(this.context)
-        obtenerDatos()
         if(select == 1){
             clientAdapter = ClientAdapter(context, clientsActivos)
         }else{
             clientAdapter = ClientAdapter(context, clientsSuspendidos)
         }
-
         binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
         binding.searchView.setOnQueryTextListener(this)
         Handler(Looper.getMainLooper()).postDelayed({
@@ -79,7 +76,17 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         }, 2800)
     }
 
-    private fun obtenerDatos() { // funcion para obtener los datos del api
+    private fun mostrarDatosClientActivos(context:Context){
+        binding.clientsList.layoutManager = LinearLayoutManager(this.context)
+        obtenerDatos(context)
+        binding.searchView.setOnQueryTextListener(this)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.viewClientList.isVisible= false
+            binding.clientsList.isVisible = true
+        }, 2800)
+    }
+
+    private fun obtenerDatos( context:Context) { // funcion para obtener los datos del api
         val call = getRetrofit().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
@@ -98,8 +105,10 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
                             cantidadEnCorte++
                         }
                     }
-                    binding.cantidadClient.text = (clientsActivos.count()-110).toString()
+                    binding.cantidadClient.text = (clientsActivos.count()).toString()
                     binding.cantidadEnCorte.text = clientsSuspendidos.count().toString()
+                    clientAdapter = ClientAdapter(context,clientsActivos)
+                    binding.clientsList.adapter = clientAdapter//enviamos al adaptador el lsitado
 
                 } else {
                     ImprimirRespuesta()
@@ -123,7 +132,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun getRetrofit(): Retrofit { // funcion de retrofil
         // 34.238.198.216 ---> direccion ip del servidor
-        var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
+        var urlBase = "http://192.168.0.106/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

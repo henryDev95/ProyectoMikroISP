@@ -12,6 +12,7 @@ import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.databinding.ItemServiceClientBinding
 import com.loogika.mikroisp.app.payment.entity.Payment
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 
 
 class PaymentAdapter(val clientsService: List<Payment>, val itemsClick: CellClickListener):RecyclerView.Adapter<PaymentAdapter.ClientHolder>(),Filterable {
@@ -23,7 +24,7 @@ class PaymentAdapter(val clientsService: List<Payment>, val itemsClick: CellClic
     }
 
     interface CellClickListener {
-        fun onCellClickListener(idInvoice:Int,numberInvoice:String,total:Float, id:Int,type:Int,dni:String, userFirstName:String , userLastName : String, address:String, telephone:String, plan:Plan)
+        fun onCellClickListener(idInvoice:Int,numberInvoice:String,total:Float, id:Int,type:Int,dni:String, userFirstName:String , userLastName : String, address:String, telephone:String, service:Service)
 
     }
 
@@ -33,7 +34,7 @@ class PaymentAdapter(val clientsService: List<Payment>, val itemsClick: CellClic
         fun bind(payment:Payment) {
             name.text = "${payment.client.userFirstName} ${payment.client.userLastName}"
             binding.cobrar.setOnClickListener {
-                itemsClick.onCellClickListener( payment.id,payment.number.toString(), payment.total,payment.client.id,payment.client.type,payment.client.dni,payment.client.userFirstName.toString(),payment.client.userLastName.toString(),payment.client.address.toString(),payment.client.phone1.toString() , payment.client.services[0].plan)
+                itemsClick.onCellClickListener( payment.id,payment.number.toString(), payment.total,payment.client.id,payment.client.type,payment.client.dni,payment.client.userFirstName.toString(),payment.client.userLastName.toString(),payment.client.address.toString(),payment.client.phone1.toString() , payment.client.services[0])
             }
         }
     }

@@ -130,6 +130,7 @@ class NewClientActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
 
     fun enviarDatos(cliente: ClientPost, idCli: Int) {
+        finish()
         val intent = Intent(this, DetailClientActivity::class.java)
         intent.putExtra("id", idCli)
         intent.putExtra("type", cliente.type)

@@ -100,6 +100,7 @@ class NewDeviceActivity : AppCompatActivity() {
         val device = createDevicePost()
         try{
             guarDatos(device)
+            finish()
             regresarActivityDevice()
         }catch (e:Exception){
             Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()

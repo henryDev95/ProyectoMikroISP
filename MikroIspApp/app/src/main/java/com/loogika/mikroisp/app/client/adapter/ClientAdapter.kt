@@ -1,5 +1,6 @@
 package com.loogika.mikroisp.app.client.adapter
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,7 @@ import com.loogika.mikroisp.app.client.EditClientActivity
 import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.service.EditServiceActivity
+import com.loogika.mikroisp.app.client.service.ListServiceEditActivity
 import com.loogika.mikroisp.app.client.service.ServiceClientActivity
 import com.loogika.mikroisp.app.databinding.ItemClientBinding
 import com.loogika.mikroisp.app.device.entity.Device
@@ -58,6 +60,7 @@ class ClientAdapter(val context:Context, val clients: List<Client>):RecyclerView
         fun menuOpcion(view: View, client:Client){
             val popup = PopupMenu(context.applicationContext, view)
             popup.inflate(R.menu.show_client)
+            context as Activity
             popup.setOnMenuItemClickListener {
                 when(it.itemId){
                     R.id.show ->{
@@ -68,10 +71,11 @@ class ClientAdapter(val context:Context, val clients: List<Client>):RecyclerView
                     }
 
                     R.id.edit->{
+                        context.finish()
                         val intent = Intent(context, EditClientActivity::class.java)
                         intent.putExtra("client",client)
                         context.startActivity(intent)
-                          true
+                        true
                     }
 
                     R.id.newService->{
@@ -83,7 +87,7 @@ class ClientAdapter(val context:Context, val clients: List<Client>):RecyclerView
                     }
 
                     R.id.editService->{
-                        val intent = Intent(context, EditServiceActivity::class.java)
+                        val intent = Intent(context, ListServiceEditActivity::class.java)
                         intent.putExtra("client",client)
                         context.startActivity(intent)
                         true

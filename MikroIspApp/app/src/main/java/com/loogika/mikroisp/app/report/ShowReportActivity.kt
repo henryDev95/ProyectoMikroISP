@@ -33,7 +33,7 @@ class ShowReportActivity : AppCompatActivity() {
 
     fun showToolbar(){
         setSupportActionBar(binding.toolbarb)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     fun printPdf(){

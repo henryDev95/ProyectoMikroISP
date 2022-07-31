@@ -206,9 +206,9 @@
         android:id="@+id/planDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/detallContact"
+        app:layout_constraintEnd_toStartOf="@id/detailCampoPla"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlePlan"
         tools:ignore="MissingConstraints">
@@ -253,8 +253,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toEndOf="@+id/identification"
+        app:layout_constraintStart_toEndOf="@+id/planDetail"
         app:layout_constraintTop_toBottomOf="@+id/titlePlan">
 
         <TextView
@@ -308,10 +307,10 @@
         android:id="@+id/cancelarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:backgroundTint="@color/colorCancel"
+        android:layout_marginBottom="32dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/button_selector_cancel"
         android:drawableLeft="@drawable/ico_cancel"
-        android:padding="12dp"
         android:text="Cancelar"
         android:textColor="@color/colorText"
         android:textSize="15sp"

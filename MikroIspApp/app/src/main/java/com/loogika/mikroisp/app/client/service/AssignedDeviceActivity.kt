@@ -216,6 +216,7 @@ class AssignedDeviceActivity : AppCompatActivity(), DeviceAdapterAssign.CellClic
         return true
     }
     fun regresarPanelPrincipal() {
+        finish()
         val intent = Intent(this, ClientActivity::class.java)
         startActivity(intent)
     }

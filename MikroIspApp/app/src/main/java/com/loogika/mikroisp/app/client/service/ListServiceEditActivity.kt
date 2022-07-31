@@ -3,25 +3,20 @@ package com.loogika.mikroisp.app.client.service
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.service.adapterService.ServiceAdapter
-import com.loogika.mikroisp.app.client.service.entity.ServiceDevice
-import com.loogika.mikroisp.app.databinding.ActivityListServiceBinding
-import com.loogika.mikroisp.app.payment.entity.Plan
-import com.loogika.mikroisp.app.payment.entity.Service
+import com.loogika.mikroisp.app.databinding.ActivityListServiceEditBinding
 
-class ListServiceActivity : AppCompatActivity() , ServiceAdapter.CellClickListener{
-    lateinit var binding : ActivityListServiceBinding
+class ListServiceEditActivity : AppCompatActivity() , ServiceAdapter.CellClickListener {
+    lateinit var binding:ActivityListServiceEditBinding
     lateinit var client: Client
-    lateinit var clientService:Client
+    lateinit var clientService: Client
     var Position:Int = 0;
     private lateinit var serviceAdapter: ServiceAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityListServiceBinding.inflate(layoutInflater)
+        binding = ActivityListServiceEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showToolbar()
         showDateService()
@@ -45,7 +40,7 @@ class ListServiceActivity : AppCompatActivity() , ServiceAdapter.CellClickListen
     }
 
     fun showDateService(){
-       client = intent.getParcelableExtra<Client>("client")!!
+        client = intent.getParcelableExtra<Client>("client")!!
     }
 
     override fun onCellClickListener(id: Int, position: Int) {
@@ -55,19 +50,17 @@ class ListServiceActivity : AppCompatActivity() , ServiceAdapter.CellClickListen
                 clientService = client
             }
         }
-         Position = position;
+        Position = position;
 
 
         enviarDatos()
     }
     fun  enviarDatos(){
-         finish()
-         val intent = Intent(this, ServiceShowActivity::class.java)
-         intent.putExtra("client", clientService)
-         intent.putExtra("position",Position)
-         startActivity(intent)
+        val intent = Intent(this, EditServiceActivity::class.java)
+        intent.putExtra("client", clientService)
+        intent.putExtra("position",Position)
+        startActivity(intent)
 
     }
-
 
 }

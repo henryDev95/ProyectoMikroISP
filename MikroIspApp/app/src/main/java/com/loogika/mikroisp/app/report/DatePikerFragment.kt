@@ -22,9 +22,10 @@ class DatePikerFragment(val listener:(day:Int,month:Int,year:Int)->Unit):DialogF
         val month = c.get(Calendar.MONDAY)
         val year = c.get(Calendar.YEAR)
         val piker = DatePickerDialog(activity as Context,this,year,month,day)
-        // c.set(Calendar.YEAR,year-1)
-        //c.set(Calendar.DAY_OF_YEAR,1)
-       // piker.datePicker.minDate = c.timeInMillis
+         c.set(Calendar.YEAR,year)
+         c.set(Calendar.MONDAY,6)
+         c.set(Calendar.DAY_OF_MONTH,1)
+         piker.datePicker.minDate = c.timeInMillis
         return piker
     }
 }

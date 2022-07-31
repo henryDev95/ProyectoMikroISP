@@ -30,6 +30,7 @@ import com.loogika.mikroisp.app.payment.apiService.PaymentApi
 import com.loogika.mikroisp.app.payment.apiService.RetrofilServicePayment
 import com.loogika.mikroisp.app.payment.entity.PaymentPost
 import com.loogika.mikroisp.app.payment.entity.Plan
+import com.loogika.mikroisp.app.payment.entity.Service
 import com.loogika.mikroisp.app.payment.toast.ImprimirResultado
 import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.coroutines.CoroutineScope
@@ -54,6 +55,7 @@ class ShowServiceActivity : AppCompatActivity() {
     lateinit var formateDate: DateFormat
     lateinit var FormatTime: DateFormat
     var IdInvoice: Int = 0
+    var IdService: Int = 0
     var numberInvoice: String = ""
     var value: Float = 0f
     var dni: String = ""
@@ -61,7 +63,7 @@ class ShowServiceActivity : AppCompatActivity() {
     var userLastName: String = ""
     var address: String = ""
     var telephone: String = ""
-    lateinit var plan: Plan
+    lateinit var service:Service
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowServiceBinding.inflate(layoutInflater)
@@ -79,6 +81,7 @@ class ShowServiceActivity : AppCompatActivity() {
 
         binding.pdfInvoice.setOnClickListener(View.OnClickListener {
             createPDf()
+            finish()
             val intent = Intent(this, FacturaActivity::class.java)
             intent.putExtra("userLastName", userLastName)
             startActivity(intent)
@@ -105,20 +108,20 @@ class ShowServiceActivity : AppCompatActivity() {
         userLastName = intent.getStringExtra("userLastName").toString()
         address = intent.getStringExtra("address").toString()
         telephone = intent.getStringExtra("telephone").toString()
-        plan = intent.getParcelableExtra<Plan>("plan")!!
-
+        service = intent.getParcelableExtra<Service>("service")!!
+        IdService = service.id
         binding.detailIdentification.text = dni.toString()
         binding.detailNames.text = userFirstName.toString()
         binding.detailSurname.text = userLastName.toString()
         binding.detailDirecction.text = address.toString()
         binding.detailTelephone.text = telephone.toString()
-        binding.detailPlaName.text = plan.name.toString()
-        if (plan.status == "true") {
+        binding.detailPlaName.text = service.plan.name.toString()
+        if (service.plan.status == "true") {
             binding.detailPlanState.text = "Activo"
         } else {
             binding.detailPlanState.text = "Cancelado"
         }
-        binding.detailPlanValue.text = plan.fullValue.toString()
+        binding.detailPlanValue.text = service.plan.fullValue.toString()
     }
 
     private fun mostrarDialog(contex: Context) {
@@ -128,7 +131,7 @@ class ShowServiceActivity : AppCompatActivity() {
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
                     ImprimirResultado.successResultado(this)
-                    /*
+
                     val payment = createObjectPayment()
                     try {
                         guarDatos(payment)
@@ -136,9 +139,7 @@ class ShowServiceActivity : AppCompatActivity() {
                     } catch (e: ArithmeticException) {
                         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                     }
-
-                     */
-                    binding.pdfInvoice.isVisible = true
+                      binding.pdfInvoice.isVisible = true
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
@@ -175,7 +176,7 @@ class ShowServiceActivity : AppCompatActivity() {
 
         titulo.textAlign = Paint.Align.CENTER
         titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC))
-        titulo.textSize = 70f
+        titulo.textSize = 40f
         canvas.drawText("COMPROBANTE DE PAGO", 1200f / 2f, 350f, titulo)
 
         // datos de informacion
@@ -219,10 +220,10 @@ class ShowServiceActivity : AppCompatActivity() {
 
         paint.textSize = 35f
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
-        canvas.drawText("Internet," + plan.name, 100f, 950f, paint)
+        canvas.drawText("Internet," + service.plan.name, 100f, 950f, paint)
         canvas.drawText("1", 630f, 950f, paint)
-        canvas.drawText(plan.value.toString(), 830f, 950f, paint)
-        canvas.drawText(plan.value.toString(), 1020f, 950f, paint)
+        canvas.drawText(service.plan.value.toString(), 830f, 950f, paint)
+        canvas.drawText(service.plan.value.toString(), 1020f, 950f, paint)
 
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
         paint.textSize = 35f
@@ -232,14 +233,14 @@ class ShowServiceActivity : AppCompatActivity() {
 
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
         paint.textSize = 35f
-        canvas.drawText(plan.value.toString(), 1020f, 1050f, paint)
-        when (plan.id) {
+        canvas.drawText(service.plan.value.toString(), 1020f, 1050f, paint)
+        when (service.plan.id) {
             1 -> canvas.drawText("2.40", 1020f, 1100f, paint)
             2 -> canvas.drawText("3.36", 1020f, 1100f, paint)
             else -> canvas.drawText("4.32", 1020f, 1100f, paint)
         }
 
-        canvas.drawText(plan.fullValue.toString(), 1020f, 1150f, paint)
+        canvas.drawText(service.plan.fullValue.toString(), 1020f, 1150f, paint)
         pdfDocument.finishPage(pagina1)
         try {
             pdfDocument.writeTo(FileOutputStream(getFilePath()))
@@ -324,6 +325,7 @@ class ShowServiceActivity : AppCompatActivity() {
     fun createObjectPayment(): PaymentPost {
         return PaymentPost(
             IdInvoice,
+            IdService,
             value,
             null
         )

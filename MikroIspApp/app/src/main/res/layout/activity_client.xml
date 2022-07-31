@@ -37,6 +37,21 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/items"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Listado de clientes:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingStart="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/colorBlack"
+            />
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"

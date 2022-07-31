@@ -11,7 +11,7 @@ object ImprimirResultado {
             context,
             "!Acceso Denegado!",
             FancyToast.LENGTH_SHORT,
-            FancyToast.SUCCESS,
+            FancyToast.WARNING,
             false
         ).show()
     }

@@ -268,6 +268,7 @@ class ServiceClientActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     fun enviarDatos(idService: Int) {
+        finish()
         val intent = Intent(this, AssignedDeviceActivity::class.java)
         intent.putExtra("id", idService)
         startActivity(intent)

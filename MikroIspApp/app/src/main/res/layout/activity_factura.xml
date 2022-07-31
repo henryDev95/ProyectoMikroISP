@@ -21,7 +21,7 @@
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="12dp"
-                      android:text="Detalle de la factura"
+                      android:text="Detalle del comprobante"
                       android:textSize="20sp"
                       android:textStyle="bold"
                       android:textColor="@color/colorText"
@@ -40,7 +40,7 @@
 
       <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
           android:id="@+id/cancelar"
-          android:layout_width="wrap_content"
+          android:layout_width="150dp"
           android:layout_height="wrap_content"
           android:layout_alignParentEnd="true"
           android:layout_alignParentBottom="true"
@@ -49,8 +49,9 @@
           android:layout_marginBottom="20dp"
           android:textColor="@color/colorText"
           android:text="Cerrar"
-          android:backgroundTint="@color/colorFondo"
+          app:backgroundTint="@null"
+          android:background="@drawable/botton_selector"
           android:textSize="16sp"
-          app:iconTint ="@color/colorText"
+          app:iconTint="@color/colorBlack"
           app:icon="@drawable/ic_clear_black_24dp"/>
 </RelativeLayout>

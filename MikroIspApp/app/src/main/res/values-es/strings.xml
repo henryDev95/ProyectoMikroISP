@@ -35,7 +35,7 @@
     <string name="serviceDetail">Detalle del servicio</string>
     <string name="clientData">Datos del cliente</string>
     <string name="plan">Plan</string>
-    <string name="planName">Nombre del plan </string>
+    <string name="planName">Nombre</string>
     <string name="planState">Estado </string>
     <string name="planValue">Valor </string>
     <string name="equipmentInformation">Información del equipo</string>

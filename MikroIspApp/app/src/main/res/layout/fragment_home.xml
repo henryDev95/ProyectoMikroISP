@@ -6,133 +6,128 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     tools:context=".ui.home.HomeFragment">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/contentClient"
+    <LinearLayout
+        android:id="@+id/contentCliente"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/colorActivo"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardUseCompatPadding="true"
-        >
-
-        <LinearLayout
-            android:id="@+id/contentDetailClient"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/icoClient"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:src="@drawable/ico_clients" />
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contentClient"
+            android:layout_width="195dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/botton_selector"
+            app:cardBackgroundColor="@color/colorFondo"
+            app:cardUseCompatPadding="true"
+            >
             <LinearLayout
+                android:id="@+id/contentDetailClient"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="2dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CLIENTES ACTIVOS"
-                    android:textSize="15sp"
-                    android:padding="5dp"
-                    android:textColor="@color/colorFondo"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal" />
-                <TextView
-                    android:id="@+id/cantidadClient"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="......."
-                    android:textSize="35sp"
-                    android:padding="3dp"
-                    android:textColor="@color/colorFondo"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CLIENTES ACTIVOS"
+                        android:textSize="15sp"
+                        android:padding="5dp"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal" />
+                    <TextView
+                        android:id="@+id/cantidadClient"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="......."
+                        android:textSize="35sp"
+                        android:padding="3dp"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/contentEnCorte"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/colorEnCorte"
-        app:layout_constraintTop_toBottomOf="@id/contentClient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardUseCompatPadding="true"
-        >
-        <LinearLayout
-            android:id="@+id/contentDetail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/icoDevice"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:src="@drawable/ico_clients" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contentEnCorte"
+            android:layout_width="195dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/colorEnCorte"
+            app:layout_constraintTop_toBottomOf="@id/contentClient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:cardUseCompatPadding="true"
+            >
             <LinearLayout
+                android:id="@+id/contentDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-              >
-                <TextView
+                android:orientation="horizontal"
+                >
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CLIENTES EN CORTE"
-                    android:textSize="15sp"
-                    android:padding="5dp"
-                    android:textColor="@color/colorFondo"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal" />
-                <TextView
-                    android:id="@+id/cantidadEnCorte"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="........"
-                    android:textSize="35sp"
-                    android:textColor="@color/colorFondo"
-                    android:padding="3dp"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal" />
-           </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <LinearLayout
-        android:id="@+id/logoClient"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/contentEnCorte"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingTop="50dp"
-        android:paddingBottom="50dp"
-        android:layout_margin="20dp">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/logo_client"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CLIENTES EN CORTE"
+                        android:textSize="15sp"
+                        android:padding="5dp"
+                        android:textColor="@color/colorText"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal" />
+                    <TextView
+                        android:id="@+id/cantidadEnCorte"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="........"
+                        android:textSize="35sp"
+                        android:textColor="@color/colorText"
+                        android:padding="3dp"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/contentCliente"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Listado de clientes activos:"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/colorBlack"
+        />
+
     <LinearLayout
         android:id="@+id/items"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/contentEnCorte"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/titulo"
         app:layout_constraintStart_toStartOf="parent">
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
@@ -174,4 +169,7 @@
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
     </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

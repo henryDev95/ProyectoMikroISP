@@ -20,7 +20,8 @@ class DetailClientActivity :AppCompatActivity(){
         setContentView(binding.root)
         recuperarDatos()
         binding.addService.setOnClickListener {
-           val intent = Intent(this,ServiceClientActivity::class.java)
+            finish()
+            val intent = Intent(this,ServiceClientActivity::class.java)
             intent.putExtra("id",idClient)
             intent.putExtra("mostrar","no")
             startActivity(intent)

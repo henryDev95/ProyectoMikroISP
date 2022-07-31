@@ -88,7 +88,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ico_last_name" />
+                    android:src="@drawable/ico_status_client" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ico_last_name" />
+                        android:src="@drawable/ico_antena_src" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -221,7 +221,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ico_last_name" />
+                        android:src="@drawable/ico_router_show" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -255,8 +255,8 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="17dp"
-                android:background="@drawable/shape_brakground"
-                android:backgroundTint="@color/colorFondo"
+                app:backgroundTint="@null"
+                android:background="@drawable/button_selector_content"
                 android:drawableLeft="@drawable/ico_cancel"
                 android:padding="3dp"
                 android:paddingEnd="19dp"
