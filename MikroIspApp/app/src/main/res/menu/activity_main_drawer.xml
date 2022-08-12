@@ -27,6 +27,5 @@
             android:id="@+id/nav_reports"
             android:icon="@drawable/ic_report"
             android:title="@string/reports"/>
-
     </group>
 </menu>

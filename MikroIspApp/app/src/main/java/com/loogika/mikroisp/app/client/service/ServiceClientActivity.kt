@@ -72,6 +72,11 @@ class ServiceClientActivity : AppCompatActivity(), OnMapReadyCallback,
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
     fun validarDatos() {
         val validar = ValFormNewService(
             planType.toString(),

@@ -34,7 +34,7 @@ class PaymentAdapter(val clientsService: List<Payment>, val itemsClick: CellClic
         fun bind(payment:Payment) {
             name.text = "${payment.client.userFirstName} ${payment.client.userLastName}"
             binding.cobrar.setOnClickListener {
-                itemsClick.onCellClickListener( payment.id,payment.number.toString(), payment.total,payment.client.id,payment.client.type,payment.client.dni,payment.client.userFirstName.toString(),payment.client.userLastName.toString(),payment.client.address.toString(),payment.client.phone1.toString() , payment.client.services[0])
+                itemsClick.onCellClickListener( payment.id,payment.number, payment.total,payment.client.id,payment.client.type,payment.client.dni,payment.client.userFirstName.toString(),payment.client.userLastName.toString(),payment.client.address.toString(),payment.client.phone1.toString() , payment.client.services[0])
             }
         }
     }
@@ -67,7 +67,7 @@ class PaymentAdapter(val clientsService: List<Payment>, val itemsClick: CellClic
                     val resultList = ArrayList<Payment>()
                     clientsService.forEach { row->
 
-                        if (row.client.userFirstName?.toLowerCase().toString().contains(charSearch.lowercase())) {
+                        if (row.client.userFirstName?.toLowerCase().toString().contains(charSearch.lowercase()) || row.client.userLastName?.toLowerCase().toString().contains(charSearch.lowercase())) {
                             resultList.add(row)
 
                         }

@@ -44,6 +44,22 @@ class DashboardActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        binding.appBarDashboard.salirSesion.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Salir")
+                .setMessage("¿Desea cerrar sesión ?")
+                .setPositiveButton(R.string.accept,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        finish()
+                        val intent= Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    })
+                .setNegativeButton(R.string.cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.dismiss()
+                    })
+            builder.show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

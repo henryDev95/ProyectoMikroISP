@@ -51,7 +51,7 @@ class ShowClientActivity :AppCompatActivity(){
         binding.lastName.text = client.userLastName.toString()
         binding.direction.text = client.address
         binding.telephone.text = client.phone1
-        binding.statusClient.text = typeCLient(client.services[0].status)
+        binding.statusClient.text = typeCLient(client.services[0].status!!)
         binding.city.text = client.city
     }
 

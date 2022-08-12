@@ -79,13 +79,13 @@ class ShowServiceActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.pdfInvoice.setOnClickListener(View.OnClickListener {
+        binding.pdfInvoice.setOnClickListener{
             createPDf()
             finish()
             val intent = Intent(this, FacturaActivity::class.java)
             intent.putExtra("userLastName", userLastName)
             startActivity(intent)
-        })
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -95,12 +95,14 @@ class ShowServiceActivity : AppCompatActivity() {
 
     fun showToolbar() {
         setSupportActionBar(binding.toolbarb)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
 
     fun showDateClient() {
         IdInvoice = intent.getIntExtra("idInvoice", 0)
+        service = intent.getParcelableExtra<Service>("service")!!
+        IdService = service.id
         numberInvoice = intent.getStringExtra("numberInvoice").toString()
         value = intent.getFloatExtra("total", 0f)
         dni = intent.getStringExtra("dni").toString()
@@ -108,8 +110,6 @@ class ShowServiceActivity : AppCompatActivity() {
         userLastName = intent.getStringExtra("userLastName").toString()
         address = intent.getStringExtra("address").toString()
         telephone = intent.getStringExtra("telephone").toString()
-        service = intent.getParcelableExtra<Service>("service")!!
-        IdService = service.id
         binding.detailIdentification.text = dni.toString()
         binding.detailNames.text = userFirstName.toString()
         binding.detailSurname.text = userLastName.toString()
@@ -131,15 +131,16 @@ class ShowServiceActivity : AppCompatActivity() {
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
                     ImprimirResultado.successResultado(this)
-
-                    val payment = createObjectPayment()
+                    binding.pdfInvoice.isVisible = true
+                    /*val payment = createObjectPayment()
                     try {
                         guarDatos(payment)
 
                     } catch (e: ArithmeticException) {
                         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                     }
-                      binding.pdfInvoice.isVisible = true
+                    */
+                    //binding.pdfInvoice.isVisible = true
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->

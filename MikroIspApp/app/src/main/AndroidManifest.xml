@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ico_mikroispapp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".client.service.ListServiceEditActivity"
             android:exported="false" />
@@ -65,8 +66,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".client.service.ServiceClientActivity"
-            android:exported="false"
-            android:parentActivityName=".client.ClientActivity" />
+            android:exported="false" />
         <activity
             android:name=".device.NewDeviceActivity"
             android:exported="false" />
@@ -95,8 +95,7 @@
         <activity android:name=".DashboardActivity" />
         <activity
             android:name=".client.NewClientActivity"
-            android:label=""
-            android:parentActivityName=".client.ClientActivity" />
+            android:label="" />
         <activity
             android:name=".client.ShowClientActivity"
             android:exported="false"

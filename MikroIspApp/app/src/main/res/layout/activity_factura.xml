@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".payment.ComprobatePagoActivity">
 
       <LinearLayout
           android:id="@+id/items"
@@ -47,11 +48,10 @@
           android:layout_marginStart="20dp"
           android:layout_marginEnd="30dp"
           android:layout_marginBottom="20dp"
-          android:textColor="@color/colorText"
           android:text="Cerrar"
-          app:backgroundTint="@null"
-          android:background="@drawable/botton_selector"
+          android:textColor="@color/colorText"
+          android:backgroundTint="@color/colorFondo"
           android:textSize="16sp"
-          app:iconTint="@color/colorBlack"
+          app:iconTint ="@color/colorText"
           app:icon="@drawable/ic_clear_black_24dp"/>
 </RelativeLayout>

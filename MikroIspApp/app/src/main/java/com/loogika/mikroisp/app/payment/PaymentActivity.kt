@@ -114,7 +114,7 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.CellClickListener,
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        paymentAdapter.filter.filter(newText)
+      paymentAdapter.filter.filter(newText)
         return true
     }
 

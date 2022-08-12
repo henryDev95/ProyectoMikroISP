@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Service(
     var id: Int,
     var name: String?,
-    var status:Int,
+    var status:Int?,
     var latitude:Float?,
     var longitude:Float?,
     var plan:Plan,
