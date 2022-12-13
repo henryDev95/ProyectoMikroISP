@@ -90,7 +90,7 @@ class ClientActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 }else{
                      binding.logoCLients.isVisible = true
                     ImprimirResultado.ImprimirRespuesta(this@ClientActivity)
-                    return
+                     return
                 }
             }
             override fun onFailure(call: Call<clientResponse>, t: Throwable) {

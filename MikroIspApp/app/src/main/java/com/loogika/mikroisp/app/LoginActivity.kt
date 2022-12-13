@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                          startActivity(internt)
 
                     }else{
-                         ImprimirResultado.warningResulLogin(this@LoginActivity)
+                        ImprimirResultado.warningResulLogin(this@LoginActivity)
                         borrarCampos()
                         return
                     }

@@ -16,20 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:textAlignment="center"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <Button
                 android:id="@+id/salirSesion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="170dp"
-                app:backgroundTint="@null"
+                android:layout_gravity="end"
                 android:background="@drawable/button_selector_content"
                 android:drawableLeft="@drawable/ico_sesion"
                 android:text="Salir"
                 android:textColor="@color/colorText"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:backgroundTint="@null" />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
