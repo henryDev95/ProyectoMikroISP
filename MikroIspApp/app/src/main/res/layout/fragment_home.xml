@@ -4,172 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".ui.home.HomeFragment">
+    android:padding="8dp">
+
     <LinearLayout
         android:id="@+id/contentCliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/contentClient"
-            android:layout_width="195dp"
+            android:layout_width="191dp"
             android:layout_height="100dp"
+            android:background="@drawable/botton_selector"
+            app:backgroundTint="@null"
+            app:cardBackgroundColor="@color/colorFondo"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:backgroundTint="@null"
-            android:background="@drawable/botton_selector"
-            app:cardBackgroundColor="@color/colorFondo"
-            app:cardUseCompatPadding="true"
-            >
+            app:cardUseCompatPadding="true">
+
             <LinearLayout
                 android:id="@+id/contentDetailClient"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CLIENTES ACTIVOS"
-                        android:textSize="15sp"
+                        android:gravity="center_horizontal"
                         android:padding="5dp"
-                        android:textColor="@color/colorText"
+                        android:text="CLIENTES ACTIVOS"
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        android:gravity="center_horizontal" />
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/cantidadClient"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="......."
-                        android:textSize="35sp"
+                        android:gravity="center_horizontal"
                         android:padding="3dp"
-                        android:textColor="@color/colorText"
+                        android:text="......."
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        android:gravity="center_horizontal" />
+                        android:textColor="@color/colorText"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/contentEnCorte"
-            android:layout_width="195dp"
+            android:layout_width="191dp"
             android:layout_height="100dp"
+            app:cardBackgroundColor="@color/colorEnCorte"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/colorEnCorte"
-            app:layout_constraintTop_toBottomOf="@id/contentClient"
-            app:layout_constraintStart_toStartOf="parent"
             app:cardUseCompatPadding="true"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contentClient">
+
             <LinearLayout
                 android:id="@+id/contentDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CLIENTES EN CORTE"
-                        android:textSize="15sp"
+                        android:gravity="center_horizontal"
                         android:padding="5dp"
-                        android:textColor="@color/colorText"
+                        android:text="CLIENTES EN CORTE"
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        android:gravity="center_horizontal" />
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/cantidadEnCorte"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="........"
-                        android:textSize="35sp"
-                        android:textColor="@color/colorText"
+                        android:gravity="center_horizontal"
                         android:padding="3dp"
+                        android:text="........"
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        android:gravity="center_horizontal" />
+                        android:textColor="@color/colorText"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
+
     <TextView
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/contentCliente"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Listado de clientes activos:"
-        android:textStyle="bold"
-        android:textSize="18sp"
         android:paddingBottom="10dp"
+        android:text="Listado de clientes activos:"
         android:textColor="@color/colorBlack"
-        />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentCliente" />
+
 
     <LinearLayout
         android:id="@+id/items"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/titulo"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titulo">
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/shape_brakground"
-            app:layout_constraintStart_toStartOf="parent"
-            app:queryHint="@string/SearchByName"
-            />
+            app:queryHint="@string/SearchByName" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/clientsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_client"
-            />
+            tools:listitem="@layout/item_client" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/viewClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <include layout="@layout/item_client_shimmer"/>
-                <include layout="@layout/item_client_shimmer"/>
-                <include layout="@layout/item_client_shimmer"/>
-                <include layout="@layout/item_client_shimmer"/>
-                <include layout="@layout/item_client_shimmer"/>
-                <include layout="@layout/item_client_shimmer"/>
-                <include layout="@layout/item_client_shimmer"/>
+
+                <include layout="@layout/item_client_shimmer" />
+
+                <include layout="@layout/item_client_shimmer" />
+
+                <include layout="@layout/item_client_shimmer" />
+
+                <include layout="@layout/item_client_shimmer" />
+
+                <include layout="@layout/item_client_shimmer" />
+
+                <include layout="@layout/item_client_shimmer" />
+
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

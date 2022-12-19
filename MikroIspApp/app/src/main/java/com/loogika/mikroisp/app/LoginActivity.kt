@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.content.Intent
+import android.util.Log
 
 import com.loogika.mikroisp.app.databinding.ActivityLoginBinding // sirve para vincular la vista de la actividad
 import com.loogika.mikroisp.app.user.ValidarCampos
@@ -30,10 +31,16 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.login.setOnClickListener {
-             // validate()
+            validate()
+
+
+            /*
+
             var intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
 
+
+             */
         }
     }
 
@@ -50,19 +57,17 @@ class LoginActivity : AppCompatActivity() {
         obtenerDatosUsers(user)
     }
 
-    fun obtenerDatosUsers(user:UserPost) {
+    fun obtenerDatosUsers(user: UserPost) {
         val call = RetrofilServiceUser.retrofitUser().create(ApiService::class.java)
         call.authentificationUser(user).enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.body() != null) {
                     val User = response.body()!!.entities
-                    if(User != null && User.rol[1].id == 9){
-                         finish()
-                         //ImprimirResultado.suceessResulLogin(this@LoginActivity)
-                         val internt = Intent(this@LoginActivity, DashboardActivity::class.java)
-                         startActivity(internt)
-
-                    }else{
+                    if (User != null && User.rol[0].id == 7) {
+                        finish()
+                        val internt = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        startActivity(internt)
+                    } else {
                         ImprimirResultado.warningResulLogin(this@LoginActivity)
                         borrarCampos()
                         return
@@ -86,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
-    fun borrarCampos(){
+    fun borrarCampos() {
         binding.email.editText?.setText("")
         binding.password.editText?.setText("")
     }

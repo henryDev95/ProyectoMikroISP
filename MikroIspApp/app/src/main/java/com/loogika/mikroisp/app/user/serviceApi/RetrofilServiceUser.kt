@@ -5,8 +5,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofilServiceUser {
+
+    // 34.238.198.216 ---> direccion ip del servidor
     fun retrofitUser():Retrofit{
-       var urlBase = "http://192.168.0.102/proyectos-web/adminwisp/web/app_dev.php/api/v1/users/"
+       var urlBase = "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/users/"
        return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

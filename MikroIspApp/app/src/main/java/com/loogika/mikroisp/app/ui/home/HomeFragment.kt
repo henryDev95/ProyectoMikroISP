@@ -13,12 +13,14 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.loogika.mikroisp.app.client.ApiService.RetrofitService
 import com.loogika.mikroisp.app.client.ApiService.clientApi
 import com.loogika.mikroisp.app.client.ShowClientActivity
 import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.client.entity.Client
 import com.loogika.mikroisp.app.client.entity.clientResponse
 import com.loogika.mikroisp.app.databinding.FragmentHomeBinding
+import com.loogika.mikroisp.app.device.apiService.RetrofilService
 import com.loogika.mikroisp.app.interceptor.HeaderInterceptor
 import com.loogika.mikroisp.app.payment.entity.Plan
 import com.loogika.mikroisp.app.payment.entity.Service
@@ -87,7 +89,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun obtenerDatos( context:Context) { // funcion para obtener los datos del api
-        val call = getRetrofit().create(clientApi::class.java)
+        val call = RetrofitService.getRetrofitClient().create(clientApi::class.java)
         call.getAll().enqueue(object : Callback<clientResponse> {
             override fun onResponse(
                 call: Call<clientResponse>,
@@ -130,21 +132,6 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         Toast.makeText(this.context, "No tiene informaion", Toast.LENGTH_SHORT).show()
     }
 
-    private fun getRetrofit(): Retrofit { // funcion de retrofil
-        // 34.238.198.216 ---> direccion ip del servidor
-        var urlBase = "http://192.168.0.106/proyectos-web/adminwisp/web/app_dev.php/api/v1/client/"
-        return Retrofit.Builder()
-            .baseUrl(urlBase)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getInterceptor())
-            .build()
-    }
-
-    private fun getInterceptor(): OkHttpClient { // para añadir la cabecera en retrofil
-        return OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor())
-            .build()
-    }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         return true
@@ -154,6 +141,4 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         clientAdapter.filter.filter(newText)
         return true
     }
-
-
 }

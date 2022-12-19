@@ -51,6 +51,7 @@
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         android:padding="5dp"
+        app:startIconDrawable="@drawable/password"
         app:errorIconDrawable="@null"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"

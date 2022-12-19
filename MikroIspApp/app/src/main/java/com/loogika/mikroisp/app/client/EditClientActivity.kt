@@ -46,8 +46,8 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
         }
 
         binding.buttCancel.setOnClickListener {
-             finish()
             ImprimirResultado.cancelarResultadoClientEdit(this)
+            finish()
         }
     }
 
@@ -79,13 +79,15 @@ class EditClientActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
             .setPositiveButton(R.string.accept,
                 DialogInterface.OnClickListener { dialog, id ->
                     validarCampo(cliente,idCliente)
+                    ImprimirResultado.successResultadoClientEdit(this)
                     finish()
                     regresarPanelClient()
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
-                     finish()
                     ImprimirResultado.cancelarResultadoClientEdit(this)
+                    finish()
+
                 })
         builder.show()
     }

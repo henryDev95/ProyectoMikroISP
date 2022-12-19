@@ -123,6 +123,4 @@
         app:tint="@color/colorText"
         android:src="@drawable/ic_add" />
 
-
-
 </RelativeLayout>

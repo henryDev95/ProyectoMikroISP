@@ -2,6 +2,7 @@ package com.loogika.mikroisp.app.client.service
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -52,6 +53,8 @@ class ServiceShowActivity : AppCompatActivity(), OnMapReadyCallback {
         }else{
             binding.estado.text = "En corte"
         }
+
+        Log.d("servicio--->" , client.toString())
         binding.antenaName.text = client.services[position].serviceDevices[0].device?.name
         binding.router.text = client.services[position].serviceDevices[1].device?.name
     }

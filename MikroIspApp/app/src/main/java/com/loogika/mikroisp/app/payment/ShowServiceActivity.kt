@@ -132,14 +132,14 @@ class ShowServiceActivity : AppCompatActivity() {
                 DialogInterface.OnClickListener { dialog, id ->
                     ImprimirResultado.successResultado(this)
                     binding.pdfInvoice.isVisible = true
-                    /*val payment = createObjectPayment()
+                    val payment = createObjectPayment()
                     try {
                         guarDatos(payment)
 
                     } catch (e: ArithmeticException) {
                         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                     }
-                    */
+
                     //binding.pdfInvoice.isVisible = true
                 })
             .setNegativeButton(R.string.cancel,

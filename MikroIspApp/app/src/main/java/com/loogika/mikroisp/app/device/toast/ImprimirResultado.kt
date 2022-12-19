@@ -22,7 +22,7 @@ object ImprimirResultado {
     fun errorLlamada(context:Context) { // metodo para informar el error
         FancyToast.makeText(
             context,
-            "!El servidor se encuentra fuera d servicio!",
+            "!El servidor se encuentra fuera del servicio!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false

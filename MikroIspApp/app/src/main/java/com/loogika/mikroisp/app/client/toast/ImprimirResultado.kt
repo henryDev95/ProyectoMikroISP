@@ -181,7 +181,7 @@ object ImprimirResultado {
     fun cancelarResultadoClientEdit(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "No se editó los datos del cliente!",
+            "No se edito los datos del cliente!",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false

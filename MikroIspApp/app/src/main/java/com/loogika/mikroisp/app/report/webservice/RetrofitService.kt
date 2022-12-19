@@ -5,8 +5,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService {
+
+    // 34.238.198.216 ---> direccion ip del servidor
     fun getRetrofil():Retrofit{
-        val urlBase= "http://192.168.0.106/proyectos-web/adminwisp/web/app_dev.php/api/v1/payment/"
+        val urlBase= "http://34.238.198.216/proyectos-web/adminwisp/web/app_dev.php/api/v1/payment/"
         return Retrofit.Builder()
             .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())

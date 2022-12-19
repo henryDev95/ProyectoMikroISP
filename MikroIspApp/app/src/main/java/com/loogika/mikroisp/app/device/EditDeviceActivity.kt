@@ -46,6 +46,7 @@ class EditDeviceActivity : AppCompatActivity() {
         ObtenerDatosSpinnerProvider()
         ObtenerDatosSpinnerBrand()
         binding.buttCancel.setOnClickListener {
+            ImprimirResultado.cancelarResultadoEdit(this)
             finish()
         }
 
@@ -109,10 +110,10 @@ class EditDeviceActivity : AppCompatActivity() {
                 DialogInterface.OnClickListener { dialog, id ->
                     try{
                         guarDatos(device,idDevice)
+                        ImprimirResultado.successResultadoEdit(this)
                         finish()
                         volverPanerPrincipal()
-                        ImprimirResultado.successResultadoEdit(this)
-                        Log.d("device",device.toString())
+
                     }catch (e: ArithmeticException){
                         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
                     }
