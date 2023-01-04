@@ -49,7 +49,6 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         mostrarDatosClientActivos(root.context)
         binding.cantidadClient.setOnClickListener {
             binding.titulo.text = "Listado de clientes activos:"

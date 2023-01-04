@@ -18,6 +18,7 @@ import com.loogika.mikroisp.app.databinding.ActivityDeviceBinding
 import com.loogika.mikroisp.app.device.adapter.DeviceAdapter
 import com.loogika.mikroisp.app.device.apiService.deviceApi
 import androidx.core.view.isVisible
+import com.loogika.mikroisp.app.client.adapter.ClientAdapter
 import com.loogika.mikroisp.app.device.apiService.RetrofilService
 import com.loogika.mikroisp.app.device.entity.Brand
 import com.loogika.mikroisp.app.device.entity.Device
@@ -32,9 +33,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, SearchView.OnQueryTextListener {
-    lateinit var binding:ActivityDeviceBinding
-    private var deviceList:List<Device>  = mutableListOf()
+class DeviceActivity : AppCompatActivity(), DeviceAdapter.CellClickListener,
+    SearchView.OnQueryTextListener {
+    lateinit var binding: ActivityDeviceBinding
+    private var deviceList: List<Device> = mutableListOf()
+    private var deviceRouter = mutableListOf<Device>()
+    private var deviceAntenas = mutableListOf<Device>()
+    var cantidadAntenas: Int = 0
+    var cantidadRouter: Int = 0
     private lateinit var deviceAdapter: DeviceAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +48,17 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
         setContentView(binding.root)
         showToolbar()
         showContent(this)
+
+        binding.contentAntenas.setOnClickListener {
+            binding.titulo.text = "Listado de antenas:"
+            mostrarShimmer(this , 1)
+        }
+
+        binding.cantidadRouters.setOnClickListener {
+            binding.titulo.text = "Listado de routers:"
+            mostrarShimmer(this , 2)
+        }
+
         binding.btNewDevice.setOnClickListener {
             finish()
             var intent = Intent(this, NewDeviceActivity::class.java)
@@ -49,17 +66,35 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
         }
     }
 
+
+
+    private fun mostrarShimmer(context:Context , select:Int){
+
+        binding.deviceList.layoutManager = LinearLayoutManager(this)
+        if(select == 1){
+            deviceAdapter = DeviceAdapter(context, deviceAntenas, this@DeviceActivity)
+        }else{
+            deviceAdapter = DeviceAdapter(context, deviceRouter, this@DeviceActivity)
+        }
+        binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
+        binding.searchView.setOnQueryTextListener(this)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.viewLoading.isVisible= false
+            binding.deviceList.isVisible = true
+        }, 2800)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
 
-    fun showToolbar(){
+    fun showToolbar() {
         setSupportActionBar(binding.toolbarb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    fun showContent( context: Context){
+    fun showContent(context: Context) {
         binding.deviceList.layoutManager = LinearLayoutManager(this)
         obtenerDatos(context)
         binding.searchView.setOnQueryTextListener(this)
@@ -76,17 +111,30 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
                 call: Call<DeviceResponse>,
                 response: Response<DeviceResponse>
             ) {
-                if(response.body()!= null){
+                if (response.body() != null) {
                     deviceList = response.body()!!.devices // obtener el resultado
-                    deviceAdapter = DeviceAdapter( view,deviceList, this@DeviceActivity)
-                    binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el lsitado
-                }else{
+                    deviceList.forEach { device ->
+                        if (device.typeDevice!!.id == 1) {
+                            deviceAntenas.add(device)
+                            cantidadAntenas++
+                        }else{
+                            deviceRouter.add(device)
+                            cantidadRouter++
+                        }
+                    }
+
+                    binding.cantidadAntenas.text =  cantidadAntenas.toString()
+                    binding.cantidadRouters.text= cantidadRouter.toString()
+                    deviceAdapter = DeviceAdapter(view, deviceAntenas, this@DeviceActivity)
+                    binding.deviceList.adapter = deviceAdapter//enviamos al adaptador el listado
+                } else {
 
                     binding.logoDevices.isVisible = true
                     ImprimirResultado.ImprimirRespuestoLlamada(this@DeviceActivity)
                     return
                 }
             }
+
             override fun onFailure(call: Call<DeviceResponse>, t: Throwable) {
 
                 binding.logoDevices.isVisible = true
@@ -97,15 +145,15 @@ class DeviceActivity : AppCompatActivity(),  DeviceAdapter.CellClickListener, Se
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        return  true
+        return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         deviceAdapter.filter.filter(newText)
 
-        if(newText!!.isEmpty()){
+        if (newText!!.isEmpty()) {
             binding.btNewDevice.isVisible = true
-        }else{
+        } else {
             binding.btNewDevice.isVisible = false
         }
 

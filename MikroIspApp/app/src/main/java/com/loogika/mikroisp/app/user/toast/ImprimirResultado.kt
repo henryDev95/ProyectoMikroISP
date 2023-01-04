@@ -16,12 +16,12 @@ object ImprimirResultado {
         ).show()
     }
 
-    fun suceessResulLogin(context : Context) {
+    fun errrorResulNetword(context : Context) {
         val toast = FancyToast.makeText(
             context,
-            "!Acceso Permitido!",
+            "!No hay internet!",
             FancyToast.LENGTH_SHORT,
-            FancyToast.SUCCESS,
+            FancyToast.WARNING,
             false
         )
         toast.setGravity(Gravity.CENTER, 0, 0)

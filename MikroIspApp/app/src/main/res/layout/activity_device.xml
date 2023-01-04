@@ -5,24 +5,23 @@
     android:id="@+id/viewRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarb"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        android:theme="@style/MyThemeOverlay_Toolbar"
         android:background="@color/colorFondo"
+        android:theme="@style/MyThemeOverlay_Toolbar"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/titleSub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="50dp"
+            android:layout_marginTop="5dp"
             android:text="MÓDULO DE EQUIPO"
             android:textColor="@color/colorText"
             android:textSize="18sp"
@@ -32,77 +31,191 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/contentDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarb"
+        android:paddingStart="2dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contentAntenas"
+            android:layout_width="195dp"
+            android:layout_height="100dp"
+            android:background="@drawable/botton_selector"
+            app:backgroundTint="@null"
+            app:cardBackgroundColor="@color/colorFondo"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/contentDetailClient"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="ANTENAS"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/cantidadAntenas"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:padding="3dp"
+                        android:text="......."
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contentRouter"
+            android:layout_width="195dp"
+            android:layout_height="100dp"
+            app:cardBackgroundColor="@color/colorFondo"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contentClient">
+
+            <LinearLayout
+                android:id="@+id/contentDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="ROUTERS"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/cantidadRouters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:padding="3dp"
+                        android:text="........"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbarb"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Listado de equipos:"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:paddingStart="5dp"
-        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
         android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Listado de antenas:"
         android:textColor="@color/colorBlack"
-        />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentDevice" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        app:layout_constraintTop_toBottomOf="@+id/titulo"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/shape_brakground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:queryHint="@string/SearchByName"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/titulo"
+        app:queryHint="@string/SearchByName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/deviceList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_device"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:listitem="@layout/item_device" />
+
     <ImageView
         android:id="@+id/logoDevices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo_router_equipo"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/viewLoading"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <include layout="@layout/item_client_shimmer"/>
-            <include layout="@layout/item_client_shimmer"/>
-            <include layout="@layout/item_client_shimmer"/>
-            <include layout="@layout/item_client_shimmer"/>
-            <include layout="@layout/item_client_shimmer"/>
-            <include layout="@layout/item_client_shimmer"/>
-            <include layout="@layout/item_client_shimmer"/>
+
+            <include layout="@layout/item_client_shimmer" />
+
+            <include layout="@layout/item_client_shimmer" />
+
+            <include layout="@layout/item_client_shimmer" />
+
+            <include layout="@layout/item_client_shimmer" />
+
+            <include layout="@layout/item_client_shimmer" />
+
+            <include layout="@layout/item_client_shimmer" />
+
+            <include layout="@layout/item_client_shimmer" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -114,9 +227,9 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_add"
         android:backgroundTint="@color/colorFondo"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/colorText"/>
+        app:tint="@color/colorText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
