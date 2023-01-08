@@ -98,18 +98,22 @@ class ReportActivity : AppCompatActivity() {
             val report = executeApi.body()
             runOnUiThread {
                 if (executeApi.isSuccessful) {
+                    binding.paymentsList.isVisible = true
                     val reports = report?.report ?: emptyList()
                     if (reports.isNotEmpty()) {
                         reportList.clear()
                         reportList.addAll(reports)
                         reportAdapter = ReportAdapter(reportList)
                         binding.paymentsList.adapter = reportAdapter
-                        Log.d("valor encontrado", reportList.toString())
                     } else {
+                        reportList.clear()
+                        reportAdapter = ReportAdapter(reportList)
                         binding.showReport.isEnabled = false
                         binding.startDate.setText("")
                         binding.finaltDate.setText("")
                         binding.logoReport.isVisible = true
+                        binding.titulo.isVisible = false
+                        binding.viewPaymentList.isVisible = false
                         binding.showReport.setBackgroundColor(resources.getColor(R.color.colorDesactivado))
                         ShowResult.sucessResultList(this@ReportActivity)
                     }
@@ -137,9 +141,11 @@ class ReportActivity : AppCompatActivity() {
         monthStart = month+1
         yearStart = year
         startDate = binding.startDate.text.toString()
+        binding.fechaDesde.isEnabled = true
     }
 
     fun onDateSelector2(day: Int, month: Int, year: Int) {
+        binding.paymentsList.isVisible = false
         if (validaFecha(day, month+1, year)) {
             binding.finaltDate.setText("${year}-${month+1}-${day}")
             endDate = binding.finaltDate.text.toString()
@@ -149,6 +155,8 @@ class ReportActivity : AppCompatActivity() {
             binding.titulo.isVisible = true
             mostrarShimmer()
         } else {
+            binding.startDate.setText("")
+            binding.fechaDesde.isEnabled = false
             ShowResult.errorResuulDate(this)
         }
     }

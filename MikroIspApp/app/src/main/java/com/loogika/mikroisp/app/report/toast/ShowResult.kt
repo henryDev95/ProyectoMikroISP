@@ -35,8 +35,8 @@ object ShowResult {
     fun sucessResultList(context:Context){
         val toast = FancyToast.makeText(
             context,
-            "No hay cobros realizados!",
-            FancyToast.LENGTH_SHORT,
+            "!No hay cobros realizados!",
+            FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false
         )
