@@ -12,7 +12,7 @@ object ImprimirResultado {
     fun ImprimirRespuestoLlamada(context: Context) {
         FancyToast.makeText(
             context,
-            "!No se realizo la petición!",
+            "!No se realizó la petición!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
@@ -34,7 +34,7 @@ object ImprimirResultado {
     fun cancelarResultadoEdit(context:Context) {
         val toast = FancyToast.makeText(
             context,
-            "No se edito los datos del equipo!",
+            "No se editó los datos del equipo!",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false
@@ -46,7 +46,7 @@ object ImprimirResultado {
     fun successResultadoEdit(context:Context) {
         val toast = FancyToast.makeText(
             context,
-            "Se edito los datos del equipo correctamente!",
+            "Se editó los datos del equipo correctamente!",
             FancyToast.LENGTH_LONG,
             FancyToast.SUCCESS,
             false

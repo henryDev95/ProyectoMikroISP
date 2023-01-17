@@ -10,7 +10,7 @@ object ImprimirResultado {
     fun ImprimirRespuesta(context: Context) {
         FancyToast.makeText(
             context,
-            "!No se realizo la petición!",
+            "!No se realizó la petición!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
@@ -32,7 +32,7 @@ object ImprimirResultado {
     fun successResultado(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "Se registro el cliente correctamente!",
+            "Se registró el cliente correctamente!",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
@@ -44,7 +44,7 @@ object ImprimirResultado {
     fun cancelarResultado(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "No se realizo el registro del cliente!",
+            "No se realizó el registro del cliente!",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false
@@ -62,7 +62,7 @@ object ImprimirResultado {
     fun cancelarResult(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "No se realizo el registro del servicio con el equipo!",
+            "No se realizó el registro del servicio con el equipo!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
@@ -74,7 +74,7 @@ object ImprimirResultado {
     fun successResultadoAntena(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "Se registro la antena correctamente!",
+            "Se registró la antena correctamente!",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
@@ -86,7 +86,7 @@ object ImprimirResultado {
     fun successResultadoRouter(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "Se registro el router correctamente!",
+            "Se registró el router correctamente!",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
@@ -100,7 +100,7 @@ object ImprimirResultado {
     fun cancelarResultadoService(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "No se realizo el registro del servicio!",
+            "No se realizó el registro del servicio!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
@@ -112,7 +112,7 @@ object ImprimirResultado {
     fun successResultadoService(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "Se registro el servicio correctamente!",
+            "Se registró el servicio correctamente!",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
@@ -181,7 +181,7 @@ object ImprimirResultado {
     fun cancelarResultadoClientEdit(context: Context) {
         val toast = FancyToast.makeText(
             context,
-            "No se edito los datos del cliente!",
+            "No se editó los datos del cliente!",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false

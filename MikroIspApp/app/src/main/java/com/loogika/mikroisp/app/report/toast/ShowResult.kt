@@ -9,7 +9,7 @@ object ShowResult {
     fun sucessResuulPdf(context:Context){
         val toast = FancyToast.makeText(
             context,
-            "Se genero el pdf correctamente!",
+            "Se creó correctamente el pdf",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
@@ -22,7 +22,7 @@ object ShowResult {
     fun errorResuulDate(context:Context){
         val toast = FancyToast.makeText(
             context,
-            "No se permite la fecha seleccionada",
+            "La fecha seleccionada es invalida",
             FancyToast.LENGTH_LONG,
             FancyToast.ERROR,
             false
@@ -35,7 +35,7 @@ object ShowResult {
     fun sucessResultList(context:Context){
         val toast = FancyToast.makeText(
             context,
-            "!No hay cobros realizados!",
+            "No hay cobros realizados",
             FancyToast.LENGTH_LONG,
             FancyToast.WARNING,
             false

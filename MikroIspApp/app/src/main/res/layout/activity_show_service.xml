@@ -29,19 +29,21 @@
             app:layout_constraintStart_toStartOf="parent"
             />
     </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/titleSub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
         android:paddingStart="20dp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="10dp"
         android:text="@string/clientData"
         android:textColor="@color/colorBlack"
-        android:textSize="18dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pdfInvoice" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarb" />
 
     <Button
         android:id="@+id/pdfInvoice"
@@ -80,7 +82,7 @@
             android:text="@string/identificationcard"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,7 +92,7 @@
             android:text="@string/names"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,7 +102,7 @@
             android:text="@string/surname"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,7 +112,7 @@
             android:text="@string/direction"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,7 +122,7 @@
             android:text="@string/telephone"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -179,7 +181,7 @@
 
         <TextView
             android:id="@+id/detailTelephone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="........................."
             android:textColor="@color/colorBlack"
@@ -193,10 +195,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="10dp"
         android:text="@string/plan"
         android:textColor="@color/colorBlack"
-        android:textSize="18dp"
+        android:textSize="20sp"
         android:paddingStart="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -221,7 +223,7 @@
             android:text="@string/planName"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -231,7 +233,7 @@
             android:text="@string/planState"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -241,7 +243,7 @@
             android:text="@string/planValue"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

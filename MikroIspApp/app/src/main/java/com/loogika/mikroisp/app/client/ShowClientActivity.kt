@@ -60,7 +60,7 @@ class ShowClientActivity :AppCompatActivity(){
         if(type == 1 ){
             return "Activo"
         }else{
-            return "En conte"
+            return "Suspendido"
         }
     }
 

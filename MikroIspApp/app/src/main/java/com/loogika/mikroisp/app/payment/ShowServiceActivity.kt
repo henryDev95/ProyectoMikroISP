@@ -117,9 +117,9 @@ class ShowServiceActivity : AppCompatActivity() {
         binding.detailTelephone.text = telephone.toString()
         binding.detailPlaName.text = service.plan.name.toString()
         if (service.plan.status == "true") {
-            binding.detailPlanState.text = "Activo"
+            binding.detailPlanState.text = "Suspendido"
         } else {
-            binding.detailPlanState.text = "Cancelado"
+            binding.detailPlanState.text = "Activo"
         }
         binding.detailPlanValue.text = service.plan.fullValue.toString()
     }

@@ -23,7 +23,7 @@ object ImprimirResulNewDevice {
     fun successResult(context:Context) {
         val toast = FancyToast.makeText(
             context,
-            "!Se a ingresado correctamente el equipo!",
+            "!Se ha ingresado correctamente el equipo!",
             FancyToast.LENGTH_SHORT,
             FancyToast.SUCCESS,
             false
@@ -35,7 +35,7 @@ object ImprimirResulNewDevice {
     fun warningNewDevice(context: Context) {
         val toast=FancyToast.makeText(
             context,
-            "!No se realizo el registro del equipo!",
+            "!No se realizó el registro del equipo!",
             FancyToast.LENGTH_SHORT,
             FancyToast.WARNING,
             false
@@ -45,6 +45,6 @@ object ImprimirResulNewDevice {
     }
 
     fun errorLlamada(context:Context) { // metodo para informar el error
-        Toast.makeText(context, "No se realizo la llamada", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "No se realizó la llamada", Toast.LENGTH_SHORT).show()
     }
 }
