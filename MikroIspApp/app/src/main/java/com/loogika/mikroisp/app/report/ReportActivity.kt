@@ -156,13 +156,21 @@ class ReportActivity : AppCompatActivity() {
             mostrarShimmer()
         } else {
             binding.startDate.setText("")
+            binding.finaltDate.setText("")
             binding.fechaDesde.isEnabled = false
+            binding.titulo.isVisible = false
+            binding.logoReport.isVisible = true
             ShowResult.errorResuulDate(this)
         }
     }
 
     fun validaFecha(day: Int, month: Int, year: Int): Boolean {
-        return (year >= yearStart) && (month >= monthStart) && (day >= dayStart)
+
+        return if(year == yearStart){
+            (month >= monthStart) && (day >= dayStart)
+        }else{
+            (year > yearStart)
+        }
     }
 
     fun showToolbar() {
