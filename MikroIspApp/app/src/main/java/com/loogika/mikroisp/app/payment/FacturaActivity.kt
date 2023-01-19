@@ -14,6 +14,9 @@ import com.loogika.mikroisp.app.R
 import com.loogika.mikroisp.app.databinding.ActivityFacturaBinding
 import com.loogika.mikroisp.app.payment.adapter.PdfDocumentAdapter
 import java.io.File
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FacturaActivity : AppCompatActivity() {
 
@@ -54,7 +57,7 @@ class FacturaActivity : AppCompatActivity() {
     private fun getFilePath(userLastName:String): File? {
         val contextWrapper = ContextWrapper(applicationContext)
         val documentDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        val file = File(documentDirectory, "fac-"+userLastName+".pdf")
+        val file = File(documentDirectory, "fac-$userLastName.pdf")
         return file
     }
 

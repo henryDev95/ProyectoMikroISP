@@ -168,8 +168,8 @@ class ShowServiceActivity : AppCompatActivity() {
         paint.textSize = 20f
         paint.textAlign = Paint.Align.RIGHT
         canvas.drawText("Direc: Av. Velasco Ibarra,", 1140f, 100f, paint)
-        canvas.drawText("Jose Joaquin de olmedo", 1140f, 150f, paint)
-        canvas.drawText("Pujili, Cotopaxi, Ecuador", 1140f, 200f, paint)
+        canvas.drawText("José Joaquín de olmedo", 1140f, 150f, paint)
+        canvas.drawText("Pujilí, Cotopaxi, Ecuador", 1140f, 200f, paint)
         canvas.drawText("Teléf:(03) 2724-769", 1140f, 250f, paint)
         canvas.drawText("Correo Eletró:loogika@gmail.com", 1140f, 300f, paint)
 
@@ -188,16 +188,16 @@ class ShowServiceActivity : AppCompatActivity() {
         canvas.drawText("Cédula :" + dni, 30f, 450f, paint)
         canvas.drawText("Nombres :" + userFirstName, 30f, 500f, paint)
         canvas.drawText("Apellidos :" + userLastName, 30f, 550f, paint)
-        canvas.drawText("Direccion:" + address, 30f, 600f, paint)
-        canvas.drawText("Ciudad:" + "Pujili,Ecuador", 30f, 650f, paint)
+        canvas.drawText("Dirección:" + address, 30f, 600f, paint)
+        canvas.drawText("Ciudad:" + "Pujilí,Ecuador", 30f, 650f, paint)
         canvas.drawText("Teléfono:" + telephone, 30f, 700f, paint)
 
         // para el numero de factura
         date = Date()
-        formateDate = SimpleDateFormat("dd/mm/yy")
+        formateDate = SimpleDateFormat("yyyy/MM/dd")
         FormatTime = SimpleDateFormat("HH:mm:ss")
         paint.textAlign = Paint.Align.RIGHT
-        canvas.drawText("Número del comprobante:" + numberInvoice, 1200f - 30f, 450f, paint)
+        canvas.drawText("Número :" + numberInvoice, 1200f - 30f, 450f, paint)
         canvas.drawText("Fecha:" + formateDate.format(date), 1200f - 30f, 500f, paint)
         canvas.drawText("Hora:" + FormatTime.format(date), 1200f - 30f, 550f, paint)
         canvas.drawText("Estado:" + "Pagado", 1200f - 30f, 600f, paint)
@@ -257,7 +257,7 @@ class ShowServiceActivity : AppCompatActivity() {
     private fun getFilePath(): String? {
         val contextWrapper = ContextWrapper(applicationContext)
         val documentDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        val file = File(documentDirectory, "fac-"+userLastName+".pdf")
+        val file = File(documentDirectory, "fac-$userLastName.pdf")
         return file.path
     }
 

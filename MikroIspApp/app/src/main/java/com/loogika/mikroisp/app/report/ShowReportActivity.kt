@@ -15,15 +15,20 @@ import com.loogika.mikroisp.app.databinding.ActivityShowReportBinding
 import com.loogika.mikroisp.app.payment.PaymentActivity
 import com.loogika.mikroisp.app.payment.adapter.PdfDocumentAdapter
 import java.io.File
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ShowReportActivity : AppCompatActivity() {
     lateinit var binding: ActivityShowReportBinding
+    lateinit var endDate:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showToolbar()
-        binding.pdfView.fromFile(getFilePath("creada")).load()
+        endDate = intent.getStringExtra("endDate").toString()
+        binding.pdfView.fromFile(getFilePath("reporte-$endDate")).load()
         binding.cancelar.setOnClickListener {
             finish()
             val intent = Intent(this, ReportActivity::class.java)
@@ -39,7 +44,7 @@ class ShowReportActivity : AppCompatActivity() {
     fun printPdf(){
         val printManager : PrintManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
         try {
-            val printAdapter = PdfDocumentAdapter(getFilePath("creada")!!.absolutePath)
+            val printAdapter = PdfDocumentAdapter(getFilePath("reporte-$endDate")!!.absolutePath)
             printManager.print("Document", printAdapter, PrintAttributes.Builder().build())
         } catch (e : Exception) {
 
@@ -49,7 +54,7 @@ class ShowReportActivity : AppCompatActivity() {
     private fun getFilePath(userLastName:String): File? {
         val contextWrapper = ContextWrapper(applicationContext)
         val documentDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        val file = File(documentDirectory, "fac-"+userLastName+".pdf")
+        val file = File(documentDirectory, "fac-$userLastName.pdf")
         return file
     }
 

@@ -73,6 +73,7 @@ class ReportActivity : AppCompatActivity() {
 
     private fun mostrarReporteCobros() {
         val intent = Intent(this, ShowReportActivity::class.java)
+        intent.putExtra("endDate", endDate)
         startActivity(intent)
     }
 
@@ -320,7 +321,7 @@ class ReportActivity : AppCompatActivity() {
     private fun getFilePath(): String? {
         val contextWrapper = ContextWrapper(applicationContext)
         val documentDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        val file = File(documentDirectory, "fac-" + "creada" + ".pdf")
+        val file = File(documentDirectory, "fac-reporte-$endDate.pdf")
         return file.path
     }
 

@@ -29,5 +29,5 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/colorLetras"
-        android:text="Loogika S.A" />
+        android:text="LOOGIKA S.A" />
 </LinearLayout>
